@@ -54,8 +54,8 @@
 </head>
 
 <body>
-    @include('map.layouts.navbar')
-    @include('map.layouts.sidebar')
+    @include('layouts.map.navbar')
+    {{-- @include('layouts.map.sidebar') --}}
     <div id="map"></div>
     {{ 'aplikasi gis perkim' }}
 </body>
@@ -63,83 +63,129 @@
 <script>
     var map = L.map('map').setView([-8.100000, 112.150002], 13);
 
-    var tiles = L.tileLayer(
-        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    var osm = L.tileLayer(
+        'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+    var imagery = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
+
+
     // var base = "";??
+    // var sertifikatStyle = {
+    //         "color": "#ff7700",
+    //         "weight": 2,
+    //         "opacity": 1
+    //     };
+
     var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
     var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-RUAS-JALAN.zip') }}", {
         style: function(f) {
-            var style = {
+            let color = {
                 color: 'red'
+            };
+            if (f.properties.Kondisi_Ja == "BAIK") {
+                color.color = 'green';
+            } else if (f.properties.Kondisi_Ja == "SEDANG") {
+                color.color = 'yellow';
+            } else if (f.properties.Kondisi_Ja == "RUSAK RINGAN") {
+                color.color = 'orange'
+            } else {
+                color.color = 'red';
             }
-            return style
+            return color
         },
         onEachFeature: function(f, l) {
             var out = [];
             if (f.properties) {
-                console.log(f.properties)
-                out.push(f.properties.Nama_Ruas);
+                // console.log(f.properties)
+                out.push("NAMA RUAS : " + f.properties.Nama_Ruas);
+                out.push("KONDISI : " + f.properties.Kondisi_Ja);
                 // out.push(f.properties.NAMOBJ);
-                l.bindPopup(out.join("<br />"));
+                // l.bindPopup(out.join("<br />"));
+                l.bindPopup(`
+                <table class="table table-bordered">
+                    <tr>
+                        <th scope="row">NAMA RUAS</th>
+                        <td>` + f.properties.Nama_Ruas + `</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">KONDISI</th>
+                        <td>` + f.properties.Kondisi_Ja + `</td>
+                    </tr>
+                    `);
             }
         }
     })
+
     shpBatas.addTo(map);
     shpJalan.addTo(map);
+
+    var baseMaps = {
+        "OpenStreetMap": osm,
+        "Satelite": imagery
+    }
+
+    var overlays = {
+        "Ruas Jalan": shpJalan,
+        // "Satelite": imagery
+    }
+    var layerControl = L.control.layers(baseMaps, overlays).addTo(map);
 </script>
 
 <script>
-    var sidebar = L.control.sidebar({
-            container: 'sidebar',
-            position: 'right',
-            autopan: true
-        })
-        .addTo(map)
-        .close();
+    // var sidebar = L.control.sidebar({
+    //         container: 'sidebar',
+    //         position: 'right',
+    //         autopan: true
+    //     })
+    //     // .addTo(map)
+    //     .close();
 
     // add panels dynamically to the sidebar
-    sidebar
-        .addPanel({
-            id: 'js-api',
-            tab: '<i class="fa fa-gear"></i>',
-            title: 'JS API',
-            pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
-        })
-        // add a tab with a click callback, initially disabled
-        .addPanel({
-            id: 'mail',
-            tab: '<i class="fa fa-envelope"></i>',
-            title: 'Messages',
-            button: function() {
-                alert('opened via JS callback')
-            },
-            disabled: true,
-        })
+    // sidebar
+    //     .addPanel({
+    //         id: 'js-api',
+    //         tab: '<i class="fa fa-gear"></i>',
+    //         title: 'JS API',
+    //         pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
+    //     })
+    //     // add a tab with a click callback, initially disabled
+    //     .addPanel({
+    //         id: 'mail',
+    //         tab: '<i class="fa fa-envelope"></i>',
+    //         title: 'Messages',
+    //         button: function() {
+    //             alert('opened via JS callback')
+    //         },
+    //         disabled: true,
+    //     })
 
-    // be notified when a panel is opened
-    sidebar.on('content', function(ev) {
-        switch (ev.id) {
-            case 'autopan':
-                sidebar.options.autopan = true;
-                break;
-            default:
-                sidebar.options.autopan = true;
-        }
-    });
+    // // be notified when a panel is opened
+    // sidebar.on('content', function(ev) {
+    //     switch (ev.id) {
+    //         case 'autopan':
+    //             sidebar.options.autopan = true;
+    //             break;
+    //         default:
+    //             sidebar.options.autopan = true;
+    //     }
+    // });
 
-    var userid = 0
+    // var userid = 0
 
-    function addUser() {
-        sidebar.addPanel({
-            id: 'user' + userid++,
-            tab: '<i class="fa fa-user"></i>',
-            title: 'User Profile ' + userid,
-            pane: '<p>user ipsum dolor sit amet</p>',
-        });
-    }
+    // function addUser() {
+    //     sidebar.addPanel({
+    //         id: 'user' + userid++,
+    //         tab: '<i class="fa fa-user"></i>',
+    //         title: 'User Profile ' + userid,
+    //         pane: '<p>user ipsum dolor sit amet</p>',
+    //     });
+    // }
 </script>
 
 </html>
