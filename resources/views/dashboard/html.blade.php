@@ -1,73 +1,97 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>150</h3>
-                        <p>Posts</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-ios-book-outline"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
+        <div class="card">
+            <div class="card-header">
+                Dashboard
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        {{-- <div class="col-lg-3 col-6"> --}}
+                        <!-- small box -->
+                        <div class="card">
+                            <div class="card-body">
 
-                        <p>Category</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3>44</h3>
 
-                        <p>User Registrations</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3>65</h3>
+                                <div class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3>15</h3>
+                                        <p>Baik</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-ios-book-outline"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                                {{-- </div> --}}
+                                <!-- ./col -->
+                                {{-- <div class="col-lg-3 col-6"> --}}
+                                <!-- small box -->
+                                <div class="small-box" style="background: #ffc107">
+                                    <div class="inner">
+                                        <h3>507</h3>
 
-                        <p>Unique Visitors</p>
+                                        <p>Sedang</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-stats-bars"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                                {{-- </div> --}}
+                                <!-- ./col -->
+                                {{-- <div class="col-lg-3 col-6"> --}}
+                                <!-- small box -->
+                                <div class="small-box" style="background: #fd7e14">
+                                    <div class="inner">
+                                        <h3>554</h3>
+
+                                        <p>Rusak Ringan</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-person-add"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                                {{-- </div> --}}
+                                <!-- ./col -->
+                                {{-- <div class="col-lg-3 col-6"> --}}
+                                <!-- small box -->
+                                <div class="small-box bg-danger">
+                                    <div class="inner">
+                                        <h3>431</h3>
+
+                                        <p>Rusak Berat</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-pie-graph"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                    <!-- ./col -->
+                    {{-- </div> --}}
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <canvas id="jalan-chart"
+                                    style="min-height: 250px; min-height: 250px; max-height: 650px; max-width: 100%;">></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
         </div>
+
         <!-- /.row -->
         <!-- Main row -->
-        <div class="row">
-
-            <!-- right col -->
-        </div>
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
 </section>

@@ -61,32 +61,29 @@
 </body>
 
 <script>
-    var map = L.map('map').setView([-8.100000, 112.150002], 13);
+    var map = L.map('map').setView([-8.100000, 112.150002], 12);
 
     var osm = L.tileLayer(
         'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        });
 
     var imagery = L.tileLayer(
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-        });
+        }).addTo(map);
 
-
-    // var base = "";??
-    // var sertifikatStyle = {
-    //         "color": "#ff7700",
-    //         "weight": 2,
-    //         "opacity": 1
-    //     };
 
     var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
     var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-RUAS-JALAN.zip') }}", {
         style: function(f) {
             let color = {
-                color: 'red'
+                color: 'red',
+                weight: 1.8,
+                opacity: 0.9,
+                dashArray: 2
             };
             if (f.properties.Kondisi_Ja == "BAIK") {
                 color.color = 'green';
@@ -100,24 +97,40 @@
             return color
         },
         onEachFeature: function(f, l) {
+            var popupContent = `
+                    <p class="text-center fw-bold mb-0"> ` + f.properties.Nama_Ruas + `</p>
+                    <hr class="mb-1 mt-1">
+                    <img src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
+                    <table class="table table-striped table-sm mt-2">
+                        <tr>
+                            <th scope="row">Kelurahan</th>
+                            <td>` + f.properties.Kelurahan + `</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Panjang</th>
+                            <td>` + Math.round(f.properties.Panjang__M) + ` Meter</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Perkerasan</th>
+                            <td>` + f.properties.Tipe_Perke + `</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kondisi</th>
+                            <td>` + f.properties.Kondisi_Ja + `</td>
+                        </tr>
+                    </table>
+                    `;
             var out = [];
             if (f.properties) {
-                // console.log(f.properties)
+                console.log(f.properties)
                 out.push("NAMA RUAS : " + f.properties.Nama_Ruas);
                 out.push("KONDISI : " + f.properties.Kondisi_Ja);
                 // out.push(f.properties.NAMOBJ);
                 // l.bindPopup(out.join("<br />"));
-                l.bindPopup(`
-                <table class="table table-bordered">
-                    <tr>
-                        <th scope="row">NAMA RUAS</th>
-                        <td>` + f.properties.Nama_Ruas + `</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">KONDISI</th>
-                        <td>` + f.properties.Kondisi_Ja + `</td>
-                    </tr>
-                    `);
+                l.bindPopup(popupContent, {
+                    maxWidth: "250",
+                    maxHeigth: "auto"
+                });
             }
         }
     })
