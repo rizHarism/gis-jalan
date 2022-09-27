@@ -34,3 +34,5 @@
 <script src="{{ asset('assets/admin-page/admin-lte/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('assets/admin-page/admin-lte/dist/js/pages/dashboard.js') }}"></script>
+{{-- data tables --}}
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

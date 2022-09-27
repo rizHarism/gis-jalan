@@ -28,6 +28,8 @@
     {{-- shp to geojson --}}
     <script src="{{ asset('assets/shp/leaflet.shpfile.js') }}"></script>
     <script src="{{ asset('assets/shp/shp.js') }}"></script>
+    {{-- turf js --}}
+    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
     {{-- sidebar map v2 --}}
     <script src="{{ asset('assets/map-sidebar/leaflet-sidebar.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/map-sidebar/leaflet-sidebar.css') }}" />
@@ -61,7 +63,7 @@
 </body>
 
 <script>
-    var map = L.map('map').setView([-8.100000, 112.150002], 12);
+    var map = L.map('map').setView([-8.130866, 112.220006], 12);
 
     var osm = L.tileLayer(
         'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -71,83 +73,97 @@
 
     var imagery = L.tileLayer(
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 19,
+            maxZoom: 18,
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
 
 
-    var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
-    var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-RUAS-JALAN.zip') }}", {
-        style: function(f) {
-            let color = {
-                color: 'red',
-                weight: 1.8,
-                opacity: 0.9,
-                dashArray: 2
-            };
-            if (f.properties.Kondisi_Ja == "BAIK") {
-                color.color = 'green';
-            } else if (f.properties.Kondisi_Ja == "SEDANG") {
-                color.color = 'yellow';
-            } else if (f.properties.Kondisi_Ja == "RUSAK RINGAN") {
-                color.color = 'orange'
-            } else {
-                color.color = 'red';
-            }
-            return color
-        },
-        onEachFeature: function(f, l) {
-            var popupContent = `
-                    <p class="text-center fw-bold mb-0"> ` + f.properties.Nama_Ruas + `</p>
+    var baseMaps = {
+        " OPEN STREET MAP ": osm,
+        " SATELIT ": imagery
+    }
+
+    // var overlays = {
+    //     // "Ruas Jalan": shpJalan,
+    //     // "Satelite": imagery
+    // }
+    var layersControl = L.control.layers(baseMaps, null).addTo(map);
+
+    var popupContent = function(nama, kelurahan, panjang, perkerasan, kondisi) {
+
+        var data = `<p class="text-center fw-bold mb-0"> ` + nama + `</p>
                     <hr class="mb-1 mt-1">
                     <img src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
                     <table class="table table-striped table-sm mt-2">
                         <tr>
                             <th scope="row">Kelurahan</th>
-                            <td>` + f.properties.Kelurahan + `</td>
+                            <td>` + kelurahan + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Panjang</th>
-                            <td>` + Math.round(f.properties.Panjang__M) + ` Meter</td>
+                            <td>` + Math.round(panjang) + ` Meter</td>
                         </tr>
                         <tr>
                             <th scope="row">Perkerasan</th>
-                            <td>` + f.properties.Tipe_Perke + `</td>
+                            <td>` + perkerasan + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Kondisi</th>
-                            <td>` + f.properties.Kondisi_Ja + `</td>
+                            <td>` + kondisi + `</td>
                         </tr>
-                    </table>
-                    `;
-            var out = [];
-            if (f.properties) {
-                console.log(f.properties)
-                out.push("NAMA RUAS : " + f.properties.Nama_Ruas);
-                out.push("KONDISI : " + f.properties.Kondisi_Ja);
-                // out.push(f.properties.NAMOBJ);
-                // l.bindPopup(out.join("<br />"));
-                l.bindPopup(popupContent, {
-                    maxWidth: "250",
-                    maxHeigth: "auto"
-                });
-            }
+                    </table>`;
+        return data;
+    }
+
+    var style = function(k) {
+        let color = {
+            color: 'red',
+            weight: 1.8,
+            opacity: 0.9,
+            dashArray: 2
+        };
+        if (k == "BAIK") {
+            color.color = 'green';
+        } else if (k == "SEDANG") {
+            color.color = 'yellow';
+        } else if (k == "RUSAK RINGAN") {
+            color.color = 'orange'
+        } else {
+            color.color = 'red';
         }
-    })
+        return color
+    }
+
+    var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
+
+    // loop and filter shp berdasarkan kondisi jalan
+    var kondisi = ['BAIK', 'SEDANG', 'RUSAK RINGAN', 'RUSAK BERAT']
+    kondisi.forEach(function(kondisi) {
+
+        var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-JALAN-BUFFER.zip') }}", {
+            filter: function(f) {
+                return f.properties.Kondisi_Ja === kondisi
+            },
+            style: function(f) {
+                return style(f.properties.Kondisi_Ja)
+            },
+            onEachFeature: function(f, l) {
+                var out = [];
+                if (f.properties) {
+                    l.bindPopup(popupContent(f.properties.Nama_Ruas, f.properties.Kelurahan, f
+                        .properties
+                        .Panjang__M, f.properties.Tipe_Perke, f.properties.Kondisi_Ja), {
+                        maxWidth: "250",
+                        maxHeigth: "auto"
+                    });
+                }
+            }
+        })
+        layersControl.addOverlay(shpJalan, kondisi);
+        shpJalan.addTo(map)
+    });
 
     shpBatas.addTo(map);
-    shpJalan.addTo(map);
-
-    var baseMaps = {
-        "OpenStreetMap": osm,
-        "Satelite": imagery
-    }
-
-    var overlays = {
-        "Ruas Jalan": shpJalan,
-        // "Satelite": imagery
-    }
-    var layerControl = L.control.layers(baseMaps, overlays).addTo(map);
 </script>
 
 <script>

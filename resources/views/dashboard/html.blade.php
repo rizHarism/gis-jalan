@@ -20,7 +20,7 @@
                                         <p>Baik</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion-ios-book-outline"></i>
+                                        <i class="fas fa-road"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">More info <i
                                             class="fas fa-arrow-circle-right"></i></a>
@@ -36,7 +36,7 @@
                                         <p>Sedang</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion-stats-bars"></i>
+                                        <i class="fas fa-road"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">More info <i
                                             class="fas fa-arrow-circle-right"></i></a>
@@ -52,7 +52,7 @@
                                         <p>Rusak Ringan</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion-person-add"></i>
+                                        <i class="fas fa-road"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">More info <i
                                             class="fas fa-arrow-circle-right"></i></a>
@@ -68,7 +68,7 @@
                                         <p>Rusak Berat</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion ion-pie-graph"></i>
+                                        <i class="fas fa-road"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">More info <i
                                             class="fas fa-arrow-circle-right"></i></a>

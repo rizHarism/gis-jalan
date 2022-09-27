@@ -39,7 +39,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="/dashboard" class="nav-link active">
+                    <a href="/dashboard" class="nav-link">
                         <i class="fas fa-tachometer-alt nav-icon"></i>
                         <p>Dashboard</p>
                     </a>
@@ -49,28 +49,22 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Data Tables
+                            Data Jalan
                             <i class="fas fa-angle-left right"></i>
                             {{-- <span class="badge badge-info right">6</span> --}}
                         </p>
                     </a>
                     <ul class="nav nav-treeview ms-5">
                         <li class="nav-item ">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon ml-3"></i>
-                                <p>Data 1</p>
+                            <a href="/data/kelurahan" class="nav-link">
+                                <i class="far fa-file nav-icon ml-3"></i>
+                                <p>Kelurahan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon ml-3"></i>
-                                <p>Data 2</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon ml-3"></i>
-                                <p>Data 4</p>
+                            <a href="/data/desa" class="nav-link">
+                                <i class="far fa-file nav-icon ml-3"></i>
+                                <p>Desa</p>
                             </a>
                         </li>
                     </ul>
@@ -100,6 +94,7 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-header">KDR With Love</li>
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>

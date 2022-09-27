@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
+
+Route::get('/data/kelurahan', function () {
+    return view('kelurahan.index');
+});
+
+Route::get('/data/desa', function () {
+    return view('desa.index');
+});
