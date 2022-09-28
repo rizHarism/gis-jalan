@@ -11,6 +11,8 @@
                         <th>Panjang</th>
                         <th>Perkerasan</th>
                         <th>Kondisi</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -21,6 +23,8 @@
                         <th>Panjang</th>
                         <th>Perkerasan</th>
                         <th>Kondisi</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>

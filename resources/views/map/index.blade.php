@@ -7,12 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Peta Ruas Jalan Kabupaten Blitar</title>
     {{-- bootstrap css ad js --}}
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     {{-- leaflet css and js --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
         integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
@@ -22,14 +25,13 @@
         crossorigin=""></script>
     {{-- fontawesome css --}}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    {{-- jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/e4d20a5f83.js" crossorigin="anonymous"></script>
+
     {{-- shp to geojson --}}
     <script src="{{ asset('assets/shp/leaflet.shpfile.js') }}"></script>
     <script src="{{ asset('assets/shp/shp.js') }}"></script>
     {{-- turf js --}}
-    <script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
     {{-- sidebar map v2 --}}
     <script src="{{ asset('assets/map-sidebar/leaflet-sidebar.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/map-sidebar/leaflet-sidebar.css') }}" />
@@ -56,10 +58,12 @@
 </head>
 
 <body>
+
     @include('layouts.map.navbar')
-    {{-- @include('layouts.map.sidebar') --}}
+
     <div id="map"></div>
-    {{ 'aplikasi gis perkim' }}
+
+    {{-- @include('layouts.map.sidebar') --}}
 </body>
 
 <script>
@@ -89,7 +93,7 @@
     // }
     var layersControl = L.control.layers(baseMaps, null).addTo(map);
 
-    var popupContent = function(nama, kelurahan, panjang, perkerasan, kondisi) {
+    var popupContent = function(nama, kelurahan, panjang, perkerasan, kondisi, coordinate) {
 
         var data = `<p class="text-center fw-bold mb-0"> ` + nama + `</p>
                     <hr class="mb-1 mt-1">
@@ -111,23 +115,25 @@
                             <th scope="row">Kondisi</th>
                             <td>` + kondisi + `</td>
                         </tr>
-                    </table>`;
+                    </table>
+                    <p class="text-center"><a href=# onclick="gMaps(` + coordinate + `)"><i class="fas fa-map-marker-alt"></i>&nbspGoogle Maps</a></p>
+                    `;
         return data;
     }
 
     var style = function(k) {
         let color = {
-            color: 'red',
+            color: 'white',
             weight: 1.8,
             opacity: 0.9,
             dashArray: 2
         };
         if (k == "BAIK") {
-            color.color = 'green';
+            color.color = 'white';
         } else if (k == "SEDANG") {
             color.color = 'yellow';
         } else if (k == "RUSAK RINGAN") {
-            color.color = 'orange'
+            color.color = 'orange';
         } else {
             color.color = 'red';
         }
@@ -139,8 +145,7 @@
     // loop and filter shp berdasarkan kondisi jalan
     var kondisi = ['BAIK', 'SEDANG', 'RUSAK RINGAN', 'RUSAK BERAT']
     kondisi.forEach(function(kondisi) {
-
-        var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-JALAN-BUFFER.zip') }}", {
+        var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-JALAN-BUFFER-4.zip') }}", {
             filter: function(f) {
                 return f.properties.Kondisi_Ja === kondisi
             },
@@ -148,11 +153,14 @@
                 return style(f.properties.Kondisi_Ja)
             },
             onEachFeature: function(f, l) {
+                console.log(f.properties)
                 var out = [];
+                var coordinate = "'" + f.properties.MID_Y + ',' + f.properties.MID_X + "'";
                 if (f.properties) {
                     l.bindPopup(popupContent(f.properties.Nama_Ruas, f.properties.Kelurahan, f
                         .properties
-                        .Panjang__M, f.properties.Tipe_Perke, f.properties.Kondisi_Ja), {
+                        .Panjang__M, f.properties.Tipe_Perke, f.properties.Kondisi_Ja,
+                        coordinate), {
                         maxWidth: "250",
                         maxHeigth: "auto"
                     });
@@ -161,9 +169,17 @@
         })
         layersControl.addOverlay(shpJalan, kondisi);
         shpJalan.addTo(map)
+        console.log(shpJalan)
     });
 
     shpBatas.addTo(map);
+
+    // open googlemaps in new window
+    function gMaps(c) {
+        // console.log(c)
+        url = "https://www.google.com/maps/search/" + c;
+        window.open(url, '_blank');
+    }
 </script>
 
 <script>

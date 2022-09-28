@@ -18,6 +18,26 @@
 {{-- data table --}}
 
 <script>
+    $('#example').on('click', 'td.editor-delete', function(e) {
+        e.preventDefault();
+
+        // editor.remove($(this).closest('tr'), {
+        //     title: 'Delete record',
+        //     message: 'Are you sure you wish to remove this record?',
+        //     buttons: 'Delete'
+        // });
+        alert('delete')
+    });
+    $('#example').on('click', 'td.editor-edit', function(e) {
+        e.preventDefault();
+
+        // editor.edit($(this).closest('tr'), {
+        //     title: 'Edit record',
+        //     buttons: 'Update'
+        // });
+        alert('edit')
+    });
+
     $(document).ready(function() {
         var table = $('#example').DataTable({
             processing: true,
@@ -42,9 +62,22 @@
                 },
                 {
                     data: 'properties.Kondisi_Ja'
+                },
+                {
+                    data: null,
+                    className: "dt-center editor-edit",
+                    defaultContent: '<i class="fa fa-pencil"></i>',
+                    orderable: false
+                },
+                {
+                    data: null,
+                    className: "dt-center editor-delete",
+                    defaultContent: '<i class="fa fa-trash"></i>',
+                    orderable: false
                 }
             ]
         });
+
 
 
         table.on('order.dt search.dt', function() {
@@ -53,7 +86,6 @@
                 order: 'applied'
             }).nodes().each(function(cell, i) {
                 cell.innerHTML = i + 1;
-                console.log(cell)
             });
         }).draw();
     });

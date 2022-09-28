@@ -5,6 +5,8 @@
 {{-- <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script> --}}
+{{-- font awesome  --}}
+<script src="https://kit.fontawesome.com/e4d20a5f83.js" crossorigin="anonymous"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('assets/admin-page/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- ChartJS -->
