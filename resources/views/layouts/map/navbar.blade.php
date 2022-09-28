@@ -37,7 +37,9 @@
             <form class="d-flex">
                 {{-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Login</button> --}}
-                <a href="/dashboard" class="btn btn-outline-primary">Login</a>
+                {{-- <a href="/dashboard" class="btn btn-outline-primary">Login</a> --}}
+                <a href="#" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">Login</a>
             </form>
         </div>
     </div>

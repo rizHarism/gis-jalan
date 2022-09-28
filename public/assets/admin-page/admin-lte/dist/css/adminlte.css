@@ -11143,6 +11143,7 @@ a.text-dark:hover, a.text-dark:focus {
   display: -ms-flexbox;
   display: flex;
   background-color: #f4f6f9;
+  opacity: 0.8;
   height: 100vh;
   width: 100%;
   transition: height 200ms linear;

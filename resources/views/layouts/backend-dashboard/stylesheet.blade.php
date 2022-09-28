@@ -13,7 +13,7 @@
 <!-- JQVMap -->
 <link rel="stylesheet" href="{{ asset('assets/admin-page/admin-lte/plugins/jqvmap/jqvmap.min.css') }}">
 <!-- Theme style -->
-<link rel="stylesheet" href="{{ asset('assets/admin-page/admin-lte/dist/css/adminlte.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin-page/admin-lte/dist/css/adminlte.css') }}">
 <!-- overlayScrollbars -->
 <link rel="stylesheet"
     href="{{ asset('assets/admin-page/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">

@@ -59,9 +59,9 @@
 
 <body>
 
-    @include('layouts.map.navbar')
-
     <div id="map"></div>
+    @include('layouts.map.navbar')
+    @include('layouts.map.login')
 
     {{-- @include('layouts.map.sidebar') --}}
 </body>
