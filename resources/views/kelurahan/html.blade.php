@@ -6,6 +6,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>No. Ruas</th>
                         <th>Nama Ruas</th>
                         <th>Kelurahan</th>
                         <th>Panjang</th>
@@ -18,6 +19,7 @@
                 <tfoot>
                     <tr>
                         <th>#</th>
+                        <th>No. Ruas</th>
                         <th>Nama Ruas</th>
                         <th>Kelurahan</th>
                         <th>Panjang</th>

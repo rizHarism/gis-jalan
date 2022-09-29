@@ -46,6 +46,9 @@
                     "data": null
                 },
                 {
+                    data: 'properties.No__Ruas'
+                },
+                {
                     data: 'properties.Nama_Ruas'
                 },
                 {

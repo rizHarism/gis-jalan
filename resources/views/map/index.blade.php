@@ -106,12 +106,17 @@
     // setParentLayer(htmlObjectOverlay, a);
 
     // end of layer control script
-    var popupContent = function(nama, kelurahan, panjang, perkerasan, kondisi, coordinate) {
+    var popupContent = function(nama, ruas, kelurahan, panjang, perkerasan, kondisi, coordinate) {
 
-        var data = `<p class="text-center fw-bold mb-0"> ` + nama + `</p>
+        var data = `
+                    <p class="text-center fw-bold mb-0"> ` + nama + `</p>
                     <hr class="mb-1 mt-1">
                     <img src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
                     <table class="table table-striped table-sm mt-2">
+                        <tr>
+                            <th scope="row">No. Ruas</th>
+                            <td>` + ruas + `</td>
+                        </tr>
                         <tr>
                             <th scope="row">Kelurahan</th>
                             <td>` + kelurahan + `</td>
@@ -166,10 +171,12 @@
                 return style(f.properties.Kondisi_Ja)
             },
             onEachFeature: function(f, l) {
+                console.log(f.properties.No__Ruas)
                 var out = [];
                 var coordinate = "'" + f.properties.MID_Y + ',' + f.properties.MID_X + "'";
                 if (f.properties) {
-                    l.bindPopup(popupContent(f.properties.Nama_Ruas, f.properties.Kelurahan, f
+                    l.bindPopup(popupContent(f.properties.Nama_Ruas, f.properties.No__Ruas, f
+                        .properties.Kelurahan, f
                         .properties
                         .Panjang__M, f.properties.Tipe_Perke, f.properties.Kondisi_Ja,
                         coordinate), {
