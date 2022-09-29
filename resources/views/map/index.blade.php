@@ -83,16 +83,29 @@
 
 
     var baseMaps = {
+        " SATELIT ": imagery,
         " OPEN STREET MAP ": osm,
-        " SATELIT ": imagery
     }
 
-    // var overlays = {
-    //     // "Ruas Jalan": shpJalan,
-    //     // "Satelite": imagery
-    // }
-    var layersControl = L.control.layers(baseMaps, null).addTo(map);
 
+    // layer control (add to sidebar)
+
+    var layersControl = L.control.layers(baseMaps, null, {
+        collapsed: true,
+        autoZIndex: false
+    }).addTo(map);
+
+    // var htmlObjectOverlay = layersControl.getContainer();
+
+    // var a = document.getElementById('home');
+
+
+    // function setParentLayer(el, newParent) {
+    //     newParent.appendChild(el);
+    // }
+    // setParentLayer(htmlObjectOverlay, a);
+
+    // end of layer control script
     var popupContent = function(nama, kelurahan, panjang, perkerasan, kondisi, coordinate) {
 
         var data = `<p class="text-center fw-bold mb-0"> ` + nama + `</p>
@@ -153,7 +166,6 @@
                 return style(f.properties.Kondisi_Ja)
             },
             onEachFeature: function(f, l) {
-                console.log(f.properties)
                 var out = [];
                 var coordinate = "'" + f.properties.MID_Y + ',' + f.properties.MID_X + "'";
                 if (f.properties) {
@@ -169,7 +181,6 @@
         })
         layersControl.addOverlay(shpJalan, kondisi);
         shpJalan.addTo(map)
-        console.log(shpJalan)
     });
 
     shpBatas.addTo(map);
@@ -188,7 +199,7 @@
     //         position: 'right',
     //         autopan: true
     //     })
-    //     // .addTo(map)
+    //     .addTo(map)
     //     .close();
 
     // add panels dynamically to the sidebar
