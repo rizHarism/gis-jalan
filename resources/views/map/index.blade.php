@@ -139,7 +139,7 @@
                     <table class="table table-striped">
                         <tr>
                             <td class="text-center"><a href="#" onclick="gMaps(` + coordinate + `)" style="text-decoration: none"><i class="fas fa-map-marker-alt"></i> Maps </a></td>
-                            <td class="text-center"> <a href="#" data-bs-toggle="modal" data-bs-target="#detailModal" style="text-decoration: none"><i class="fas fa-map-marker-alt"></i> Detail</a></td>
+                            <td class="text-center"> <a href="#" data-bs-toggle="modal" data-bs-target="#detailModal" style="text-decoration: none"><i class="fas fa-info-circle"></i> Detail</a></td>
                         </tr>
                     </table>
                     `;
