@@ -28,3 +28,15 @@ Route::get('/data/kelurahan', function () {
 Route::get('/data/desa', function () {
     return view('desa.index');
 });
+
+Route::get('/data/penyediajasa', function () {
+    return view('penyedia.index');
+});
+
+Route::get('/data/pemeliharaan', function () {
+    return view('pemeliharaan.index');
+});
+
+Route::get('/data/user', function () {
+    return view('user.index');
+});

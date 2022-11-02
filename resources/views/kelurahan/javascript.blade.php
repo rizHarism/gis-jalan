@@ -78,7 +78,10 @@
                     defaultContent: '<i class="fa fa-trash"></i>',
                     orderable: false
                 }
-            ]
+            ],
+            order: [
+                [1, 'asc']
+            ],
         });
 
 

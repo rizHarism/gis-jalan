@@ -1,0 +1,54 @@
+{
+    "data": [
+        {
+            "properties": {
+                "id": 1,
+                "nama": "CV PUTRA PRATAMA",
+                "alamat": "JALAN KAMPUNG DALAM",
+                "direktur": "YUDO",
+                "nib": "6547376354",
+                "npwp": "3653282348237532"
+            }
+        },
+        {
+            "properties": {
+                "id": 1,
+                "nama": "CV MAJU BERSAMA",
+                "alamat": "JALAN KIYAI AGENG GRIBIK",
+                "direktur": "SUNARTO",
+                "nib": "5646441646",
+                "npwp": "7874654564893464"
+            }
+        },
+        {
+            "properties": {
+                "id": 2,
+                "nama": "CV LINGKAR JAYA",
+                "alamat": "JALAN PLAOSAN TIMUR",
+                "direktur": "AGUNG",
+                "nib": "8754398743",
+                "npwp": "3563728974237845"
+            }
+        },
+        {
+            "properties": {
+                "id": 1,
+                "nama": "CV BUMI BETON",
+                "alamat": "JALAN WATU ALAS",
+                "direktur": "BERNARD",
+                "nib": "4421245448",
+                "npwp": "5242541849889748"
+            }
+        },
+        {
+            "properties": {
+                "id": 1,
+                "nama": "CV UNIVERSAL ADIPUTRA",
+                "alamat": "JALAN RAYA PERTAMA",
+                "direktur": "MAHESA",
+                "nib": "3256265485",
+                "npwp": "2546985123546584"
+            }
+        }
+    ]
+}

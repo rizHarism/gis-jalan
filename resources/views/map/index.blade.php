@@ -62,8 +62,10 @@
     <div id="map"></div>
     @include('layouts.map.navbar')
     @include('layouts.map.login')
+    @include('layouts.map.details')
 
     {{-- @include('layouts.map.sidebar') --}}
+
 </body>
 
 <script>
@@ -106,38 +108,49 @@
     // setParentLayer(htmlObjectOverlay, a);
 
     // end of layer control script
-    var popupContent = function(nama, ruas, kelurahan, panjang, perkerasan, kondisi, coordinate) {
-
+    var popupContent = function(properties, coordinate) {
+        console.log(properties)
         var data = `
-                    <p class="text-center fw-bold mb-0"> ` + nama + `</p>
+                    <p class="text-center fw-bold mb-0"> ` + properties.Nama_Ruas + `</p>
                     <hr class="mb-1 mt-1">
                     <img src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
                     <table class="table table-striped table-sm mt-2">
                         <tr>
                             <th scope="row">No. Ruas</th>
-                            <td>` + ruas + `</td>
+                            <td>` + properties.No__Ruas + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Kelurahan</th>
-                            <td>` + kelurahan + `</td>
+                            <td>` + properties.Kelurahan + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Panjang</th>
-                            <td>` + Math.round(panjang) + ` Meter</td>
+                            <td>` + Math.round(properties.Panjang__M) + ` Meter</td>
                         </tr>
                         <tr>
                             <th scope="row">Perkerasan</th>
-                            <td>` + perkerasan + `</td>
+                            <td>` + properties.Tipe_Perke + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Kondisi</th>
-                            <td>` + kondisi + `</td>
+                            <td>` + properties.Kondisi_Ja + `</td>
                         </tr>
                     </table>
-                    <p class="text-center"><a href=# onclick="gMaps(` + coordinate + `)"><i class="fas fa-map-marker-alt"></i>&nbspGoogle Maps</a></p>
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="text-center"><a href="#" onclick="gMaps(` + coordinate + `)" style="text-decoration: none"><i class="fas fa-map-marker-alt"></i> Maps </a></td>
+                            <td class="text-center"> <a href="#" data-bs-toggle="modal" data-bs-target="#detailModal" style="text-decoration: none"><i class="fas fa-map-marker-alt"></i> Detail</a></td>
+                        </tr>
+                    </table>
                     `;
+        // console.log(properties.No__Ruas);
+
         return data;
     }
+
+    $("#clear").on('click', function(e) {
+        console.log(e)
+    })
 
     var style = function(k) {
         let color = {
@@ -171,14 +184,11 @@
                 return style(f.properties.Kondisi_Ja)
             },
             onEachFeature: function(f, l) {
-                console.log(f.properties.No__Ruas)
+                // console.log(f.properties)
                 var out = [];
                 var coordinate = "'" + f.properties.MID_Y + ',' + f.properties.MID_X + "'";
                 if (f.properties) {
-                    l.bindPopup(popupContent(f.properties.Nama_Ruas, f.properties.No__Ruas, f
-                        .properties.Kelurahan, f
-                        .properties
-                        .Panjang__M, f.properties.Tipe_Perke, f.properties.Kondisi_Ja,
+                    l.bindPopup(popupContent(f.properties,
                         coordinate), {
                         maxWidth: "250",
                         maxHeigth: "auto"
