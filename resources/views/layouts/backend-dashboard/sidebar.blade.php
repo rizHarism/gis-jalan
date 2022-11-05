@@ -49,6 +49,30 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
+                            Data Master
+                            <i class="fas fa-angle-left right"></i>
+                            {{-- <span class="badge badge-info right">6</span> --}}
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ms-5">
+                        <li class="nav-item ">
+                            <a href="/master/kecamatan" class="nav-link">
+                                <i class="far fa-file nav-icon ml-3"></i>
+                                <p>Kecamatan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/master/kelurahan" class="nav-link">
+                                <i class="far fa-file nav-icon ml-3"></i>
+                                <p>Kelurahan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
                             Data Jalan
                             <i class="fas fa-angle-left right"></i>
                             {{-- <span class="badge badge-info right">6</span> --}}

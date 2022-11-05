@@ -40,3 +40,11 @@ Route::get('/data/pemeliharaan', function () {
 Route::get('/data/user', function () {
     return view('user.index');
 });
+
+Route::get('/master/kecamatan', function () {
+    return view('master.kecamatan.index');
+});
+
+Route::get('/master/kelurahan', function () {
+    return view('master.kelurahan.index');
+});
