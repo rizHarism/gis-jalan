@@ -23,6 +23,13 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
+    {{-- leaflet provider --}}
+    <script src="{{ asset('assets/leaflet/js/leaflet-providers.js') }}"></script>
+
+    {{-- leaflet minimaps control layer --}}
+    <script src="{{ asset('assets/leaflet/js/L.Control.Layers.Minimap.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/leaflet/css/control.layers.minimap.css') }}" />
+
     {{-- fontawesome css --}}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e4d20a5f83.js" crossorigin="anonymous"></script>
@@ -35,6 +42,10 @@
     {{-- sidebar map v2 --}}
     <script src="{{ asset('assets/map-sidebar/leaflet-sidebar.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/map-sidebar/leaflet-sidebar.css') }}" />
+
+    {{-- select2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
         html,
         body #map-container {
@@ -51,7 +62,7 @@
             top: 0;
             left: 0;
             right: 0;
-            margin-top: 55px;
+            /* margin-top: 55px; */
             margin-bottom: 0;
         }
     </style>
@@ -60,11 +71,11 @@
 <body>
 
     <div id="map"></div>
-    @include('layouts.map.navbar')
+    {{-- @include('layouts.map.navbar') --}}
     @include('layouts.map.login')
     @include('layouts.map.details')
 
-    {{-- @include('layouts.map.sidebar') --}}
+    @include('layouts.map.sidebar')
 
 </body>
 
@@ -83,33 +94,43 @@
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
 
+    var stamen = L.tileLayer.provider('Stamen.Watercolor');
+
 
     var baseMaps = {
         " SATELIT ": imagery,
         " OPEN STREET MAP ": osm,
+        " STAMEN ": stamen,
     }
+
 
 
     // layer control (add to sidebar)
 
-    var layersControl = L.control.layers(baseMaps, null, {
-        collapsed: true,
+    var overlayControl = L.control.layers(null, null, {
+        collapsed: false,
         autoZIndex: false
     }).addTo(map);
 
-    // var htmlObjectOverlay = layersControl.getContainer();
+    var basemapControl = L.control.layers.minimap(baseMaps, null, {
+        collapsed: false,
+        topPadding: 100
+    }).addTo(map);
 
-    // var a = document.getElementById('home');
+    var htmlObjectBasemap = basemapControl.getContainer();
+    var htmlObjectOverlay = overlayControl.getContainer();
 
+    var bm = document.getElementById('mini-basemap');
+    var ol = document.getElementById('overlay');
 
-    // function setParentLayer(el, newParent) {
-    //     newParent.appendChild(el);
-    // }
-    // setParentLayer(htmlObjectOverlay, a);
+    function setParentLayer(el, newParent) {
+        newParent.appendChild(el);
+    }
+    setParentLayer(htmlObjectBasemap, bm);
+    setParentLayer(htmlObjectOverlay, ol);
 
     // end of layer control script
     var popupContent = function(properties, coordinate) {
-        console.log(properties)
         var data = `
                     <p class="text-center fw-bold mb-0"> ` + properties.Nama_Ruas + `</p>
                     <hr class="mb-1 mt-1">
@@ -196,7 +217,7 @@
                 }
             }
         })
-        layersControl.addOverlay(shpJalan, kondisi);
+        overlayControl.addOverlay(shpJalan, kondisi);
         shpJalan.addTo(map)
     });
 
@@ -211,54 +232,78 @@
 </script>
 
 <script>
-    // var sidebar = L.control.sidebar({
-    //         container: 'sidebar',
-    //         position: 'right',
-    //         autopan: true
-    //     })
-    //     .addTo(map)
-    //     .close();
+    var sidebar = L.control.sidebar({
+            container: 'sidebar',
+            position: 'right',
+            autopan: true
+        })
+        .addTo(map)
+        .close();
 
     // add panels dynamically to the sidebar
-    // sidebar
-    //     .addPanel({
-    //         id: 'js-api',
-    //         tab: '<i class="fa fa-gear"></i>',
-    //         title: 'JS API',
-    //         pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
-    //     })
-    //     // add a tab with a click callback, initially disabled
-    //     .addPanel({
-    //         id: 'mail',
-    //         tab: '<i class="fa fa-envelope"></i>',
-    //         title: 'Messages',
-    //         button: function() {
-    //             alert('opened via JS callback')
-    //         },
-    //         disabled: true,
-    //     })
+    sidebar
+        .addPanel({
+            id: 'js-api',
+            tab: '<i class="fa fa-gear"></i>',
+            title: 'JS API',
+            pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
+        })
+        // add a tab with a click callback, initially disabled
+        .addPanel({
+            id: 'mail',
+            tab: '<i class="fa fa-envelope"></i>',
+            title: 'Messages',
+            button: function() {
+                alert('opened via JS callback')
+            },
+            disabled: false,
+        })
 
-    // // be notified when a panel is opened
-    // sidebar.on('content', function(ev) {
-    //     switch (ev.id) {
-    //         case 'autopan':
-    //             sidebar.options.autopan = true;
-    //             break;
-    //         default:
-    //             sidebar.options.autopan = true;
-    //     }
-    // });
+    // be notified when a panel is opened
+    sidebar.on('content', function(ev) {
+        switch (ev.id) {
+            case 'autopan':
+                sidebar.options.autopan = true;
+                break;
+            default:
+                sidebar.options.autopan = true;
+        }
+    });
 
-    // var userid = 0
+    var userid = 0
 
-    // function addUser() {
-    //     sidebar.addPanel({
-    //         id: 'user' + userid++,
-    //         tab: '<i class="fa fa-user"></i>',
-    //         title: 'User Profile ' + userid,
-    //         pane: '<p>user ipsum dolor sit amet</p>',
-    //     });
-    // }
+    function addUser() {
+        sidebar.addPanel({
+            id: 'user' + userid++,
+            tab: '<i class="fa fa-user"></i>',
+            title: 'User Profile ' + userid,
+            pane: '<p>user ipsum dolor sit amet</p>',
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.no-ruas').select2({
+            width: '100%',
+            theme: 'classic',
+            dropdownParent: $("#search")
+        });
+    });
+    $(document).ready(function() {
+        $('.kecamatan').select2({
+            width: '100%',
+            theme: 'classic',
+            dropdownParent: $("#search")
+        });
+    });
+    $(document).ready(function() {
+        $('.kelurahan').select2({
+            width: '100%',
+            theme: 'classic',
+            dropdownParent: $("#search")
+        });
+    });
 </script>
 
 </html>
