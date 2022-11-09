@@ -1,0 +1,49 @@
+{
+    "data": [
+        {
+            "properties": {
+                "id": 1,
+                "username": "administrator",
+                "password": "*********",
+                "role": "Super-admin",
+                "last_login": "01-11-2020 / 10.13 PM"
+            }
+        },
+        {
+            "properties": {
+                "id": 1,
+                "username": "atmajaya",
+                "password": "*********",
+                "role": "Admin",
+                "last_login": "30-10-2020 / 08.45 PM"
+            }
+        },
+        {
+            "properties": {
+                "id": 1,
+                "username": "srimulyani",
+                "password": "*********",
+                "role": "Editor",
+                "last_login": "01-11-2020 / 09.15 AM"
+            }
+        },
+        {
+            "properties": {
+                "id": 1,
+                "username": "endangkosasi",
+                "password": "*********",
+                "role": "Admin",
+                "last_login": "29-10-2020 / 11.23 AM"
+            }
+        },
+        {
+            "properties": {
+                "id": 1,
+                "username": "abdulsholeh",
+                "password": "*********",
+                "role": "Editor",
+                "last_login": "29-10-2020 / 03.13 PM"
+            }
+        }
+    ]
+}

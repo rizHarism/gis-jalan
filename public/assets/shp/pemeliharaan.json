@@ -1,0 +1,82 @@
+{
+    "data": [
+        {
+            "properties": {
+                "id": 1,
+                "tanggal": "22-04-2021",
+                "penyedia_jasa": "CV PUTRA PRATAMA",
+                "biaya": "Rp 540.000.000",
+                "ruas": [
+                    104,
+                    105,
+                    106,
+                    107
+                ],
+                "keterangan": "PENAMBALAN JALAN ASPAL"
+            }
+        },
+        {
+            "properties": {
+                "id": 2,
+                "tanggal": "19-02-2021",
+                "penyedia_jasa": "CV MAJU BERSAMA",
+                "biaya": "Rp 250.000.000",
+                "ruas": [
+                    21,
+                    22,
+                    23,
+                    24
+                ],
+                "keterangan": "PENAMBALAN JALAN ASPAL"
+            }
+        },
+        {
+            "properties": {
+                "id": 3,
+                "tanggal": "09-06-2021",
+                "penyedia_jasa": "CV LINGKAR JAYA",
+                "biaya": "Rp 150.000.000",
+                "ruas": [
+                    65,
+                    66,
+                    67,
+                    68,
+                    69,
+                    70
+                ],
+                "keterangan": "PERABATAN JALAN"
+            }
+        },
+        {
+            "properties": {
+                "id": 4,
+                "tanggal": "30-06-2021",
+                "penyedia_jasa": "CV BUMI BETON",
+                "biaya": "Rp 150.000.000",
+                "ruas": [
+                    99,
+                    100,
+                    101,
+                    102,
+                    103
+                ],
+                "keterangan": "PERABATAN JALAN"
+            }
+        },
+        {
+            "properties": {
+                "id": 5,
+                "tanggal": "30-06-2021",
+                "penyedia_jasa": "CV UNIVERSAL ADIPUTRA",
+                "biaya": "Rp 353.000.000",
+                "ruas": [
+                    51,
+                    52,
+                    53,
+                    54
+                ],
+                "keterangan": "HOTMIX JALAN"
+            }
+        }
+    ]
+}

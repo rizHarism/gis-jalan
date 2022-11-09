@@ -35,30 +35,21 @@
     $(document).ready(function() {
         var table = $('#example').DataTable({
             processing: true,
-            ajax: "{{ asset('assets/shp/jalan-buffer.geojson') }}",
+            ajax: "{{ asset('assets/shp/user.json') }}",
             columns: [{
                     "data": null
                 },
                 {
-                    data: 'properties.No__Ruas'
+                    data: 'properties.username'
                 },
                 {
-                    data: 'properties.Nama_Ruas'
+                    data: 'properties.password'
                 },
                 {
-                    data: 'properties.Kelurahan'
+                    data: 'properties.role'
                 },
                 {
-                    data: 'properties.Panjang__M',
-                    render: function(data) {
-                        return Math.round(data);
-                    }
-                },
-                {
-                    data: 'properties.Tipe_Perke'
-                },
-                {
-                    data: 'properties.Kondisi_Ja'
+                    data: 'properties.last_login'
                 },
                 {
                     data: null,
@@ -72,10 +63,7 @@
                     defaultContent: '<i class="fa fa-trash"></i>',
                     orderable: false
                 }
-            ],
-            order: [
-                [1, 'asc']
-            ],
+            ]
         });
 
 

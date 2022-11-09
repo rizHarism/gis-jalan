@@ -15,6 +15,17 @@
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+{{-- select2 --}}
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            placeholder: 'Select an option',
+            width: '31%',
+            theme: 'classic'
+        });
+    });
+</script>
 {{-- chart js --}}
 <script>
     const ctx = document.getElementById('jalan-chart');

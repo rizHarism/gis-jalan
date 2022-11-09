@@ -35,30 +35,24 @@
     $(document).ready(function() {
         var table = $('#example').DataTable({
             processing: true,
-            ajax: "{{ asset('assets/shp/jalan-buffer.geojson') }}",
+            ajax: "{{ asset('assets/shp/penyedia-jasa.json') }}",
             columns: [{
                     "data": null
                 },
                 {
-                    data: 'properties.No__Ruas'
+                    data: 'properties.nama'
                 },
                 {
-                    data: 'properties.Nama_Ruas'
+                    data: 'properties.alamat'
                 },
                 {
-                    data: 'properties.Kelurahan'
+                    data: 'properties.direktur'
                 },
                 {
-                    data: 'properties.Panjang__M',
-                    render: function(data) {
-                        return Math.round(data);
-                    }
+                    data: 'properties.nib'
                 },
                 {
-                    data: 'properties.Tipe_Perke'
-                },
-                {
-                    data: 'properties.Kondisi_Ja'
+                    data: 'properties.npwp'
                 },
                 {
                     data: null,
