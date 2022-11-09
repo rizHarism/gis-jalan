@@ -6,6 +6,8 @@
         <ul role="tablist">
             <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
             <li><a href="#search" role="tab"><i class="fa fa-search"></i></a></li>
+            <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+            <li><a href="/dashboard" role="tab"><i class="fas fa-desktop"></i></a></li>
         </ul>
 
         <!-- bottom aligned tabs -->
@@ -76,7 +78,9 @@
                     <option value="2">Srengat</option>
                     <option value="3">Wlingi</option>
                 </select>
-                <button class="btn btn-primary">Cari</button>
+                <div class="mt-3">
+                    <button class="btn btn-primary btn-sm">Cari</button>
+                </div>
             </div>
             <hr>
             <div id="filter-ruas">
@@ -98,43 +102,78 @@
                     <option value="2">Srengat</option>
                     <option value="3">Wlingi</option>
                 </select>
+                <div class="mt-4">
+                    <label for="kecamatan-select">
+                        Kondisi Jalan
+                    </label>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="" id="baik" checked>
+                                <label class="form-check-label" for="baik">
+                                    Baik
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="" id="sedang"
+                                    checked>
+                                <label class="form-check-label" for="sedang">
+                                    Sedang
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 justify-content-center">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="" id="rusak-ringan"
+                                    checked>
+                                <label class="form-check-label" for="rusak-ringan">
+                                    Rusak Ringan
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="" id="rusak-berat"
+                                    checked>
+                                <label class="form-check-label" for="rusak-berat">
+                                    Rusak Berat
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
-                <label for="kecamatan-select">
-                    Kondisi Jalan
-                </label>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" value="" id="baik" checked>
-                    <label class="form-check-label" for="baik">
-                        Baik
-                    </label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" value="" id="sedang" checked>
-                    <label class="form-check-label" for="sedang">
-                        Sedang
-                    </label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" value="" id="rusak-ringan" checked>
-                    <label class="form-check-label" for="rusak-ringan">
-                        Rusak Ringan
-                    </label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" value="" id="rusak-berat" checked>
-                    <label class="form-check-label" for="rusak-berat">
-                        Rusak Berat
-                    </label>
-                </div>
 
-                <button class="btn btn-primary">Cari</button>
+                </div>
+                <button class="btn btn-primary btn-sm">Cari</button>
             </div>
 
         </div>
 
-        <div class="leaflet-sidebar-pane" id="messages">
-            <h1 class="leaflet-sidebar-header">Messages<span class="leaflet-sidebar-close"><i
+        <div class="leaflet-sidebar-pane" id="profile">
+            <h1 class="leaflet-sidebar-header">Profile Pengguna<span class="leaflet-sidebar-close"><i
                         class="fa fa-caret-left"></i></span></h1>
+            <div class="mt-3" id="username">
+                <h5 class="text-center">Hallo Guest</h5>
+            </div>
+            <div class="mt-3">
+                <img src="https://xsgames.co/randomusers/avatar.php?g=male" class="mx-auto d-block" alt="..."
+                    id="user-image">
+            </div>
+            <div class="mt-3">
+                <h5 class="text-center">Guest</h5>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary btn-sm mx-auto d-block" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">Login</button>
+            </div>
+            <div class="mt-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-success mx-auto d-block custom btn-sm">Edit</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-danger mx-auto d-block custom btn-sm">Logout</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
