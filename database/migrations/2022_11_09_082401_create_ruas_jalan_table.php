@@ -15,18 +15,18 @@ class CreateRuasJalanTable extends Migration
     {
         Schema::create('ruas_jalan', function (Blueprint $table) {
             $table->id();
-            $table->int('nomor_ruas');
+            $table->integer('nomor_ruas');
             $table->string('nama_ruas');
             $table->string('pangkal_ruas');
             $table->string('ujung_ruas');
             $table->string('lingkungan');
-            $table->string('kelurahan');
-            $table->string('kecamatan');
+            $table->string('kelurahan_id');
+            $table->string('kecamatan_id');
             $table->float('panjang');
             $table->float('lebar');
             $table->string('bahu_jalan')->nullable();
-            $table->string('perkerasan');
-            $table->string('kondisi');
+            $table->string('perkerasan_id');
+            $table->string('kondisi_id');
             $table->string('utilitas')->nullable();
             $table->string('start_x');
             $table->string('start_y');
@@ -35,6 +35,7 @@ class CreateRuasJalanTable extends Migration
             $table->string('end_x');
             $table->string('end_y');
             $table->json('geometry');
+            $table->string('image');
             $table->timestamps();
         });
     }

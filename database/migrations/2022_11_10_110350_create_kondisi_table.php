@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePemeliharaanTable extends Migration
+class CreateKondisiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreatePemeliharaanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pemeliharaan', function (Blueprint $table) {
+        Schema::create('kondisi', function (Blueprint $table) {
             $table->id();
-            $table->date('pelaksanaan');
-            $table->integer('penyedia_jasa_id');
-            $table->integer('biaya');
-            $table->json('ruas_id');
-            $table->string('keterangan');
-
+            $table->char('kondisi');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreatePemeliharaanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pemeliharaan');
+        Schema::dropIfExists('kondisi');
     }
 }
