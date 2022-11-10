@@ -15,6 +15,12 @@ class CreatePemeliharaanTable extends Migration
     {
         Schema::create('pemeliharaan', function (Blueprint $table) {
             $table->id();
+            $table->date('pelaksanaan');
+            $table->int('penyedia_jasa_id');
+            $table->int('biaya');
+            $table->json('ruas_id');
+            $table->string('keterangan');
+
             $table->timestamps();
         });
     }

@@ -24,10 +24,10 @@ class CreateRuasJalanTable extends Migration
             $table->string('kecamatan');
             $table->float('panjang');
             $table->float('lebar');
-            $table->string('bahu_jalan');
+            $table->string('bahu_jalan')->nullable();
             $table->string('perkerasan');
             $table->string('kondisi');
-            $table->string('utilitas');
+            $table->string('utilitas')->nullable();
             $table->string('start_x');
             $table->string('start_y');
             $table->string('middle_x');

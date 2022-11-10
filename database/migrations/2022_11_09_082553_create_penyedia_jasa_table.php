@@ -15,6 +15,11 @@ class CreatePenyediaJasaTable extends Migration
     {
         Schema::create('penyedia_jasa', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('direktur');
+            $table->string('alamat');
+            $table->string('nib');
+            $table->string('npwp');
             $table->timestamps();
         });
     }
