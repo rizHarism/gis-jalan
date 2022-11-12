@@ -83,39 +83,36 @@
                 </div>
             </div>
             <hr>
-            <div id="filter-ruas">
+            <form method="POST" id="filter-ruas">
+                {{ csrf_field() }}
                 <h6> Pencarian Berdasarkan Kecamatan / Kelurahan</h6>
                 <label for="kecamatan-select">
                     Pilih Kecamatan
                 </label>
                 <select name="kecamatan-select" class="kecamatan" id="kecamatan">
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
+                    <option value="0">--- Pilih Kecamatan ---</option>
                 </select>
 
                 <label for="kecamatan-select">
                     Pilih Kelurahan
                 </label>
-                <select name="kelurahan-select" class="kelurahan mt-5" id="kelurahan">
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
+                <select name="kelurahan-select" class="kelurahan mt-5" id="kelurahan" disabled>
+                    <option value="0">--- Pilih Kelurahan ---</option>
                 </select>
                 <div class="mt-4">
                     <label for="kecamatan-select">
                         Kondisi Jalan
                     </label>
-                    <div class="row mt-2">
+                    <div class="row mt-2" id="kondisi-cek">
                         <div class="col-md-6">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="" id="baik" checked>
+                                <input class="form-check-input" type="checkbox" value="1" id="baik" checked>
                                 <label class="form-check-label" for="baik">
                                     Baik
                                 </label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="" id="sedang"
+                                <input class="form-check-input" type="checkbox" value="2" id="sedang"
                                     checked>
                                 <label class="form-check-label" for="sedang">
                                     Sedang
@@ -124,14 +121,14 @@
                         </div>
                         <div class="col-md-6 justify-content-center">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="" id="rusak-ringan"
+                                <input class="form-check-input" type="checkbox" value="3" id="rusak-ringan"
                                     checked>
                                 <label class="form-check-label" for="rusak-ringan">
                                     Rusak Ringan
                                 </label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="" id="rusak-berat"
+                                <input class="form-check-input" type="checkbox" value="4" id="rusak-berat"
                                     checked>
                                 <label class="form-check-label" for="rusak-berat">
                                     Rusak Berat
@@ -143,7 +140,7 @@
 
                 </div>
                 <button class="btn btn-primary btn-sm">Cari</button>
-            </div>
+            </form>
 
         </div>
 

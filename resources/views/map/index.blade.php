@@ -140,31 +140,31 @@
     setParentLayer(htmlObjectOverlay, ol);
 
     // end of layer control script
-    var popupContent = function(properties, coordinate) {
+    var popupContent = function(property, coordinate) {
         var data = `
-                    <p class="text-center fw-bold mb-0"> ` + properties.Nama_Ruas + `</p>
+                    <p class="text-center fw-bold mb-0"> ` + property.nama_ruas + `</p>
                     <hr class="mb-1 mt-1">
                     <img src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
                     <table class="table table-striped table-sm mt-2">
                         <tr>
                             <th scope="row">No. Ruas</th>
-                            <td>` + properties.No__Ruas + `</td>
+                            <td>` + property.nomor_ruas + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Kelurahan</th>
-                            <td>` + properties.Kelurahan + `</td>
+                            <td>` + property.kelurahan.nama + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Panjang</th>
-                            <td>` + Math.round(properties.Panjang__M) + ` Meter</td>
+                            <td>` + Math.round(property.panjang) + ` Meter</td>
                         </tr>
                         <tr>
                             <th scope="row">Perkerasan</th>
-                            <td>` + properties.Tipe_Perke + `</td>
+                            <td>` + property.perkerasan.perkerasan + `</td>
                         </tr>
                         <tr>
                             <th scope="row">Kondisi</th>
-                            <td>` + properties.Kondisi_Ja + `</td>
+                            <td>` + property.kondisi.kondisi + `</td>
                         </tr>
                     </table>
                     <table class="table table-striped">
@@ -190,11 +190,11 @@
             opacity: 0.9,
             dashArray: 2
         };
-        if (k == "BAIK") {
+        if (k == 1) {
             color.color = 'white';
-        } else if (k == "SEDANG") {
+        } else if (k == 2) {
             color.color = 'yellow';
-        } else if (k == "RUSAK RINGAN") {
+        } else if (k == 3) {
             color.color = 'orange';
         } else {
             color.color = 'red';
@@ -202,36 +202,37 @@
         return color
     }
 
-    var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
+    // var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
 
-    // loop and filter shp berdasarkan kondisi jalan
-    var kondisi = ['BAIK', 'SEDANG', 'RUSAK RINGAN', 'RUSAK BERAT']
-    kondisi.forEach(function(kondisi) {
-        var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-JALAN-BUFFER-4.zip') }}", {
-            filter: function(f) {
-                return f.properties.Kondisi_Ja === kondisi
-            },
-            style: function(f) {
-                return style(f.properties.Kondisi_Ja)
-            },
-            onEachFeature: function(f, l) {
-                // console.log(f.properties)
-                var out = [];
-                var coordinate = "'" + f.properties.MID_Y + ',' + f.properties.MID_X + "'";
-                if (f.properties) {
-                    l.bindPopup(popupContent(f.properties,
-                        coordinate), {
-                        maxWidth: "250",
-                        maxHeigth: "auto"
-                    });
-                }
-            }
-        })
-        overlayControl.addOverlay(shpJalan, kondisi);
-        shpJalan.addTo(map)
-    });
+    // // loop and filter shp berdasarkan kondisi jalan
 
-    shpBatas.addTo(map);
+    // var kondisi = ['BAIK', 'SEDANG', 'RUSAK RINGAN', 'RUSAK BERAT']
+    // kondisi.forEach(function(kondisi) {
+    //     var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-JALAN-BUFFER-4.zip') }}", {
+    //         filter: function(f) {
+    //             return f.properties.Kondisi_Ja === kondisi
+    //         },
+    //         style: function(f) {
+    //             return style(f.properties.Kondisi_Ja)
+    //         },
+    //         onEachFeature: function(f, l) {
+    //             // console.log(f.properties)
+    //             var out = [];
+    //             var coordinate = "'" + f.properties.MID_Y + ',' + f.properties.MID_X + "'";
+    //             if (f.properties) {
+    //                 l.bindPopup(popupContent(f.properties,
+    //                     coordinate), {
+    //                     maxWidth: "250",
+    //                     maxHeigth: "auto"
+    //                 });
+    //             }
+    //         }
+    //     })
+    //     overlayControl.addOverlay(shpJalan, kondisi);
+    //     shpJalan.addTo(map)
+    // });
+
+    // shpBatas.addTo(map);
 
     // open googlemaps in new window
     function gMaps(c) {
@@ -239,6 +240,113 @@
         url = "https://www.google.com/maps/search/" + c;
         window.open(url, '_blank');
     }
+</script>
+
+<script>
+    var url = '/get/polygon';
+
+    function getPolygon(url) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function(get) {
+                var data = get.data;
+                $.each(data, (i, property) => {
+                    // remove quote from text and parse to json
+                    var geometry = JSON.parse(property.geometry.replace(/&quot;/g, '"'))
+                    // console.log(geometry);
+                    var layer = L.geoJSON(geometry, {
+                        style: function(f) {
+                            return style(property.kondisi_id)
+                        },
+                        onEachFeature: function(f, l) {
+                            var out = [];
+                            var coordinate = "'" + property.middle_y + ',' + property
+                                .middle_y + "'";
+                            if (property) {
+                                l.bindPopup(popupContent(property,
+                                    coordinate), {
+                                    maxWidth: "250",
+                                    maxHeigth: "auto"
+                                });
+                            }
+                        }
+                        // pmIgnore: true
+                    });
+                    layer.addTo(map);
+                })
+            }
+        });
+    };
+    getPolygon(url);
+
+    function kecamatan() {
+        $.ajax({
+            type: "GET",
+            url: '/get/kecamatan',
+            dataType: "json",
+            success: function(kec) {
+                var kecamatan = kec.data,
+                    listItems = ""
+                $.each(kecamatan, (i, property) => {
+                    listItems += "<option value='" + property.id + "'>" + property
+                        .nama +
+                        "</option>"
+                })
+                $("#kecamatan").append(listItems);
+            }
+        });
+    }
+    kecamatan();
+
+    function kelurahan(id) {
+        url = '/get/kelurahan/' + id;
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function(kel) {
+                var kelurahan = kel.data,
+                    listItems = ""
+                $.each(kelurahan, (i, property) => {
+                    listItems += "<option value='" + property.id + "'>" + property
+                        .nama +
+                        "</option>"
+                })
+                $("#kelurahan").append(listItems);
+            }
+        });
+    }
+
+    $('#kecamatan').on('change', function() {
+        $("#kelurahan").html("<option value=0>--- Pilih Kelurahan ---</option>")
+        var id = this.value;
+        (id == 0) ? $("#kelurahan").prop({
+            "disabled": true
+        }): $("#kelurahan").prop({
+            "disabled": false
+        })
+        kelurahan(id);
+    });
+
+    // pencarian filter-ruas
+    $("#filter-ruas").on('submit', function(e) {
+        e.preventDefault();
+        var kecamatan = $('#kecamatan').val();
+        var kelurahan = $('#kelurahan').val();
+        var kondisi = $("#kondisi-cek input:checkbox:checked").map(function() {
+            return $(this).val();
+        }).get();
+        url = '/get/' + kecamatan + '/' + kelurahan + '/' + kondisi
+        map.eachLayer(function(lay) {
+            if (lay.toGeoJSON) {
+                map.removeLayer(lay);
+            }
+
+        });
+        getPolygon(url)
+    })
 </script>
 
 <script>
