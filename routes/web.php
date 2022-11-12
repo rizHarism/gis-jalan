@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KelurahanController;
+use App\Http\Controllers\MapController;
+use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('map.index');
-});
+// Route::get('/', function () {
+//     return view('map.index');
+// });
+
+Route::get('/', [MapController::class, 'index']);
+Route::get('/get/polygon', [MapController::class, 'getPolygon']);
+Route::get('/get/kecamatan', [KecamatanController::class, 'getKecamatan']);
+Route::get('/get/kelurahan/{id}', [KelurahanController::class, 'getKelurahan']);
+Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}', [MapController::class, 'filterPolygon']);
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
