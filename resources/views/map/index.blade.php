@@ -202,37 +202,9 @@
         return color
     }
 
-    // var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
+    var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
 
-    // // loop and filter shp berdasarkan kondisi jalan
-
-    // var kondisi = ['BAIK', 'SEDANG', 'RUSAK RINGAN', 'RUSAK BERAT']
-    // kondisi.forEach(function(kondisi) {
-    //     var shpJalan = new L.Shapefile("{{ asset('assets/shp/SHP-JALAN-BUFFER-4.zip') }}", {
-    //         filter: function(f) {
-    //             return f.properties.Kondisi_Ja === kondisi
-    //         },
-    //         style: function(f) {
-    //             return style(f.properties.Kondisi_Ja)
-    //         },
-    //         onEachFeature: function(f, l) {
-    //             // console.log(f.properties)
-    //             var out = [];
-    //             var coordinate = "'" + f.properties.MID_Y + ',' + f.properties.MID_X + "'";
-    //             if (f.properties) {
-    //                 l.bindPopup(popupContent(f.properties,
-    //                     coordinate), {
-    //                     maxWidth: "250",
-    //                     maxHeigth: "auto"
-    //                 });
-    //             }
-    //         }
-    //     })
-    //     overlayControl.addOverlay(shpJalan, kondisi);
-    //     shpJalan.addTo(map)
-    // });
-
-    // shpBatas.addTo(map);
+    shpBatas.addTo(map);
 
     // open googlemaps in new window
     function gMaps(c) {
@@ -244,6 +216,15 @@
 
 <script>
     var url = '/get/polygon';
+
+    function clearLayer() {
+        map.eachLayer(function(lay) {
+            if (lay.toGeoJSON) {
+                map.removeLayer(lay);
+            }
+        });
+        shpBatas.addTo(map);
+    }
 
     function getPolygon(url) {
         $.ajax({
@@ -279,6 +260,7 @@
             }
         });
     };
+
     getPolygon(url);
 
     function kecamatan() {
@@ -338,13 +320,8 @@
         var kondisi = $("#kondisi-cek input:checkbox:checked").map(function() {
             return $(this).val();
         }).get();
+        clearLayer();
         url = '/get/' + kecamatan + '/' + kelurahan + '/' + kondisi
-        map.eachLayer(function(lay) {
-            if (lay.toGeoJSON) {
-                map.removeLayer(lay);
-            }
-
-        });
         getPolygon(url)
     })
 </script>
