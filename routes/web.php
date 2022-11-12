@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\MapController;
@@ -17,19 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('map.index');
-// });
-
+// route for map page
 Route::get('/', [MapController::class, 'index']);
 Route::get('/get/polygon', [MapController::class, 'getPolygon']);
-Route::get('/get/kecamatan', [KecamatanController::class, 'getKecamatan']);
-Route::get('/get/kelurahan/{id}', [KelurahanController::class, 'getKelurahan']);
 Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}', [MapController::class, 'filterPolygon']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
-});
+// route for select option list
+Route::get('/get/kecamatan', [KecamatanController::class, 'getKecamatan']);
+Route::get('/get/kelurahan/{id}', [KelurahanController::class, 'getKelurahan']);
+
+// route for dashboard page
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/get/ruas/dashboard', [DashboardController::class, 'getChart']);
+Route::get('/get/ruas/{kec}/{kel}/dashboard', [DashboardController::class, 'getFilterChart']);
 
 Route::get('/data/kelurahan', function () {
     return view('kelurahan.index');

@@ -83,7 +83,7 @@
                 </div>
             </div>
             <hr>
-            <form method="POST" id="filter-ruas">
+            <form method="" id="filter-ruas">
                 {{ csrf_field() }}
                 <h6> Pencarian Berdasarkan Kecamatan / Kelurahan</h6>
                 <label for="kecamatan-select">
