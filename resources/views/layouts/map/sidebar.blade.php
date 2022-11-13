@@ -40,7 +40,7 @@
                 <label for="pencarianRuas">
                     <h6>Pencarian Berdasar Nomor atau Nama Ruas</h6>
                 </label>
-                <select name="pencarianRuas" class="no-ruas" id="no-ruas">
+                <select name="pencarianRuas" class="no-ruas" multiple="multiple" id="no-ruas">
                     <option value="1">Kanigoro</option>
                     <option value="2">Srengat</option>
                     <option value="3">Wlingi</option>
