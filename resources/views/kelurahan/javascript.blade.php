@@ -18,81 +18,172 @@
 {{-- data table --}}
 
 <script>
-    $('#example').on('click', 'td.editor-delete', function(e) {
-        e.preventDefault();
-
-        // editor.remove($(this).closest('tr'), {
-        //     title: 'Delete record',
-        //     message: 'Are you sure you wish to remove this record?',
-        //     buttons: 'Delete'
-        // });
-        alert('delete')
+    // select 2
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            placeholder: 'Select an option',
+            width: '30%',
+            theme: 'classic'
+        });
     });
-    $('#example').on('click', 'td.editor-edit', function(e) {
-        e.preventDefault();
 
-        // editor.edit($(this).closest('tr'), {
-        //     title: 'Edit record',
-        //     buttons: 'Update'
-        // });
-        alert('edit')
-    });
+    // datatables
+
+    var url = '/ruas/kelurahan/datatables';
+    var table;
 
     $(document).ready(function() {
-        var table = $('#example').DataTable({
-            processing: true,
-            ajax: "{{ asset('assets/shp/jalan-buffer.geojson') }}",
-            columns: [{
-                    "data": null
+        function loadTable(url) {
+            table = $('#ruas-jalan').DataTable({
+                processing: true,
+                ajax: {
+                    url: url,
+                    method: 'GET'
                 },
-                {
-                    data: 'properties.No__Ruas'
-                },
-                {
-                    data: 'properties.Nama_Ruas'
-                },
-                {
-                    data: 'properties.Kelurahan'
-                },
-                {
-                    data: 'properties.Panjang__M',
-                    render: function(data) {
-                        return Math.round(data)
+                columns: [{
+                        data: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'nomor_ruas'
+                    },
+                    {
+                        data: 'nama_ruas'
+                    },
+                    {
+                        data: 'kecamatan.nama'
+                    },
+                    {
+                        data: 'kelurahan.nama'
+                    },
+                    {
+                        data: 'panjang',
+                        render: function(data) {
+                            return Math.round(data)
+                        }
+                    },
+                    {
+                        data: 'perkerasan.perkerasan'
+                    },
+                    {
+                        data: 'kondisi.kondisi'
+                    },
+                    {
+                        data: 'id',
+                        width: '10px',
+                        orderable: false,
+                        render: function(data) {
+                            var id = data;
+                            var editButton =
+                                "<i class='fas fa-edit open-modal' data-id=" + id +
+                                "></i>";
+                            var button = editButton;
+
+                            return button;
+                        }
+                    },
+                    {
+                        data: 'id',
+                        width: '10px',
+                        orderable: false,
+                        render: function(data) {
+                            var id = data;
+                            var deleteButton =
+                                "<i class='fas fa-trash-alt delete-data' data-id=" + id +
+                                "></i>";
+                            var button = deleteButton;
+
+                            return button;
+                        }
                     }
-                },
-                {
-                    data: 'properties.Tipe_Perke'
-                },
-                {
-                    data: 'properties.Kondisi_Ja'
-                },
-                {
-                    data: null,
-                    className: "dt-center editor-edit",
-                    defaultContent: '<i class="fa fa-pencil"></i>',
-                    orderable: false
-                },
-                {
-                    data: null,
-                    className: "dt-center editor-delete",
-                    defaultContent: '<i class="fa fa-trash"></i>',
-                    orderable: false
+                ],
+                order: [
+                    [1, 'asc']
+                ],
+            });
+        }
+
+        loadTable(url);
+
+        $(document).on("click", ".delete-data", function() {
+            alert('delete');
+            url = '/ruas/2/1/kelurahan/';
+            table.destroy();
+            loadTable(url);
+        })
+
+
+
+        // select get data and change
+        function kecamatan() {
+            $.ajax({
+                type: "GET",
+                url: '/get/kecamatan',
+                dataType: "json",
+                success: function(kec) {
+                    var kecamatan = kec.data,
+                        listItems = ""
+                    $.each(kecamatan, (i, property) => {
+                        listItems += "<option value='" + property.id + "'>" + property
+                            .nama +
+                            "</option>"
+                    })
+                    $("#list-kecamatan").append(listItems);
                 }
-            ],
-            order: [
-                [1, 'asc']
-            ],
+            });
+        }
+        kecamatan();
+
+        function kelurahan(id) {
+            url = '/get/kelurahan/' + id;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: "json",
+                success: function(kel) {
+                    var kelurahan = kel.data,
+                        listItems = ""
+                    $.each(kelurahan, (i, property) => {
+                        listItems += "<option value='" + property.id + "'>" + property
+                            .nama +
+                            "</option>"
+                    })
+                    $("#list-kelurahan").append(listItems);
+                }
+            });
+        }
+
+        $('#list-kecamatan').on('change', function() {
+            $("#list-kelurahan").html("<option value=0>SEMUA KELURAHAN</option>")
+            var id = this.value;
+            (id == 0) ? $("#list-kelurahan").prop({
+                "disabled": true
+            }): $("#list-kelurahan").prop({
+                "disabled": false
+            })
+            kelurahan(id);
         });
 
+        // filter data tables
+        $("#filter-datatables").on('submit', function(e) {
+            e.preventDefault();
+            var kecamatan = $('#list-kecamatan').val();
+            var kelurahan = $('#list-kelurahan').val();
+            (kecamatan == 0) ? url = '/ruas/kelurahan/datatables': url = '/ruas/' + kecamatan + '/' +
+                kelurahan +
+                '/kelurahan/';
+            table.destroy();
+            loadTable(url)
+            // const nama_kec = $('#list-kecamatan').find("option:selected").text();
+            // const nama_kel = $('#list-kelurahan').find("option:selected").text();
+            // $('#title-dashboard').html("");
+            // if (kecamatan == 0) {
+            //     $('#title-dashboard').append("DATA " + nama_kec + " / " + nama_kel)
+            // } else if (kelurahan == 0) {
+            //     $('#title-dashboard').append("DATA KECAMATAN " + nama_kec + " / " + nama_kel);
+            // } else {
+            //     $('#title-dashboard').append("DATA KECAMATAN " + nama_kec + " / KELURAHAN " + nama_kel);
+            // }
 
-
-        table.on('order.dt search.dt', function() {
-            table.column(0, {
-                search: 'applied',
-                order: 'applied'
-            }).nodes().each(function(cell, i) {
-                cell.innerHTML = i + 1;
-            });
-        }).draw();
+        })
     });
 </script>

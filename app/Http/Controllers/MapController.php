@@ -22,7 +22,6 @@ class MapController extends Controller
             ->addIndexColumn()
             ->make(true);
 
-        // return $datatables->make(true);
         return $ruasjalan;
     }
 

@@ -85,12 +85,12 @@
                                 <p>Kelurahan</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/ruas/desa" class="nav-link">
                                 <i class="far fa-file nav-icon ml-3"></i>
                                 <p>Desa</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="nav-item">

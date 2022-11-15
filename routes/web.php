@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\RuasJalanController;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,10 @@ Route::get('/data/kelurahan', [KelurahanController::class, 'index']);
 Route::get('/data/kelurahan/datatables', [KelurahanController::class, 'datatables']);
 Route::get('/data/kelurahan/{id}/show', [KelurahanController::class, 'show']);
 
+// route for data ruas jalan kelurahan
+Route::get('/ruas/kelurahan', [RuasJalanController::class, 'index']);
+Route::get('/ruas/kelurahan/datatables', [RuasJalanController::class, 'datatables']);
+Route::get('/ruas/{kec}/{kel}/kelurahan/', [RuasJalanController::class, 'filterRuas']);
 
 Route::get('/data/desa', function () {
     return view('desa.index');
