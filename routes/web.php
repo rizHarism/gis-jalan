@@ -32,9 +32,16 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/get/ruas/dashboard', [DashboardController::class, 'getChart']);
 Route::get('/get/ruas/{kec}/{kel}/dashboard', [DashboardController::class, 'getFilterChart']);
 
-Route::get('/data/kelurahan', function () {
-    return view('kelurahan.index');
-});
+// route for master / data kecamatan
+Route::get('/data/kecamatan', [KecamatanController::class, 'index']);
+Route::get('/data/kecamatan/datatables', [KecamatanController::class, 'datatables']);
+Route::get('/data/kecamatan/{id}/show', [KecamatanController::class, 'show']);
+
+// route for master kelurahan
+Route::get('/data/kelurahan', [KelurahanController::class, 'index']);
+Route::get('/data/kelurahan/datatables', [KelurahanController::class, 'datatables']);
+Route::get('/data/kelurahan/{id}/show', [KelurahanController::class, 'show']);
+
 
 Route::get('/data/desa', function () {
     return view('desa.index');
@@ -52,10 +59,10 @@ Route::get('/data/user', function () {
     return view('user.index');
 });
 
-Route::get('/master/kecamatan', function () {
-    return view('master.kecamatan.index');
-});
+// Route::get('/master/kecamatan', function () {
+//     return view('master.kecamatan.index');
+// });
 
-Route::get('/master/kelurahan', function () {
-    return view('master.kelurahan.index');
-});
+// Route::get('/master/kelurahan', function () {
+//     return view('master.kelurahan.index');
+// });

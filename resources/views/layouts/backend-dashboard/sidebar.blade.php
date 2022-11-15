@@ -56,13 +56,13 @@
                     </a>
                     <ul class="nav nav-treeview ms-5">
                         <li class="nav-item ">
-                            <a href="/master/kecamatan" class="nav-link">
+                            <a href="/data/kecamatan" class="nav-link">
                                 <i class="far fa-file nav-icon ml-3"></i>
                                 <p>Kecamatan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/master/kelurahan" class="nav-link">
+                            <a href="/data/kelurahan" class="nav-link">
                                 <i class="far fa-file nav-icon ml-3"></i>
                                 <p>Kelurahan</p>
                             </a>
@@ -80,13 +80,13 @@
                     </a>
                     <ul class="nav nav-treeview ms-5">
                         <li class="nav-item ">
-                            <a href="/data/kelurahan" class="nav-link">
+                            <a href="/ruas/kelurahan" class="nav-link">
                                 <i class="far fa-file nav-icon ml-3"></i>
                                 <p>Kelurahan</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/data/desa" class="nav-link">
+                            <a href="/ruas/desa" class="nav-link">
                                 <i class="far fa-file nav-icon ml-3"></i>
                                 <p>Desa</p>
                             </a>
