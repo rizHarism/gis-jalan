@@ -33,6 +33,7 @@
                             <th>Kondisi</th>
                             <th>Aksi</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -45,7 +46,7 @@
                             <th>Panjang</th>
                             <th>Perkerasan</th>
                             <th>Kondisi</th>
-                            <th>Aksi</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </tfoot>

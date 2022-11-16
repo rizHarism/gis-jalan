@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RuasJalan;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
 class RuasJalanController extends Controller
@@ -45,5 +46,17 @@ class RuasJalanController extends Controller
         }
 
         return $ruasjalan;
+    }
+
+    public function show($id)
+    {
+        $ruas = RuasJalan::where('id', $id)->GET();
+
+        $response = [
+            'message' => 'show ruas jalan',
+            'data' => $ruas
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
     }
 }

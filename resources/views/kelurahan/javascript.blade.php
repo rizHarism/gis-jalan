@@ -74,6 +74,20 @@
                         render: function(data) {
                             var id = data;
                             var editButton =
+                                "<i class='fas fa-eye open-detail' data-id=" + id +
+                                "></i>";
+                            var button = editButton;
+
+                            return button;
+                        }
+                    },
+                    {
+                        data: 'id',
+                        width: '10px',
+                        orderable: false,
+                        render: function(data) {
+                            var id = data;
+                            var editButton =
                                 "<i class='fas fa-edit open-modal' data-id=" + id +
                                 "></i>";
                             var button = editButton;
@@ -104,14 +118,44 @@
 
         loadTable(url);
 
+        // delete data ruas
         $(document).on("click", ".delete-data", function() {
-            alert('delete');
-            url = '/ruas/2/1/kelurahan/';
-            table.destroy();
-            loadTable(url);
+            var id = $(this).data('id');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                url: '/ruas/kelurahan/' + id + '/show',
+                dataType: "json",
+                async: false,
+                success: function(result) {
+                    // alert(result.nama)
+                    $.each(result.data, (i, data) => {
+                        Swal.fire({
+                            title: 'HAPUS RUAS ' +
+                                data.nama_ruas,
+                            text: ' Apakah Anda yakin ?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Ya, Hapus',
+                            cancelButtonText: 'Batal'
+                        }).then((r) => {
+                            if (r.isConfirmed) {
+                                table.draw();
+                                Swal.fire(
+                                    'Terhapus!',
+                                    'Ruas ' + data.nama_ruas +
+                                    ' Berhasil dihapus',
+                                    'success',
+                                );
+                            }
+                        })
+                    })
+                }
+            })
         })
-
-
 
         // select get data and change
         function kecamatan() {

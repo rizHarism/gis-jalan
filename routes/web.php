@@ -47,6 +47,7 @@ Route::get('/data/kelurahan/{id}/show', [KelurahanController::class, 'show']);
 Route::get('/ruas/kelurahan', [RuasJalanController::class, 'index']);
 Route::get('/ruas/kelurahan/datatables', [RuasJalanController::class, 'datatables']);
 Route::get('/ruas/{kec}/{kel}/kelurahan/', [RuasJalanController::class, 'filterRuas']);
+Route::get('/ruas/kelurahan/{id}/show', [RuasJalanController::class, 'show']);
 
 Route::get('/data/desa', function () {
     return view('desa.index');
