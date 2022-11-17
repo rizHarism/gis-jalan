@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
+use App\Models\KondisiJalan;
+use App\Models\Perkerasan;
 use App\Models\RuasJalan;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,5 +62,35 @@ class RuasJalanController extends Controller
         ];
 
         return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function create()
+    {
+        $kecamatan = Kecamatan::orderBy('nama', 'asc')->get();
+        $kelurahan = Kelurahan::orderBy('nama', 'asc')->get();
+        $kondisi = KondisiJalan::orderBy('id', 'asc')->get();
+        $perkerasan = Perkerasan::orderBy('id', 'asc')->get();
+        return view('kelurahan.form.index', [
+            'kelurahan' => $kelurahan,
+            'kecamatan' => $kecamatan,
+            'kondisi' => $kondisi,
+            'perkerasan' => $perkerasan,
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $ruasjalan = RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')->findOrFail($id);
+        $kecamatan = Kecamatan::orderBy('nama', 'asc')->get();
+        $kelurahan = Kelurahan::orderBy('nama', 'asc')->get();
+        $kondisi = KondisiJalan::orderBy('id', 'asc')->get();
+        $perkerasan = Perkerasan::orderBy('id', 'asc')->get();
+        return view('kelurahan.form.index', [
+            'edit' => $ruasjalan,
+            'kelurahan' => $kelurahan,
+            'kecamatan' => $kecamatan,
+            'kondisi' => $kondisi,
+            'perkerasan' => $perkerasan,
+        ]);
     }
 }

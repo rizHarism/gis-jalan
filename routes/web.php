@@ -48,6 +48,8 @@ Route::get('/ruas/kelurahan', [RuasJalanController::class, 'index']);
 Route::get('/ruas/kelurahan/datatables', [RuasJalanController::class, 'datatables']);
 Route::get('/ruas/{kec}/{kel}/kelurahan/', [RuasJalanController::class, 'filterRuas']);
 Route::get('/ruas/kelurahan/{id}/show', [RuasJalanController::class, 'show']);
+Route::get('/ruas/kelurahan/create', [RuasJalanController::class, 'create'])->name('ruas.kelurahan.create');
+Route::get('/ruas/kelurahan/{id}/edit', [RuasJalanController::class, 'edit'])->name('ruas.kelurahan.edit');
 
 Route::get('/data/desa', function () {
     return view('desa.index');

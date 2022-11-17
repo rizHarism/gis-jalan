@@ -38,7 +38,7 @@
     <script src="{{ asset('assets/shp/leaflet.shpfile.js') }}"></script>
     <script src="{{ asset('assets/shp/shp.js') }}"></script>
     {{-- turf js --}}
-    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <script src='{{ asset('assets/turf/turf.min.js') }}'></script>
     {{-- sidebar map v2 --}}
     <script src="{{ asset('assets/map-sidebar/leaflet-sidebar.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/map-sidebar/leaflet-sidebar.css') }}" />
@@ -237,7 +237,12 @@
                     // remove quote from text and parse to json
                     var geometry = JSON.parse(property.geometry.replace(/&quot;/g, '"'))
                     // console.log(geometry);
-                    var layer = L.geoJSON(geometry, {
+                    var buffered = turf.buffer(geometry, 5, {
+                        units: 'meters'
+                    });
+                    // var bufferedLayer = L.geoJSON(null);
+                    // bufferedLayer.addData(buffered);
+                    var layer = L.geoJSON(buffered, {
                         style: function(f) {
                             return style(property.kondisi_id)
                         },

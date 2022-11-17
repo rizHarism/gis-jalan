@@ -88,7 +88,7 @@
                         render: function(data) {
                             var id = data;
                             var editButton =
-                                "<i class='fas fa-edit open-modal' data-id=" + id +
+                                "<i class='fas fa-edit edit-data' data-id=" + id +
                                 "></i>";
                             var button = editButton;
 
@@ -155,6 +155,14 @@
                     })
                 }
             })
+        })
+
+        $(document).on("click", ".edit-data", function() {
+            var id = $(this).data('id');
+            // window.location.href = '/ruas/kelurahan/' + id + '/edit'
+            var editUrl = "{{ route('ruas.kelurahan.edit', ':id') }}";
+            editUrl = editUrl.replace(':id', id);
+            window.location.href = editUrl
         })
 
         // select get data and change

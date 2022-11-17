@@ -17,7 +17,7 @@ class RuasJalanSeeder extends Seeder
         //SEED RUAS JALAN FROM MASTER_RUAS_JALAN.CSV
         RuasJalan::truncate();
 
-        $csvFile = fopen(base_path("database/data-seeder/master_ruas_jalan.csv"), "r");
+        $csvFile = fopen(base_path("database/data-seeder/master_ruas_jalan_line.csv"), "r");
 
         $firstline = true;
         while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
