@@ -7,6 +7,7 @@ use App\Models\Perkerasan;
 use App\Models\RuasJalan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Symfony\Component\HttpFoundation\Response;
 
 class MapController extends Controller
 {
@@ -16,38 +17,84 @@ class MapController extends Controller
         return view('map.index');
     }
 
+    public function show($id)
+    {
+        $ruasjalan = RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')
+            ->where('id', $id)
+            ->get();
+
+        $response = [
+            'data' => $ruasjalan
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function getRuasId()
+    {
+
+        $ruasjalan = RuasJalan::select('id', 'nama_ruas as nama')->orderBy('id', 'asc')->get();
+        $response = [
+            'data' => $ruasjalan
+        ];
+
+        return response()->json($response, Response::HTTP_OK);
+    }
+
+    public function filterRuasId($id)
+    {
+        $_id = explode(',', $id);
+        $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+            ->with('kelurahan', 'kondisi', 'perkerasan')
+            ->whereIn('id', $_id)
+            ->get();
+        $response = [
+            'data' => $ruasjalan
+        ];
+
+        return response()->json($response, Response::HTTP_OK);;
+    }
+
     public function getPolygon()
     {
-        $ruasjalan = DataTables::of(RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')->whereIn('kondisi_id', [1, 2, 3, 4]))
-            ->addIndexColumn()
-            ->make(true);
+        $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+            ->with('kelurahan', 'kondisi', 'perkerasan')
+            ->whereIn('kondisi_id', [1, 2, 3, 4])
+            ->get();
+        $response = [
+            'data' => $ruasjalan
+        ];
 
-        return $ruasjalan;
+        return response()->json($response, Response::HTTP_OK);;
     }
 
     public function filterPolygon($kecamatan, $kelurahan, $kondisi)
     {
         $_kondisi = explode(",", $kondisi);
         if ($kecamatan == 0) {
-            $ruasjalan = DataTables::of(RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')
-                ->whereIn('kondisi_id', $_kondisi))
-                ->addIndexColumn()
-                ->make(true);
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+                ->with('kelurahan', 'kondisi', 'perkerasan')
+                ->whereIn('kondisi_id', $_kondisi)
+                ->get();
         } else if ($kecamatan !== 0 && $kelurahan == 0) {
-            $ruasjalan = DataTables::of(RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+                ->with('kelurahan', 'kondisi', 'perkerasan')
                 ->where('kecamatan_id', $kecamatan)
-                ->whereIn('kondisi_id', $_kondisi))
-                ->addIndexColumn()
-                ->make(true);
+                ->whereIn('kondisi_id', $_kondisi)
+                ->get();
         } else {
-            $ruasjalan = DataTables::of(RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+                ->with('kelurahan', 'kondisi', 'perkerasan')
                 ->where('kecamatan_id', $kecamatan)
                 ->where('kelurahan_id', $kelurahan)
-                ->whereIn('kondisi_id', $_kondisi))
-                ->addIndexColumn()
-                ->make(true);
+                ->whereIn('kondisi_id', $_kondisi)
+                ->get();
         }
-        // return $datatables->make(true);
-        return $ruasjalan;
+
+        $response = [
+            'data' => $ruasjalan
+        ];
+        // return $ruasjalan;
+        return response()->json($response, Response::HTTP_OK);;
     }
 }

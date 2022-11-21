@@ -22,7 +22,10 @@ use Illuminate\Support\Facades\Route;
 // route for map page
 Route::get('/', [MapController::class, 'index']);
 Route::get('/get/polygon', [MapController::class, 'getPolygon']);
+Route::get('/get/ruas/select', [MapController::class, 'getRuasId']);
+Route::get('/get/{id}/polygon', [MapController::class, 'show']);
 Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}', [MapController::class, 'filterPolygon']);
+Route::get('/get/{id}/ruas', [MapController::class, 'filterRuasId']);
 
 // route for select option list
 Route::get('/get/kecamatan', [KecamatanController::class, 'getKecamatan']);

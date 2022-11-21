@@ -10,7 +10,7 @@
                         <th>Penyedia Jasa</th>
                         <th>Biaya</th>
                         <th>Ruas</th>
-                        <th>Keterangam</th>
+                        <th>Keterangan</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -22,7 +22,7 @@
                         <th>Penyedia Jasa</th>
                         <th>Biaya</th>
                         <th>Ruas</th>
-                        <th>Keterangam</th>
+                        <th>Keterangan</th>
                         <th></th>
                         <th></th>
                     </tr>

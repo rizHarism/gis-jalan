@@ -29,6 +29,10 @@
     {{-- leaflet minimaps control layer --}}
     <script src="{{ asset('assets/leaflet/js/L.Control.Layers.Minimap.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/leaflet/css/control.layers.minimap.css') }}" />
+    {{-- leaflet geoman --}}
+    <script src="{{ asset('assets/leaflet/js/leaflet-geoman.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/leaflet/css/leaflet-geoman.css') }}" />
+
 
     {{-- fontawesome css --}}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -46,6 +50,21 @@
     {{-- select2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- admin lte theme --}}
+    {{-- <link rel="stylesheet" href="{{ asset('assets/admin-page/admin-lte/dist/css/adminlte.css') }}">
+    <script src="{{ asset('assets/admin-page/admin-lte/dist/js/adminlte.js') }}"></script> --}}
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+        integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA=="
+        crossorigin=""></script>
+
+    <!-- Load Esri Leaflet Vector from CDN -->
+    <script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js"
+        integrity="sha512-EMt/tpooNkBOxxQy2SOE1HgzWbg9u1gI6mT23Wl0eBWTwN9nuaPtLAaX9irNocMrHf0XhRzT8B0vXQ/bzD0I0w=="
+        crossorigin=""></script>
+
+
     <style>
         html,
         body #map-container {
@@ -80,12 +99,18 @@
 
 <body>
 
+    {{-- <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="{{ asset('assets/logo/kdr-logo.png') }}" alt="AdminLTELogo" height="175"
+            width="124">
+    </div> --}}
+
     <div id="map"></div>
     {{-- @include('layouts.map.navbar') --}}
     @include('layouts.map.login')
     @include('layouts.map.details')
 
     @include('layouts.map.sidebar')
+
 
 </body>
 
@@ -104,42 +129,53 @@
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
 
-    var stamen = L.tileLayer.provider('Stamen.Watercolor');
-
+    // var stamen = L.tileLayer.provider('Stamen.Watercolor');
+    var Stadia = L.tileLayer.provider('Stadia.Outdoors');
+    var Thunderforest = L.tileLayer(
+        'https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey={apikey}', {
+            attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            apikey: '7c352c8ff1244dd8b732e349e0b0fe8d',
+            maxZoom: 22
+        });
+    const apiKey =
+        'AAPKb10821df102a46a4b930958d7a6a06593sdla7i0cMWoosp7XXlYflDTAxsZMUq-oKvVOaom9B8CokPvJFd-sE88vOQ2B_rC';
+    var esri = L.esri.Vector.vectorBasemapLayer('ArcGIS:Imagery:Labels', {
+        apikey: 'AAPKb10821df102a46a4b930958d7a6a06593sdla7i0cMWoosp7XXlYflDTAxsZMUq-oKvVOaom9B8CokPvJFd-sE88vOQ2B_rC'
+    }).addTo(map);
 
     var baseMaps = {
         " SATELIT ": imagery,
         " OPEN STREET MAP ": osm,
-        " STAMEN ": stamen,
+        " STADIA ": Stadia,
+        " THUNDERFOREST ": Thunderforest,
     }
 
-
-
+    map.on("baselayerchange",
+        function(e) {
+            if (e.name == ' SATELIT ') {
+                esri.addTo(map);
+            } else {
+                map.removeLayer(esri);
+            }
+        });
     // layer control (add to sidebar)
-
-    var overlayControl = L.control.layers(null, null, {
-        collapsed: false,
-        autoZIndex: false
-    }).addTo(map);
 
     var basemapControl = L.control.layers.minimap(baseMaps, null, {
         collapsed: false,
         topPadding: 100
     }).addTo(map);
 
-    var htmlObjectBasemap = basemapControl.getContainer();
-    var htmlObjectOverlay = overlayControl.getContainer();
+    var htmlBasemap = basemapControl.getContainer();
 
-    var bm = document.getElementById('mini-basemap');
-    var ol = document.getElementById('overlay');
+    $('#mini-basemap').append(htmlBasemap);
 
-    function setParentLayer(el, newParent) {
-        newParent.appendChild(el);
-    }
-    setParentLayer(htmlObjectBasemap, bm);
-    setParentLayer(htmlObjectOverlay, ol);
+    // leaflet geoman draw control
+    map.pm.addControls({
+        position: 'topleft',
+        drawCircle: false,
+    });
 
-    // end of layer control script
+    // popup ruan jalan on click
     var popupContent = function(property, coordinate) {
         var data = `
                     <p class="text-center fw-bold mb-0"> ` + property.nama_ruas + `</p>
@@ -170,17 +206,46 @@
                     <table class="table table-striped">
                         <tr>
                             <td class="text-center"><a href="#" onclick="gMaps(` + coordinate + `)" style="text-decoration: none"><i class="fas fa-map-marker-alt"></i> Maps </a></td>
-                            <td class="text-center"> <a href="#" data-bs-toggle="modal" data-bs-target="#detailModal" style="text-decoration: none"><i class="fas fa-info-circle"></i> Detail</a></td>
+                            <td class="text-center"> <a href="#" data-bs-toggle="modal" id="detailOpen" data-id="` +
+            property.id + `" data-bs-target="#detailModal" style="text-decoration: none"><i class="fas fa-info-circle"></i> Detail</a></td>
                         </tr>
                     </table>
                     `;
-        // console.log(properties.No__Ruas);
 
         return data;
     }
 
-    $("#clear").on('click', function(e) {
-        console.log(e)
+    $("#clear").on('click', function(e) {})
+
+    $(document).on('click', "#detailOpen", function() {
+        let id = $(this).data('id');
+        $.ajax({
+            type: "GET",
+            url: '/get/' + id + '/polygon',
+            dataType: "json",
+            success: function(get) {
+                $.each(get.data, (i, data) => {
+                    const coordinate = "'" + data.middle_y + ',' + data
+                        .middle_x + "'"
+                    $('#nama, #nomor, #lingkungan, #kelKec, #panjang, #lebar,  #perkerasan, #utilitas, #koordinat, #kondisi')
+                        .html('')
+                    $('#nama').append(data.nama_ruas)
+                    $('#nomor').append(data.nomor_ruas)
+                    $('#lingkungan').append(data.lingkungan)
+                    $('#kelKec').append(data.kelurahan.nama + '/' + data.kecamatan.nama)
+                    $('#panjang').append(data.panjang + ' Meter')
+                    $('#lebar').append(data.lebar + ' Meter')
+                    $('#perkerasan').append(data.perkerasan.perkerasan)
+                    $('#utilitas').append(data.utilitas)
+                    $('#koordinat').append('<a href="#" onclick="gMaps(' + coordinate +
+                        ')" style="text-decoration: none">' + data.middle_x + ',' + data
+                        .middle_y + '</a>')
+                    $('#kondisi').append(data.kondisi.kondisi)
+                })
+
+            }
+        })
+
     })
 
     var style = function(k) {
@@ -208,7 +273,6 @@
 
     // open googlemaps in new window
     function gMaps(c) {
-        // console.log(c)
         url = "https://www.google.com/maps/search/" + c;
         window.open(url, '_blank');
     }
@@ -227,6 +291,7 @@
     }
 
     function getPolygon(url) {
+        var allRuas = L.featureGroup();
         $.ajax({
             type: "GET",
             url: url,
@@ -234,14 +299,10 @@
             success: function(get) {
                 var data = get.data;
                 $.each(data, (i, property) => {
-                    // remove quote from text and parse to json
                     var geometry = JSON.parse(property.geometry.replace(/&quot;/g, '"'))
-                    // console.log(geometry);
                     var buffered = turf.buffer(geometry, 5, {
                         units: 'meters'
                     });
-                    // var bufferedLayer = L.geoJSON(null);
-                    // bufferedLayer.addData(buffered);
                     var layer = L.geoJSON(buffered, {
                         style: function(f) {
                             return style(property.kondisi_id)
@@ -249,7 +310,7 @@
                         onEachFeature: function(f, l) {
                             var out = [];
                             var coordinate = "'" + property.middle_y + ',' + property
-                                .middle_y + "'";
+                                .middle_x + "'";
                             if (property) {
                                 l.bindPopup(popupContent(property,
                                     coordinate), {
@@ -258,15 +319,35 @@
                                 });
                             }
                         }
-                        // pmIgnore: true
                     });
-                    layer.addTo(map);
+                    layer.addTo(allRuas);
+                    allRuas.addTo(map);
                 })
+                map.fitBounds(allRuas.getBounds());
             }
         });
     };
 
     getPolygon(url);
+
+    function ruasId() {
+        $.ajax({
+            type: "GET",
+            url: '/get/ruas/select',
+            dataType: "json",
+            success: function(ruas) {
+                var listItems = ""
+                $.each(ruas.data, (i, data) => {
+                    listItems += "<option value='" + data.id + "'>" + data.nama + " - Ruas No  " +
+                        data
+                        .id +
+                        "</option>"
+                })
+                $("#no-ruas").append(listItems);
+            }
+        });
+    }
+    ruasId();
 
     function kecamatan() {
         $.ajax({
@@ -317,7 +398,16 @@
         kelurahan(id);
     });
 
-    // pencarian filter-ruas
+    // pencarian filter-ruas by no ruas
+    $("#ruas-satuan").on('click', function(e) {
+        e.preventDefault();
+        var ruas = $('.no-ruas').val();
+        clearLayer();
+        url = '/get/' + ruas + '/ruas'
+        getPolygon(url)
+    })
+
+    // pencarian filter-ruas by kecamatan
     $("#filter-ruas").on('submit', function(e) {
         e.preventDefault();
         var kecamatan = $('#kecamatan').val();
@@ -333,40 +423,21 @@
 
 <script>
     var sidebar = L.control.sidebar({
+            autopan: false,
             container: 'sidebar',
             position: 'right',
-            autopan: true
         })
         .addTo(map)
         .close();
-
-    // add panels dynamically to the sidebar
-    // sidebar
-    //     .addPanel({
-    //         id: 'js-api',
-    //         tab: '<i class="fa fa-gear"></i>',
-    //         title: 'JS API',
-    //         pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
-    //     })
-    // add a tab with a click callback, initially disabled
-    // .addPanel({
-    //     id: 'mail',
-    //     tab: '<i class="fa fa-envelope"></i>',
-    //     title: 'Messages',
-    //     button: function() {
-    //         alert('opened via JS callback')
-    //     },
-    //     disabled: false,
-    // })
 
     // be notified when a panel is opened
     sidebar.on('content', function(ev) {
         switch (ev.id) {
             case 'autopan':
-                sidebar.options.autopan = true;
+                sidebar.options.autopan = false;
                 break;
             default:
-                sidebar.options.autopan = true;
+                sidebar.options.autopan = false;
         }
     });
 
@@ -385,24 +456,22 @@
 <script>
     $(document).ready(function() {
         $('.no-ruas').select2({
+            placeholder: "Masukkan No/Nama Ruas..",
             width: '100%',
             theme: 'classic',
             dropdownParent: $("#search")
         });
-    });
-    $(document).ready(function() {
         $('.kecamatan').select2({
             width: '100%',
             theme: 'classic',
             dropdownParent: $("#search")
         });
-    });
-    $(document).ready(function() {
         $('.kelurahan').select2({
             width: '100%',
             theme: 'classic',
             dropdownParent: $("#search")
         });
+
     });
 </script>
 

@@ -85,7 +85,6 @@
                 order: 'applied'
             }).nodes().each(function(cell, i) {
                 cell.innerHTML = i + 1;
-                console.log(cell)
             });
         }).draw();
     });
