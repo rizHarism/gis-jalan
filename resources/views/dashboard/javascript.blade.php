@@ -2,17 +2,18 @@
     // $(document).ready(function() {
     //     $('#dashboard').addClass('active');
     // });
-    var url = window.location;
+    var urlw = window.location;
+    $(document).ready(function() {
+        // for sidebar menu entirely but not cover treeview
+        $('ul.nav-sidebar a').filter(function() {
+            return this.href == urlw;
+        }).addClass('active');
 
-    // for sidebar menu entirely but not cover treeview
-    $('ul.nav-sidebar a').filter(function() {
-        return this.href == url;
-    }).addClass('active');
-
-    // for treeview
-    $('ul.nav-treeview a').filter(function() {
-        return this.href == url;
-    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+        // for treeview
+        $('ul.nav-treeview a').filter(function() {
+            return this.href == urlw;
+        }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+    })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 
@@ -163,5 +164,23 @@
             $('#title-dashboard').append("DATA KECAMATAN " + nama_kec + " / KELURAHAN " + nama_kel);
         }
 
+    })
+</script>
+
+<script>
+    // $(document).ready(function() {
+    //     $('#dashboard').addClass('active');
+    // });
+    var urlw = window.location;
+    $(document).ready(function() {
+        // for sidebar menu entirely but not cover treeview
+        $('ul.nav-sidebar a').filter(function() {
+            return this.href == urlw;
+        }).addClass('active');
+
+        // for treeview
+        $('ul.nav-treeview a').filter(function() {
+            return this.href == urlw;
+        }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
     })
 </script>
