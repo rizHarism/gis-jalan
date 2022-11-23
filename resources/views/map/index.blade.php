@@ -169,11 +169,6 @@
 
     $('#mini-basemap').append(htmlBasemap);
 
-    // leaflet geoman draw control
-    map.pm.addControls({
-        position: 'topleft',
-        drawCircle: false,
-    });
 
     // popup ruan jalan on click
     var popupContent = function(property, coordinate) {
@@ -244,7 +239,29 @@
                 })
 
             }
-        })
+        });
+
+        $.ajax({
+            type: "GET",
+            url: '/get/' + id + '/pemeliharaan',
+            dataType: "json",
+            success: function(get) {
+                let idx = 1;
+                $("#t-pemeliharaan").html("");
+                $.each(get.data, (i, data) => {
+                    $("#t-pemeliharaan").append(`
+                    <tr>
+                        <th scope="row">` + idx + `</th>
+                        <td>` + data.pelaksanaan + `</td>
+                        <td>` + data.penyedia.nama + `</td>
+                        <td>` + data.biaya + `</td>
+                        <td>` + data.keterangan + `</td>
+                    </tr>`)
+                    idx++;
+                })
+
+            }
+        });
 
     })
 
@@ -270,6 +287,7 @@
     var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
 
     shpBatas.addTo(map);
+    shpBatas.options.pmIgnore = true;
 
     // open googlemaps in new window
     function gMaps(c) {
@@ -307,6 +325,7 @@
                         style: function(f) {
                             return style(property.kondisi_id)
                         },
+                        pmIgnore: true,
                         onEachFeature: function(f, l) {
                             var out = [];
                             var coordinate = "'" + property.middle_y + ',' + property
@@ -321,8 +340,8 @@
                         }
                     });
                     layer.addTo(allRuas);
-                    allRuas.addTo(map);
                 })
+                allRuas.addTo(map);
                 map.fitBounds(allRuas.getBounds());
             }
         });
@@ -473,6 +492,67 @@
         });
 
     });
+
+    // LEAFLET GEOMAN
+
+    // add draw control
+
+    map.pm.addControls({
+        position: 'topleft',
+        drawMarker: false,
+        drawRectangle: false,
+        drawCircleMarker: false,
+        drawText: false,
+        dragMode: false,
+        cutPolygon: false,
+        rotateMode: false
+    });
+
+    // listen draw on create
+
+    map.on("pm:create", (e) => {
+        var ukur = (e) => {
+            var layer = e.layer,
+                shape = e.shape,
+                nf = Intl.NumberFormat();
+            if (shape === 'Polygon') {
+                var seeArea = turf.area(layer.toGeoJSON());
+                var ha = seeArea / 10000;
+                var mPersegi = seeArea;
+                if (mPersegi > 10000) {
+                    layer.bindPopup("Luas " + nf.format(ha.toFixed(2)) + " Ha");
+                } else {
+                    layer.bindPopup("Luas " + nf.format(mPersegi.toFixed(2)) + " Meter²");
+                }
+            }
+
+            if (shape === 'Line') {
+
+                var seeArea = turf.length(layer.toGeoJSON());
+                var meter = seeArea * 1000;
+                var kilometer = seeArea;
+                if (meter < 1000) {
+                    layer.bindPopup("Jarak " + nf.format(meter.toFixed(2)) + " Meter");
+                } else {
+                    layer.bindPopup("Jarak " + nf.format(kilometer.toFixed(2)) + " Kilometer");
+                }
+            }
+
+            if (shape === 'Circle') {
+                console.log(layer._mRadius)
+                if (layer._mRadius < 1000) {
+                    layer.bindPopup("Radius " + nf.format(layer._mRadius.toFixed(2)) + " Meter");
+                } else {
+                    layer.bindPopup("Radius " + nf.format((layer._mRadius / 1000).toFixed(2)) +
+                        " Kilometer");
+                }
+            }
+        }
+        ukur(e);
+        e.layer.on("pm:edit", (e) => {
+            ukur(e);
+        })
+    })
 </script>
 
 </html>

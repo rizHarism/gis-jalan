@@ -12,7 +12,7 @@
 
         <!-- bottom aligned tabs -->
         <ul role="tablist">
-            <li><a href="https://github.com/nickpeihl/leaflet-sidebar-v2"><i class="fa fa-info"></i></a></li>
+            <li><a href="#"><i class="fa fa-info"></i></a></li>
         </ul>
     </div>
 

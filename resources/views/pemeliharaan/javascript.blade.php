@@ -33,26 +33,32 @@
         alert('edit')
     });
     $(document).ready(function() {
-        var table = $('#example').DataTable({
+        var table = $('#pemeliharaan').DataTable({
             processing: true,
-            ajax: "{{ asset('assets/shp/pemeliharaan.json') }}",
+            ajax: {
+                url: '/data/pemeliharaan/datatables',
+                method: 'GET'
+            },
             columns: [{
-                    "data": null
+                    data: 'DT_RowIndex'
                 },
                 {
-                    data: 'properties.tanggal'
+                    data: 'pelaksanaan'
                 },
                 {
-                    data: 'properties.penyedia_jasa'
+                    data: 'penyedia_jasa_id'
                 },
                 {
-                    data: 'properties.biaya'
+                    data: 'biaya'
                 },
                 {
-                    data: 'properties.ruas'
+                    data: 'ruas_id',
+                    render: function(data) {
+                        return JSON.parse(data.replace(/&quot;/g, '"'));
+                    }
                 },
                 {
-                    data: 'properties.keterangan'
+                    data: 'keterangan'
                 },
                 {
                     data: null,

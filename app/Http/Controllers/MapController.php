@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kecamatan;
 use App\Models\Perkerasan;
 use App\Models\RuasJalan;
+use App\Models\Pemeliharaan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,5 +97,17 @@ class MapController extends Controller
         ];
         // return $ruasjalan;
         return response()->json($response, Response::HTTP_OK);;
+    }
+
+    public function pemeliharaan($id)
+    {
+        $pemeliharaan = Pemeliharaan::whereJsonContains('ruas_id', $id)
+            ->with('penyedia:id,nama')
+            ->orderBy('pelaksanaan', 'desc')
+            ->get();
+        $response = [
+            'data' => $pemeliharaan
+        ];
+        return response()->json($response, Response::HTTP_OK);
     }
 }

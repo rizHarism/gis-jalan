@@ -4,6 +4,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KelurahanController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\PemeliharaanController;
+use App\Http\Controllers\PenyediaController;
 use App\Http\Controllers\RuasJalanController;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +28,8 @@ Route::get('/get/ruas/select', [MapController::class, 'getRuasId']);
 Route::get('/get/{id}/polygon', [MapController::class, 'show']);
 Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}', [MapController::class, 'filterPolygon']);
 Route::get('/get/{id}/ruas', [MapController::class, 'filterRuasId']);
+Route::get('/get/{id}/pemeliharaan', [MapController::class, 'pemeliharaan']);
+// Route::get('/get/pemeliharaan/ruas', [MapController::class, 'test']);
 
 // route for select option list
 Route::get('/get/kecamatan', [KecamatanController::class, 'getKecamatan']);
@@ -58,13 +62,12 @@ Route::get('/data/desa', function () {
     return view('desa.index');
 });
 
-Route::get('/data/penyediajasa', function () {
-    return view('penyedia.index');
-});
+Route::get('/data/penyediajasa', [PenyediaController::class, 'index']);
+Route::get('/data/penyediajasa/datatables', [PenyediaController::class, 'datatables']);
 
-Route::get('/data/pemeliharaan', function () {
-    return view('pemeliharaan.index');
-});
+Route::get('/data/pemeliharaan', [PemeliharaanController::class, 'index']);
+Route::get('/data/pemeliharaan/datatables', [PemeliharaanController::class, 'datatables']);
+Route::get('/data/pemeliharaan/tesJson', [PemeliharaanController::class, 'tesJson']);
 
 Route::get('/data/user', function () {
     return view('user.index');

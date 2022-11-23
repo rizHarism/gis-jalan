@@ -75,12 +75,12 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Tanggal Pemeliharaan</th>
                                             <th scope="col">Penyedia Jasa</th>
-                                            <th scope="col">Biaya</th>
+                                            <th scope="col">Anggaran</th>
                                             <th scope="col">Keterangan</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="t-pemeliharaan">
+                                        {{-- <tr>
                                             <th scope="row">1</th>
                                             <td>15-02-2020</td>
                                             <td>CV. Jaya Bersama</td>
@@ -100,7 +100,7 @@
                                             <td>CV. Bangun Raharja</td>
                                             <td>Rp 321.000.000</td>
                                             <td>Penambalan lubang dan penggunaan bahu jalan</td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
