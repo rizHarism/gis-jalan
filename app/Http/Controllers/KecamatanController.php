@@ -49,7 +49,6 @@ class KecamatanController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
         $this->validate($request, [
             'nama' => 'required|unique:kecamatan,nama',
             'kode' => 'required|unique:kecamatan,kode_kecamatan'
@@ -61,7 +60,7 @@ class KecamatanController extends Controller
         ]);
 
         if ($kecamatan) {
-            return response("Data sudah berhasil ditambahkan!");
+            return response("Data Kecamatan sudah berhasil ditambahkan!");
         } else {
             return response("Data gagal ditambahkan!");
         };

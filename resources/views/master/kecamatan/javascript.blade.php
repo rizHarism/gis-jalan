@@ -164,12 +164,6 @@
                 }
             });
             $('#modal-form').modal('hide');
-            // Swal.fire(
-            //     'Data Tersimpan',
-            //     'Berhasil',
-            //     'success'
-            // )
-
         })
 
         // delete button

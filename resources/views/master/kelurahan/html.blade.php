@@ -2,6 +2,8 @@
     <div class="card">
         <div class="card-header">Data Master Kelurahan</div>
         <div class="card-body">
+            <button class="btn btn-primary tambah-data"><i class="fa fa-plus"></i> Data Kelurahan</button>
+            <hr>
             <table id="kelurahan" class="display stripped" style="width:100%">
                 <thead>
                     <tr>
@@ -34,10 +36,10 @@
 
 {{-- edit modal --}}
 
-<div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
+<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="edit-form">
+            <form id="kelurahan-form">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal-title">Modal title</h5>

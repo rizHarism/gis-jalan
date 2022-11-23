@@ -52,6 +52,9 @@ Route::delete('/data/kecamatan/{id}/destroy', [KecamatanController::class, 'dest
 Route::get('/data/kelurahan', [KelurahanController::class, 'index']);
 Route::get('/data/kelurahan/datatables', [KelurahanController::class, 'datatables']);
 Route::get('/data/kelurahan/{id}/show', [KelurahanController::class, 'show']);
+Route::post('/data/kelurahan/store', [KelurahanController::class, 'store'])->name('kelurahan.store');
+Route::put('/data/kelurahan/{id}/update', [KelurahanController::class, 'update'])->name('kelurahan.update');
+Route::delete('/data/kelurahan/{id}/destroy', [KelurahanController::class, 'destroy'])->name('kelurahan.destroy');
 
 // route for data ruas jalan kelurahan
 Route::get('/ruas/kelurahan', [RuasJalanController::class, 'index']);
