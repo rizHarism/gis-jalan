@@ -44,6 +44,9 @@ Route::get('/get/ruas/{kec}/{kel}/dashboard', [DashboardController::class, 'getF
 Route::get('/data/kecamatan', [KecamatanController::class, 'index']);
 Route::get('/data/kecamatan/datatables', [KecamatanController::class, 'datatables']);
 Route::get('/data/kecamatan/{id}/show', [KecamatanController::class, 'show']);
+Route::post('/data/kecamatan/store', [KecamatanController::class, 'store'])->name('kecamatan.store');
+Route::put('/data/kecamatan/{id}/update', [KecamatanController::class, 'update'])->name('kecamatan.update');
+Route::delete('/data/kecamatan/{id}/destroy', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy');
 
 // route for master kelurahan
 Route::get('/data/kelurahan', [KelurahanController::class, 'index']);
