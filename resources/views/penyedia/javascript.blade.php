@@ -1,19 +1,19 @@
 <script>
-    var url = window.location;
+    var urlw = window.location;
 
     // for sidebar menu entirely but not cover treeview
     $('ul.nav-sidebar a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).addClass('active');
 
     // for treeview
     $('ul.nav-treeview a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>
 
 <script>
-    $('#example').on('click', 'td.editor-delete', function(e) {
+    $('#penyedia-jasa').on('click', 'td.editor-delete', function(e) {
         e.preventDefault();
 
         // editor.remove($(this).closest('tr'), {
@@ -23,7 +23,7 @@
         // });
         alert('delete')
     });
-    $('#example').on('click', 'td.editor-edit', function(e) {
+    $('#penyedia-jasa').on('click', 'td.editor-edit', function(e) {
         e.preventDefault();
 
         // editor.edit($(this).closest('tr'), {
@@ -33,42 +33,56 @@
         alert('edit')
     });
     $(document).ready(function() {
-        var table = $('#example').DataTable({
+        var table = $('#penyedia-jasa').DataTable({
             processing: true,
-            ajax: "{{ asset('assets/shp/penyedia-jasa.json') }}",
+            ajax: {
+                url: '/data/penyediajasa/datatables',
+                method: 'GET'
+            },
             columns: [{
-                    "data": null
+                    data: 'DT_RowIndex'
                 },
                 {
-                    data: 'properties.nama'
+                    data: 'nama'
                 },
                 {
-                    data: 'properties.alamat'
+                    data: 'alamat'
                 },
                 {
-                    data: 'properties.direktur'
+                    data: 'direktur'
                 },
                 {
-                    data: 'properties.nib'
+                    data: 'nib'
                 },
                 {
-                    data: 'properties.npwp'
+                    data: 'npwp'
                 },
                 {
-                    data: null,
-                    className: "dt-center editor-edit",
-                    defaultContent: '<i class="fa fa-pencil"></i>',
-                    orderable: false
+                    data: 'id',
+                    width: '10px',
+                    orderable: false,
+                    render: function(data) {
+                        var id = data;
+                        var editButton =
+                            "<i class='fas fa-edit open-modal' data-id=" + id + " ></i>";
+                        var button = editButton;
+
+                        return button;
+                    }
                 },
                 {
-                    data: null,
-                    className: "dt-center editor-delete",
-                    defaultContent: '<i class="fa fa-trash"></i>',
-                    orderable: false
+                    data: 'id',
+                    width: '10px',
+                    orderable: false,
+                    render: function(data) {
+                        var id = data;
+                        var deleteButton =
+                            "<i class='fas fa-trash-alt delete-data' data-id=" + id + "'></i>";
+                        var button = deleteButton;
+
+                        return button;
+                    }
                 }
-            ],
-            order: [
-                [1, 'asc']
             ],
         });
 
@@ -83,4 +97,18 @@
             });
         }).draw();
     });
+</script>
+
+<script>
+    var urlw = window.location;
+
+    // for sidebar menu entirely but not cover treeview
+    $('ul.nav-sidebar a').filter(function() {
+        return this.href == urlw;
+    }).addClass('active');
+
+    // for treeview
+    $('ul.nav-treeview a').filter(function() {
+        return this.href == urlw;
+    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>

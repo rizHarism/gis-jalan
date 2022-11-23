@@ -12,7 +12,7 @@
 
         <!-- bottom aligned tabs -->
         <ul role="tablist">
-            <li><a href="https://github.com/nickpeihl/leaflet-sidebar-v2"><i class="fa fa-info"></i></a></li>
+            <li><a href="#"><i class="fa fa-info"></i></a></li>
         </ul>
     </div>
 
@@ -20,11 +20,13 @@
     <div class="leaflet-sidebar-content">
         <div class="leaflet-sidebar-pane" id="home">
             <h1 class="leaflet-sidebar-header">
-                Layer Control
+                Peta Dasar
                 <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
             </h1>
-
-            <div id="mini-basemap"></div>
+            <div class="col border border-3 rounded mt-3 p-2" style="height: 560px">
+                <h6>Silahkan Pilih Salah Satu Peta Dasar</h6>
+                <div id="mini-basemap"></div>
+            </div>
             <div id="separator">
                 <hr style="width:100%;text-align:left;margin-left:0">
             </div>
@@ -33,57 +35,23 @@
 
         <div class="leaflet-sidebar-pane" id="search">
             <h1 class="leaflet-sidebar-header">
-                Search
+                Pencarian Ruas
                 <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
             </h1>
-            <div id="search-ruas" class="mt-3">
-                <label for="pencarianRuas">
-                    <h6>Pencarian Berdasar Nomor atau Nama Ruas</h6>
-                </label>
-                <select name="pencarianRuas" class="no-ruas" multiple="multiple" id="no-ruas">
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                    <option value="1">Kanigoro</option>
-                    <option value="2">Srengat</option>
-                    <option value="3">Wlingi</option>
-                </select>
-                <div class="mt-3">
-                    <button class="btn btn-primary btn-sm">Cari</button>
+            <form method="" class="border border-2 rounded p-2 mt-2">
+                <div id="search-ruas" class="">
+                    <label for="pencarianRuas">
+                        <h6>Pencarian Berdasar Nomor atau Nama Ruas</h6>
+                    </label>
+                    <select name="pencarianRuas" class="no-ruas" multiple="multiple" id="no-ruas">
+                    </select>
+                    <div class="mt-3">
+                        <button class="btn btn-primary btn-sm custom" id="ruas-satuan">Cari</button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <hr>
-            <form method="" id="filter-ruas">
+            <form method="" class="border border-2 rounded p-2" id="filter-ruas">
                 {{ csrf_field() }}
                 <h6> Pencarian Berdasarkan Kecamatan / Kelurahan</h6>
                 <label for="kecamatan-select">
@@ -112,8 +80,7 @@
                                 </label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="2" id="sedang"
-                                    checked>
+                                <input class="form-check-input" type="checkbox" value="2" id="sedang" checked>
                                 <label class="form-check-label" for="sedang">
                                     Sedang
                                 </label>
@@ -128,18 +95,17 @@
                                 </label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="4" id="rusak-berat"
-                                    checked>
+                                <input class="form-check-input" type="checkbox" value="4" id="rusak-berat" checked>
                                 <label class="form-check-label" for="rusak-berat">
                                     Rusak Berat
                                 </label>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-                <button class="btn btn-primary btn-sm">Cari</button>
+                <div class="mt-3">
+                    <button class="btn btn-primary btn-sm custom">Cari</button>
+                </div>
             </form>
 
         </div>

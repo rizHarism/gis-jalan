@@ -20,7 +20,6 @@ class CreatePemeliharaanTable extends Migration
             $table->integer('biaya');
             $table->json('ruas_id');
             $table->string('keterangan');
-
             $table->timestamps();
         });
     }

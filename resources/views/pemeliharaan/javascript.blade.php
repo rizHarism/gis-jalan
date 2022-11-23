@@ -1,14 +1,14 @@
 <script>
-    var url = window.location;
+    var urlw = window.location;
 
     // for sidebar menu entirely but not cover treeview
     $('ul.nav-sidebar a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).addClass('active');
 
     // for treeview
     $('ul.nav-treeview a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>
 
@@ -33,26 +33,32 @@
         alert('edit')
     });
     $(document).ready(function() {
-        var table = $('#example').DataTable({
+        var table = $('#pemeliharaan').DataTable({
             processing: true,
-            ajax: "{{ asset('assets/shp/pemeliharaan.json') }}",
+            ajax: {
+                url: '/data/pemeliharaan/datatables',
+                method: 'GET'
+            },
             columns: [{
-                    "data": null
+                    data: 'DT_RowIndex'
                 },
                 {
-                    data: 'properties.tanggal'
+                    data: 'pelaksanaan'
                 },
                 {
-                    data: 'properties.penyedia_jasa'
+                    data: 'penyedia_jasa_id'
                 },
                 {
-                    data: 'properties.biaya'
+                    data: 'biaya'
                 },
                 {
-                    data: 'properties.ruas'
+                    data: 'ruas_id',
+                    render: function(data) {
+                        return JSON.parse(data.replace(/&quot;/g, '"'));
+                    }
                 },
                 {
-                    data: 'properties.keterangan'
+                    data: 'keterangan'
                 },
                 {
                     data: null,
@@ -83,4 +89,18 @@
             });
         }).draw();
     });
+</script>
+
+<script>
+    var url = window.location;
+
+    // for sidebar menu entirely but not cover treeview
+    $('ul.nav-sidebar a').filter(function() {
+        return this.href == url;
+    }).addClass('active');
+
+    // for treeview
+    $('ul.nav-treeview a').filter(function() {
+        return this.href == url;
+    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>

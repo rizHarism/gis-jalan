@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">Data Penyedia Jasa</div>
         <div class="card-body">
-            <table id="example" class="display stripped" style="width:100%">
+            <table id="penyedia-jasa" class="display stripped" style="width:100%">
                 <thead>
                     <tr>
                         <th>#</th>

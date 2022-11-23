@@ -12,7 +12,7 @@
 <!-- ChartJS -->
 <script src="{{ asset('assets/admin-page/admin-lte/plugins/chart.js/Chart.min.js') }}"></script>
 <!-- Sparkline -->
-<script src="{{ asset('assets/admin-page/admin-lte/plugins/sparklines/sparkline.js') }}"></script>
+{{-- <script src="{{ asset('assets/admin-page/admin-lte/plugins/sparklines/sparkline.js') }}"></script> --}}
 <!-- JQVMap -->
 <script src="{{ asset('assets/admin-page/admin-lte/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
 <script src="{{ asset('assets/admin-page/admin-lte/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
@@ -35,7 +35,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('assets/admin-page/admin-lte/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('assets/admin-page/admin-lte/dist/js/pages/dashboard.js') }}"></script>
+{{-- <script src="{{ asset('assets/admin-page/admin-lte/dist/js/pages/dashboard.js') }}"></script> --}}
 {{-- data tables --}}
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 {{-- select2 --}}

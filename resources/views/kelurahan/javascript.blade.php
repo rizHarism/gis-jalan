@@ -2,16 +2,16 @@
     // $(document).ready(function() {
     //     // $('#dashboard').addClass('active');
     // });
-    var url = window.location;
+    var urlw = window.location;
 
     // for sidebar menu entirely but not cover treeview
     $('ul.nav-sidebar a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).addClass('active');
 
     // for treeview
     $('ul.nav-treeview a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>
 
@@ -238,4 +238,21 @@
 
         })
     });
+</script>
+
+<script>
+    // $(document).ready(function() {
+    //     // $('#dashboard').addClass('active');
+    // });
+    var urlw = window.location;
+
+    // for sidebar menu entirely but not cover treeview
+    $('ul.nav-sidebar a').filter(function() {
+        return this.href == urlw;
+    }).addClass('active');
+
+    // for treeview
+    $('ul.nav-treeview a').filter(function() {
+        return this.href == urlw;
+    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>

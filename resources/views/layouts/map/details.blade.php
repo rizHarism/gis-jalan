@@ -6,11 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{-- tabs --}}
                 <div class="container-fluid">
-                    {{-- <div class="card"> --}}
-                    {{-- <h5 class="card-header">Featured</h5> --}}
-                    {{-- <div class="card-body"> --}}
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
@@ -29,43 +25,43 @@
                                 <table class="table table-sm table-striped">
                                     <tr>
                                         <th>Nama Ruas </th>
-                                        <td>Jalan Cimandiri</td>
+                                        <td id="nama">Jalan Cimandiri</td>
                                     </tr>
                                     <tr>
                                         <th>No Ruas </th>
-                                        <td>170</td>
+                                        <td id="nomor">170</td>
                                     </tr>
                                     <tr>
                                         <th>Lingkungan </th>
-                                        <td>Bence</td>
+                                        <td id="lingkungan">Bence</td>
                                     </tr>
                                     <tr>
                                         <th>Kelurahan / Kecamatan </th>
-                                        <td>Bence / Garum</td>
+                                        <td id="kelKec">Bence / Garum</td>
                                     </tr>
                                     <tr>
                                         <th>Panjang </th>
-                                        <td>39 Meter</td>
+                                        <td id="panjang">39 Meter</td>
                                     </tr>
                                     <tr>
                                         <th>Lebar </th>
-                                        <td>3 Meter</td>
+                                        <td id="lebar">3 Meter</td>
                                     </tr>
                                     <tr>
                                         <th>Tipe Perkerasan </th>
-                                        <td>Aspal</td>
+                                        <td id="perkerasan">Aspal</td>
                                     </tr>
                                     <tr>
                                         <th>Utilitas </th>
-                                        <td>Bahu Jalan</td>
+                                        <td id="utilitas">Bahu Jalan</td>
                                     </tr>
                                     <tr>
                                         <th>Koordinat Center </th>
-                                        <td>112.233218589 , -8.06578902654</td>
+                                        <td id="koordinat">112.233218589 , -8.06578902654</td>
                                     </tr>
                                     <tr>
                                         <th>Kondisi Jalan </th>
-                                        <td>Rusak Berat</td>
+                                        <td id="kondisi">Rusak Berat</td>
                                     </tr>
                                 </table>
                             </div>
@@ -79,12 +75,12 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Tanggal Pemeliharaan</th>
                                             <th scope="col">Penyedia Jasa</th>
-                                            <th scope="col">Biaya</th>
+                                            <th scope="col">Anggaran</th>
                                             <th scope="col">Keterangan</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="t-pemeliharaan">
+                                        {{-- <tr>
                                             <th scope="row">1</th>
                                             <td>15-02-2020</td>
                                             <td>CV. Jaya Bersama</td>
@@ -104,7 +100,7 @@
                                             <td>CV. Bangun Raharja</td>
                                             <td>Rp 321.000.000</td>
                                             <td>Penambalan lubang dan penggunaan bahu jalan</td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
