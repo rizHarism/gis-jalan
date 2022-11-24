@@ -103,6 +103,52 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-2">
+                    <label for="kecamatan-select">
+                        Kondisi Jalan
+                    </label>
+                    <div class="row mt-2" id="perkerasan-cek">
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="1" id="hotmix"
+                                    checked>
+                                <label class="form-check-label" for="hotmix">
+                                    Hotmix
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="2" id="aspal"
+                                    checked>
+                                <label class="form-check-label" for="aspal">
+                                    Aspal
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="3" id="beton"
+                                    checked>
+                                <label class="form-check-label" for="beton">
+                                    Beton
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 justify-content-center">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="4" id="paving"
+                                    checked>
+                                <label class="form-check-label" for="paving">
+                                    Paving
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="4" id="tanah"
+                                    checked>
+                                <label class="form-check-label" for="tanah">
+                                    Tanah
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="mt-3">
                     <button class="btn btn-primary btn-sm custom">Cari</button>
                 </div>

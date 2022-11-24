@@ -26,7 +26,7 @@ Route::get('/', [MapController::class, 'index']);
 Route::get('/get/polygon', [MapController::class, 'getPolygon']);
 Route::get('/get/ruas/select', [MapController::class, 'getRuasId']);
 Route::get('/get/{id}/polygon', [MapController::class, 'show']);
-Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}', [MapController::class, 'filterPolygon']);
+Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}/{perkerasan}', [MapController::class, 'filterPolygon']);
 Route::get('/get/{id}/ruas', [MapController::class, 'filterRuasId']);
 Route::get('/get/{id}/pemeliharaan', [MapController::class, 'pemeliharaan']);
 // Route::get('/get/pemeliharaan/ruas', [MapController::class, 'test']);

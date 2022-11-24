@@ -45,7 +45,7 @@ class MapController extends Controller
     public function filterRuasId($id)
     {
         $_id = explode(',', $id);
-        $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+        $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_y', 'geometry')
             ->with('kelurahan', 'kondisi', 'perkerasan')
             ->whereIn('id', $_id)
             ->get();
@@ -58,7 +58,7 @@ class MapController extends Controller
 
     public function getPolygon()
     {
-        $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+        $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_y', 'geometry')
             ->with('kelurahan', 'kondisi', 'perkerasan')
             ->whereIn('kondisi_id', [1, 2, 3, 4])
             ->get();
@@ -69,26 +69,30 @@ class MapController extends Controller
         return response()->json($response, Response::HTTP_OK);;
     }
 
-    public function filterPolygon($kecamatan, $kelurahan, $kondisi)
+    public function filterPolygon($kecamatan, $kelurahan, $kondisi, $perkerasan)
     {
         $_kondisi = explode(",", $kondisi);
+        $_perkerasan = explode(",", $perkerasan);
         if ($kecamatan == 0) {
-            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_y', 'geometry')
                 ->with('kelurahan', 'kondisi', 'perkerasan')
                 ->whereIn('kondisi_id', $_kondisi)
+                ->whereIn('perkerasan_id', $_perkerasan)
                 ->get();
         } else if ($kecamatan !== 0 && $kelurahan == 0) {
-            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_x', 'geometry')
                 ->with('kelurahan', 'kondisi', 'perkerasan')
                 ->where('kecamatan_id', $kecamatan)
                 ->whereIn('kondisi_id', $_kondisi)
+                ->whereIn('perkerasan_id', $_perkerasan)
                 ->get();
         } else {
-            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'geometry')
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_x', 'geometry')
                 ->with('kelurahan', 'kondisi', 'perkerasan')
                 ->where('kecamatan_id', $kecamatan)
                 ->where('kelurahan_id', $kelurahan)
                 ->whereIn('kondisi_id', $_kondisi)
+                ->whereIn('perkerasan_id', $_perkerasan)
                 ->get();
         }
 

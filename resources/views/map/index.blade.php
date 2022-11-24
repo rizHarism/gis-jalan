@@ -347,7 +347,6 @@
                     layer.addTo(allRuas);
                 })
                 allRuas.addTo(map);
-                console.log(allRuas.getBounds().getCenter())
                 map.fitBounds(allRuas.getBounds());
             }
         });
@@ -440,8 +439,11 @@
         var kondisi = $("#kondisi-cek input:checkbox:checked").map(function() {
             return $(this).val();
         }).get();
+        var perkerasan = $("#perkerasan-cek input:checkbox:checked").map(function() {
+            return $(this).val();
+        }).get();
         clearLayer();
-        url = '/get/' + kecamatan + '/' + kelurahan + '/' + kondisi
+        url = '/get/' + kecamatan + '/' + kelurahan + '/' + kondisi + '/' + perkerasan
         getPolygon(url)
     })
 </script>
@@ -545,7 +547,6 @@
             }
 
             if (shape === 'Circle') {
-                console.log(layer._mRadius)
                 if (layer._mRadius < 1000) {
                     layer.bindPopup("Radius " + nf.format(layer._mRadius.toFixed(2)) + " Meter");
                 } else {
