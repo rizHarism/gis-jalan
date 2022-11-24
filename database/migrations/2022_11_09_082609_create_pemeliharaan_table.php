@@ -18,7 +18,8 @@ class CreatePemeliharaanTable extends Migration
             $table->date('pelaksanaan');
             $table->integer('penyedia_jasa_id');
             $table->integer('biaya');
-            $table->json('ruas_id');
+            // $table->json('ruas_id');
+            $table->longText('ruas_id');
             $table->string('keterangan');
             $table->timestamps();
         });
