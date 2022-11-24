@@ -5,35 +5,14 @@
             <hr>
             <div class="containr">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6 border map">
                         <div id="map" style="height: 70vh">
                         </div>
                         <div>
-                            <div class="form-group">
-                                <label class="font-italic font-weight-normal" for="geometry">geometry :</label>
-                                <textarea class="form-control" id="geometry" rows="3">{{ $edit['geometry'] ?? '' }}</textarea>
-                                <label class="font-italic font-weight-normal" for="startx">startx :</label>
-                                <input type="text" class="form-control form-control-sm" id="startx"
-                                    value="{{ $edit['start_x'] ?? '' }}">
-                                <label class="font-italic font-weight-normal" for="starty">starty :</label>
-                                <input type="text" class="form-control form-control-sm" id="starty"
-                                    value="{{ $edit['start_y'] ?? '' }}">
-                                <label class="font-italic font-weight-normal" for="startx">midx :</label>
-                                <input type="text" class="form-control form-control-sm" id="midx"
-                                    value="{{ $edit['middle_x'] ?? '' }}">
-                                <label class="font-italic font-weight-normal" for="starty">midy :</label>
-                                <input type="text" class="form-control form-control-sm" id="midy"
-                                    value="{{ $edit['middle_y'] ?? '' }}">
-                                <label class="font-italic font-weight-normal" for="startx">endx :</label>
-                                <input type="text" class="form-control form-control-sm" id="endx"
-                                    value="{{ $edit['end_x'] ?? '' }}">
-                                <label class="font-italic font-weight-normal" for="starty">endy :</label>
-                                <input type="text" class="form-control form-control-sm" id="endy"
-                                    value="{{ $edit['end_y'] ?? '' }}">
-                            </div>
+
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 border">
                         <form class="">
                             <div class="form-group">
                                 <label class="font-italic font-weight-normal" for="namaRuas">Nama Ruas :</label>
@@ -127,8 +106,7 @@
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="perkerasan">Perkerasan
                                             :</label>
-                                        <select class="form-control form-control-sm" name="perkerasan"
-                                            id="perkerasan">
+                                        <select class="form-control form-control-sm" name="perkerasan" id="perkerasan">
                                             <option value="">-- Pilih perkerasan Jalan --</option>
                                             @foreach ($perkerasan as $_perkerasan)
                                                 <option value="{{ $_perkerasan['id'] }}"
@@ -144,7 +122,28 @@
                                 <input type="text" class="form-control form-control-sm" id="utilitas"
                                     value="{{ $edit['utilitas'] ?? '' }}">
                             </div>
-
+                            <div class="form-group">
+                                {{-- <label class="font-italic font-weight-normal" for="geometry">geometry :</label> --}}
+                                <textarea class="form-control" id="geometry" rows="3" hidden>{{ $edit['geometry'] ?? '' }}</textarea>
+                                {{-- <label class="font-italic font-weight-normal" for="startx">startx :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="startx"
+                                    value="{{ $edit['start_x'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="starty">starty :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="starty"
+                                    value="{{ $edit['start_y'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="startx">midx :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="midx"
+                                    value="{{ $edit['middle_x'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="starty">midy :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="midy"
+                                    value="{{ $edit['middle_y'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="startx">endx :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="endx"
+                                    value="{{ $edit['end_x'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="starty">endy :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="endy"
+                                    value="{{ $edit['end_y'] ?? '' }}">
+                            </div>
                             <button type="submit" class="btn btn-primary float-right custom">Simpan</button>
                             <button type="button" class="btn btn-secondary float-right mr-4 custom">Batal</button>
 

@@ -94,6 +94,10 @@
         .custom {
             width: 78px
         }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, .0001) !important;
+        }
     </style>
 </head>
 
@@ -115,8 +119,9 @@
 </body>
 
 <script>
-    var map = L.map('map').setView([-8.130866, 112.220006], 12);
+    var map = L.map('map');
 
+    map.setView([-8.109172135165561, 112.19175263717452], 12);
     var osm = L.tileLayer(
         'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -342,6 +347,7 @@
                     layer.addTo(allRuas);
                 })
                 allRuas.addTo(map);
+                console.log(allRuas.getBounds().getCenter())
                 map.fitBounds(allRuas.getBounds());
             }
         });
@@ -553,6 +559,17 @@
             ukur(e);
         })
     })
+</script>
+{{-- call flyer --}}
+<script>
+    $(document).ready(function() {
+        var yetVisited = sessionStorage['visited'];
+        if (!yetVisited) {
+            $("#modal-flyer").modal("show")
+            // open popup
+            sessionStorage['visited'] = true;
+        }
+    });
 </script>
 
 </html>
