@@ -34,7 +34,8 @@ class CreateRuasJalanTable extends Migration
             $table->string('middle_y');
             $table->string('end_x');
             $table->string('end_y');
-            $table->json('geometry');
+            // $table->json('geometry');
+            $table->longText('geometry');
             $table->string('image');
             $table->timestamps();
         });
