@@ -7,12 +7,26 @@
                     {{ csrf_field() }}
                     <div class="mb-3 mt-0">
                         <i class="fas fa-search mr-2"></i>
-                        <select class="js-example-basic-single " name="kecamatan" id="list-kecamatan">
+                        <select class="select-kecamatan" name="kecamatan" id="list-kecamatan">
                             <option value="0"> SEMUA KECAMATAN </option>
                         </select>
-
-                        <select class="js-example-basic-single " name="kelurahan" id="list-kelurahan" disabled hidden>
+                        <select class="select-kelurahan" name="kelurahan" id="list-kelurahan" disabled>
                             <option value="0"> SEMUA KELURAHAN </option>
+                        </select>
+                        <select class="select-kondisi" name="kondisi" id="list-kondisi">
+                            <option value="0"> SEMUA KONDISI </option>
+                            <option value="1"> BAIK </option>
+                            <option value="2"> SEDANG </option>
+                            <option value="3"> RUSAK RINGAN </option>
+                            <option value="4"> RUSAK BERAT </option>
+                        </select>
+                        <select class="select-perkerasan" name="perkerasan" id="list-perkerasan">
+                            <option value="0"> SEMUA PERKERASAN </option>
+                            <option value="1"> HOTMIX </option>
+                            <option value="2"> ASPAL </option>
+                            <option value="3"> BETON </option>
+                            <option value="4"> PAVING </option>
+                            <option value="5"> TANAH </option>
                         </select>
 
                         <button class="btn btn-primary btn-sm ml-3">Cari</button>

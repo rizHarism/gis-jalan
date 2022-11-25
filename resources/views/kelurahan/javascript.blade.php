@@ -20,9 +20,20 @@
 <script>
     // select 2
     $(document).ready(function() {
-        $('.js-example-basic-single').select2({
-            placeholder: 'Select an option',
-            width: '30%',
+        $('.select-kecamatan').select2({
+            width: '15%',
+            theme: 'classic'
+        });
+        $('.select-kelurahan').select2({
+            width: '15%',
+            theme: 'classic'
+        });
+        $('.select-kondisi').select2({
+            width: '15%',
+            theme: 'classic'
+        });
+        $('.select-perkerasan').select2({
+            width: '15%',
             theme: 'classic'
         });
     });
@@ -220,22 +231,15 @@
             e.preventDefault();
             var kecamatan = $('#list-kecamatan').val();
             var kelurahan = $('#list-kelurahan').val();
-            (kecamatan == 0) ? url = '/ruas/kelurahan/datatables': url = '/ruas/' + kecamatan + '/' +
-                kelurahan +
-                '/kelurahan/';
+            var kondisi = $('#list-kondisi').val();
+            var perkerasan = $('#list-perkerasan').val();
+            (kecamatan == 0 && kelurahan == 0 && kondisi == 0 && perkerasan == 0) ? url =
+                '/ruas/kelurahan/datatables':
+                url = '/ruas/' + kecamatan + '/' +
+                kelurahan + '/' + kondisi + '/' + perkerasan + '/kelurahan';
+            console.log(url)
             table.destroy();
             loadTable(url)
-            // const nama_kec = $('#list-kecamatan').find("option:selected").text();
-            // const nama_kel = $('#list-kelurahan').find("option:selected").text();
-            // $('#title-dashboard').html("");
-            // if (kecamatan == 0) {
-            //     $('#title-dashboard').append("DATA " + nama_kec + " / " + nama_kel)
-            // } else if (kelurahan == 0) {
-            //     $('#title-dashboard').append("DATA KECAMATAN " + nama_kec + " / " + nama_kel);
-            // } else {
-            //     $('#title-dashboard').append("DATA KECAMATAN " + nama_kec + " / KELURAHAN " + nama_kel);
-            // }
-
         })
     });
 </script>
