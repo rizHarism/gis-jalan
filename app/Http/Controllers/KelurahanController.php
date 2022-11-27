@@ -26,6 +26,16 @@ class KelurahanController extends Controller
         return $datatables->make(true);
     }
 
+    public function filterkelurahan($id)
+    {
+        $datatables = DataTables::of(Kelurahan::with('kecamatan')
+            ->where('kecamatan_id', $id)
+            ->orderby('kecamatan_id', 'asc')
+            ->get())
+            ->addIndexColumn();
+        return $datatables->make(true);
+    }
+
     public function getKelurahan($id)
     {
         $kelurahan = Kelurahan::where('kecamatan_id', $id)->orderBy('nama', 'ASC')->get()->all();

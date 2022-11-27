@@ -2,7 +2,29 @@
     <div class="card">
         <div class="card-header">Data Master Kelurahan</div>
         <div class="card-body">
-            <button class="btn btn-primary tambah-data"><i class="fa fa-plus"></i> Data Kelurahan</button>
+            <div class="row">
+                <div class="col-8">
+                    <button class="btn btn-primary btn-sm tambah-data"><i class="fa fa-plus"></i> Data Kelurahan</button>
+                </div>
+                <div class="col-4">
+                    <form method="" class="" action="" id="filter-datatables">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-1">
+                                <i class="fas fa-search "></i>
+                            </div>
+                            <div class="col-9">
+                                <select class="select-kecamatan " name="kecamatan" id="list-kecamatan">
+                                    <option value="0"> SEMUA KECAMATAN </option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-primary btn-sm ml-3">Cari</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <hr>
             <table id="kelurahan" class="display stripped" style="width:100%">
                 <thead>

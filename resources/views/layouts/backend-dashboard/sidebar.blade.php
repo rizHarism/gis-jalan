@@ -15,7 +15,7 @@
                     class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Samsudin</a>
+                <a href="#" class="d-block">ADMINISTRATOR</a>
             </div>
         </div>
 

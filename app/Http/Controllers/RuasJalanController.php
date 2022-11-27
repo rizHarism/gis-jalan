@@ -33,10 +33,18 @@ class RuasJalanController extends Controller
         $_kondisi = array();
         $_perkerasan = array();
         ($kondisi == 0) ? array_push($_kondisi, '1', '2', '3', '4') : array_push($_kondisi, $kondisi);
-        ($perkerasan == 0) ? array_push($_perkerasan, '1', '2', '3', '4') : array_push($_perkerasan, $perkerasan);
+        ($perkerasan == 0) ? array_push($_perkerasan, '1', '2', '3', '4', '5') : array_push($_perkerasan, $perkerasan);
         if ($kecamatan == 0 && $kelurahan == 0) {
             $ruasjalan = DataTables::of(RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')
+                // ->where('kecamatan_id', $kecamatan)
+                ->whereIn('kondisi_id', $_kondisi)
+                ->whereIn('perkerasan_id', $_perkerasan))
+                ->addIndexColumn()
+                ->make(true);
+        } else if ($kecamatan !== 0 && $kelurahan == 0) {
+            $ruasjalan = DataTables::of(RuasJalan::with('kecamatan', 'kelurahan', 'kondisi', 'perkerasan')
                 ->where('kecamatan_id', $kecamatan)
+                // ->where('kelurahan_id', $kelurahan)
                 ->whereIn('kondisi_id', $_kondisi)
                 ->whereIn('perkerasan_id', $_perkerasan))
                 ->addIndexColumn()

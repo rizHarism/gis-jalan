@@ -148,7 +148,35 @@
         kelurahan(id);
     });
 </script>
+{{-- image input --}}
+<script>
+    $("#image-input").change(function() {
+        var ext = $('#image-input').val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['png', 'jpg', 'jpeg']) == -1) {
+            swal.fire({
+                title: 'Error',
+                html: 'Foto Profile harus berupa Gambar',
+                icon: 'warning',
+            })
+            $("#image-input").val("")
+        } else {
+            changeAvatar(this);
+        }
+    });
 
+    function changeAvatar(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#foto-ruas').attr('src', e.target.result);
+                // $('#avatar-image2').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <script>
     var url = window.location;
 

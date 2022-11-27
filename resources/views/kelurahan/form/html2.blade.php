@@ -122,16 +122,16 @@
                             <div class="row">
                                 <div class="col-6">
                                     <div class="ml-3 mt-2">
-                                        <label for="file-input">
+                                        <label for="image-input">
                                             <a title="Foto Ruas">
                                                 <img id="foto-ruas"
-                                                    src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}"
+                                                    src="{{ asset('assets/image/jalan/default.jpg') }}"
                                                     alt="Ruas" class="rounded img-fluid" style="cursor:pointer">
                                             </a>
                                         </label>
                                         <p class="" style="font-style: italic; font-size: 12px">
                                             *klik untuk merubah foto</p>
-                                        <input id="file-input" type="file" style="display: none;"
+                                        <input id="image-input" type="file" style="display: none;"
                                             accept="image/png, image/jpg, image/jpeg" />
                                     </div>
                                 </div>

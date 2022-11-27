@@ -21,19 +21,19 @@
     // select 2
     $(document).ready(function() {
         $('.select-kecamatan').select2({
-            width: '15%',
+            width: '100%',
             theme: 'classic'
         });
         $('.select-kelurahan').select2({
-            width: '15%',
+            width: '100%',
             theme: 'classic'
         });
         $('.select-kondisi').select2({
-            width: '15%',
+            width: '100%',
             theme: 'classic'
         });
         $('.select-perkerasan').select2({
-            width: '15%',
+            width: '100%',
             theme: 'classic'
         });
     });
@@ -78,20 +78,20 @@
                     {
                         data: 'kondisi.kondisi'
                     },
-                    {
-                        data: 'id',
-                        width: '10px',
-                        orderable: false,
-                        render: function(data) {
-                            var id = data;
-                            var editButton =
-                                "<i class='fas fa-eye open-detail' data-id=" + id +
-                                "></i>";
-                            var button = editButton;
+                    // {
+                    //     data: 'id',
+                    //     width: '10px',
+                    //     orderable: false,
+                    //     render: function(data) {
+                    //         var id = data;
+                    //         var editButton =
+                    //             "<i class='fas fa-eye open-detail' data-id=" + id +
+                    //             "></i>";
+                    //         var button = editButton;
 
-                            return button;
-                        }
-                    },
+                    //         return button;
+                    //     }
+                    // },
                     {
                         data: 'id',
                         width: '10px',
@@ -236,7 +236,7 @@
             (kecamatan == 0 && kelurahan == 0 && kondisi == 0 && perkerasan == 0) ? url =
                 '/ruas/kelurahan/datatables':
                 url = '/ruas/' + kecamatan + '/' +
-                kelurahan + '/' + kondisi + '/' + perkerasan + '/kelurahan';
+                kelurahan + '/' + kondisi + '/' + perkerasan + '/filter';
             console.log(url)
             table.destroy();
             loadTable(url)

@@ -51,6 +51,7 @@ Route::delete('/data/kecamatan/{id}/destroy', [KecamatanController::class, 'dest
 // route for master kelurahan
 Route::get('/data/kelurahan', [KelurahanController::class, 'index']);
 Route::get('/data/kelurahan/datatables', [KelurahanController::class, 'datatables']);
+Route::get('/data/{kec}/filter', [KelurahanController::class, 'filterkelurahan']);
 Route::get('/data/kelurahan/{id}/show', [KelurahanController::class, 'show']);
 Route::post('/data/kelurahan/store', [KelurahanController::class, 'store'])->name('kelurahan.store');
 Route::put('/data/kelurahan/{id}/update', [KelurahanController::class, 'update'])->name('kelurahan.update');
@@ -59,7 +60,7 @@ Route::delete('/data/kelurahan/{id}/destroy', [KelurahanController::class, 'dest
 // route for data ruas jalan kelurahan
 Route::get('/ruas/kelurahan', [RuasJalanController::class, 'index']);
 Route::get('/ruas/kelurahan/datatables', [RuasJalanController::class, 'datatables']);
-Route::get('/ruas/{kec}/{kel}/{kon}/{ker}/kelurahan/', [RuasJalanController::class, 'filterRuas']);
+Route::get('/ruas/{kec}/{kel}/{kon}/{ker}/filter', [RuasJalanController::class, 'filterRuas']);
 Route::get('/ruas/kelurahan/{id}/show', [RuasJalanController::class, 'show']);
 Route::get('/ruas/kelurahan/create', [RuasJalanController::class, 'create'])->name('ruas.kelurahan.create');
 Route::get('/ruas/kelurahan/{id}/edit', [RuasJalanController::class, 'edit'])->name('ruas.kelurahan.edit');

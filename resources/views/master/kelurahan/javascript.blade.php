@@ -13,75 +13,69 @@
 </script>
 
 <script>
-    $('#kelurahan').on('click', 'td.editor-delete', function(e) {
-        e.preventDefault();
-
-        // editor.remove($(this).closest('tr'), {
-        //     title: 'Delete record',
-        //     message: 'Are you sure you wish to remove this record?',
-        //     buttons: 'Delete'
-        // });
-        alert('delete')
-    });
-    $('#kelurahan').on('click', 'td.editor-edit', function(e) {
-        e.preventDefault();
-
-        // editor.edit($(this).closest('tr'), {
-        //     title: 'Edit record',
-        //     buttons: 'Update'
-        // });
-        alert('edit')
-    });
     $(document).ready(function() {
-        var table = $('#kelurahan').DataTable({
-            processing: true,
-            ajax: {
-                url: '/data/kelurahan/datatables',
-                method: 'GET'
-            },
-            columns: [{
-                    data: 'DT_RowIndex'
-                },
-                {
-                    data: 'nama'
-                },
-                {
-                    data: 'kecamatan.nama'
-                },
-                {
-                    data: 'kecamatan.kode_kecamatan'
-                },
-                {
-                    data: 'kode_kelurahan'
-                },
-                {
-                    data: 'id',
-                    width: '10px',
-                    orderable: false,
-                    render: function(data) {
-                        var id = data;
-                        var editButton =
-                            "<i class='fas fa-edit open-modal' data-id=" + id + " ></i>";
-                        var button = editButton;
-
-                        return button;
-                    }
-                },
-                {
-                    data: 'id',
-                    width: '10px',
-                    orderable: false,
-                    render: function(data) {
-                        var id = data;
-                        var deleteButton =
-                            "<i class='fas fa-trash-alt delete-data' data-id=" + id + "></i>";
-                        var button = deleteButton;
-
-                        return button;
-                    }
-                }
-            ]
+        $('.select-kecamatan').select2({
+            width: '100%',
+            theme: 'classic'
         });
+    });
+    var url = '/data/kelurahan/datatables';
+    var table;
+    $(document).ready(function() {
+        function loadTable(url) {
+            table = $('#kelurahan').DataTable({
+                processing: true,
+                ajax: {
+                    url: url,
+                    method: 'GET'
+                },
+                columns: [{
+                        data: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'nama'
+                    },
+                    {
+                        data: 'kecamatan.nama'
+                    },
+                    {
+                        data: 'kecamatan.kode_kecamatan'
+                    },
+                    {
+                        data: 'kode_kelurahan'
+                    },
+                    {
+                        data: 'id',
+                        width: '10px',
+                        orderable: false,
+                        render: function(data) {
+                            var id = data;
+                            var editButton =
+                                "<i class='fas fa-edit open-modal' data-id=" + id + " ></i>";
+                            var button = editButton;
+
+                            return button;
+                        }
+                    },
+                    {
+                        data: 'id',
+                        width: '10px',
+                        orderable: false,
+                        render: function(data) {
+                            var id = data;
+                            var deleteButton =
+                                "<i class='fas fa-trash-alt delete-data' data-id=" + id +
+                                "></i>";
+                            var button = deleteButton;
+
+                            return button;
+                        }
+                    }
+                ]
+            })
+        }
+
+        loadTable(url)
 
         // call data kecamatan for dropdown select
 
@@ -110,7 +104,41 @@
             });
         }
 
-        //  call modal tambah kecamatan
+        function kecamatan() {
+            $.ajax({
+                type: "GET",
+                url: '/get/kecamatan',
+                dataType: "json",
+                success: function(kec) {
+                    var kecamatan = kec.data,
+                        listItems = ""
+                    $.each(kecamatan, (i, property) => {
+                        listItems += "<option value='" + property.id + "'>" + property
+                            .nama +
+                            "</option>"
+                    })
+                    $("#list-kecamatan").append(listItems);
+                }
+            });
+        }
+        kecamatan();
+
+        // filter kelurahan berdasar kecamatan
+        $("#filter-datatables").on('submit', function(e) {
+            e.preventDefault();
+            var kecamatan = $('#list-kecamatan').val();
+            // var kelurahan = $('#list-kelurahan').val();
+            // var kondisi = $('#list-kondisi').val();
+            // var perkerasan = $('#list-perkerasan').val();
+            // (kecamatan == 0 && kelurahan == 0 && kondisi == 0 && perkerasan == 0) ? url =
+            //     '/ruas/kelurahan/datatables':
+            url = '/data/' + kecamatan + '/filter'
+            console.log(url)
+            table.destroy();
+            loadTable(url)
+        })
+
+        //  call modal tambah kelurahan
         $(document).on("click", ".tambah-data", function() {
             let urlStore = "/data/kelurahan/store";
             $('#kelurahan-form').attr('action', urlStore);

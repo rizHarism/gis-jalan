@@ -2,6 +2,10 @@
     <div class="card">
         <div class="card-header">Data Penyedia Jasa</div>
         <div class="card-body">
+            <div class="col-8">
+                <button class="btn btn-primary btn-sm tambah-data"><i class="fa fa-plus"></i> Data Penyedia Jasa</button>
+            </div>
+            <hr>
             <table id="penyedia-jasa" class="display stripped" style="width:100%">
                 <thead>
                     <tr>
