@@ -34,7 +34,7 @@ class MapController extends Controller
     public function getRuasId()
     {
 
-        $ruasjalan = RuasJalan::select('id', 'nama_ruas as nama')->orderBy('id', 'asc')->get();
+        $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas as nama')->orderBy('id', 'asc')->get();
         $response = [
             'data' => $ruasjalan
         ];

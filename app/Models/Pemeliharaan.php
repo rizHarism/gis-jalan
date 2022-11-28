@@ -9,7 +9,7 @@ class Pemeliharaan extends Model
 {
     use HasFactory;
     protected $table = 'pemeliharaan';
-    protected $fillable = ['pelaksanaan', 'penyedia_jasa_id', 'biaya', 'ruas_id', 'npwp'];
+    protected $fillable = ['pelaksanaan', 'penyedia_jasa_id', 'biaya', 'ruas_id', 'keterangan'];
 
     function penyedia()
     {

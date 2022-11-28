@@ -43,13 +43,13 @@
                     }
                 },
                 {
-                    data: 'id',
+                    data: null,
                     width: '10px',
                     orderable: false,
                     render: function(data) {
-                        var id = data;
                         var deleteButton =
-                            "<i class='fas fa-trash-alt delete-data' data-id=" + id + "></i>";
+                            "<i class='fas fa-trash-alt delete-data' data-nama='" + data.nama +
+                            "' data-id='" + data.id + "'></i>";
                         var button = deleteButton;
 
                         return button;
@@ -169,102 +169,90 @@
         // delete button
         $(document).on("click", ".delete-data", function() {
             var id = $(this).data('id');
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                url: '/data/kecamatan/' + id + '/show',
-                dataType: "json",
-                async: false,
-                success: function(result) {
-                    $.each(result.data, (i, data) => {
-                        Swal.fire({
-                            title: 'HAPUS KECAMATAN ' +
-                                data.nama,
-                            text: ' Apakah Anda yakin ?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Ya, Hapus',
-                            cancelButtonText: 'Batal'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    headers: {
-                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                    },
-                                    type: "DELETE",
-                                    url: '/data/kecamatan/' + id +
-                                        '/destroy',
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: (data) => {
-                                        if (data.value == 0) {
-                                            Swal.fire(
-                                                'Error',
-                                                data
-                                                .message,
-                                                'warning',
-                                            )
-                                        } else if (data.value ==
-                                            1) {
-                                            Swal.fire(
-                                                'Berhasil',
-                                                data
-                                                .message,
-                                                'success',
-                                            )
-                                        }
-                                        table.ajax.reload();
-                                    },
-                                    error: (xhr, ajaxOptions,
-                                        thrownError) => {
-                                        alert(xhr.responseJSON
-                                            .message);
-                                        if (xhr.responseJSON
-                                            .hasOwnProperty(
-                                                'errors')) {
-                                            for (item in xhr
+            var nama = $(this).data('nama');
+            Swal.fire({
+                title: 'HAPUS KECAMATAN ' +
+                    nama,
+                text: ' Apakah Anda yakin ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        type: "DELETE",
+                        url: '/data/kecamatan/' + id +
+                            '/destroy',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: (data) => {
+                            if (data.value == 0) {
+                                Swal.fire(
+                                    'Error',
+                                    data
+                                    .message,
+                                    'warning',
+                                )
+                            } else if (data.value ==
+                                1) {
+                                Swal.fire(
+                                    'Berhasil',
+                                    data
+                                    .message,
+                                    'success',
+                                )
+                            }
+                            table.ajax.reload();
+                        },
+                        error: (xhr, ajaxOptions,
+                            thrownError) => {
+                            alert(xhr.responseJSON
+                                .message);
+                            if (xhr.responseJSON
+                                .hasOwnProperty(
+                                    'errors')) {
+                                for (item in xhr
+                                    .responseJSON
+                                    .errors) {
+                                    if (xhr
+                                        .responseJSON
+                                        .errors[
+                                            item]
+                                        .length) {
+                                        for (var i =
+                                                0; i <
+                                            xhr
+                                            .responseJSON
+                                            .errors[
+                                                item
+                                            ]
+                                            .length; i++
+                                        ) {
+                                            alert(xhr
                                                 .responseJSON
-                                                .errors) {
-                                                if (xhr
-                                                    .responseJSON
-                                                    .errors[
-                                                        item]
-                                                    .length) {
-                                                    for (var i =
-                                                            0; i <
-                                                        xhr
-                                                        .responseJSON
-                                                        .errors[
-                                                            item
-                                                        ]
-                                                        .length; i++
-                                                    ) {
-                                                        alert(xhr
-                                                            .responseJSON
-                                                            .errors[
-                                                                item
-                                                            ]
-                                                            [
-                                                                i
-                                                            ]
-                                                        );
-                                                    }
-                                                }
-                                            }
+                                                .errors[
+                                                    item
+                                                ]
+                                                [
+                                                    i
+                                                ]
+                                            );
                                         }
                                     }
-                                });
+                                }
                             }
-                        })
-                    })
+                        }
+                    });
                 }
             })
         })
-
     });
 </script>
 

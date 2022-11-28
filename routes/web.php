@@ -69,12 +69,25 @@ Route::get('/data/desa', function () {
     return view('desa.index');
 });
 
+// route for penyedia jasa
 Route::get('/data/penyediajasa', [PenyediaController::class, 'index']);
+Route::get('/get/penyediajasa', [PenyediaController::class, 'getPenyedia']);
 Route::get('/data/penyediajasa/datatables', [PenyediaController::class, 'datatables']);
+Route::get('/data/penyediajasa/{id}/show', [PenyediaController::class, 'show']);
+Route::post('/data/penyediajasa/store', [PenyediaController::class, 'store']);
+Route::put('/data/penyediajasa/{id}/update', [PenyediaController::class, 'update']);
+Route::delete('/data/penyediajasa/{id}/destroy', [PenyediaController::class, 'destroy']);
 
+
+// route pemeliharaan
 Route::get('/data/pemeliharaan', [PemeliharaanController::class, 'index']);
 Route::get('/data/pemeliharaan/datatables', [PemeliharaanController::class, 'datatables']);
-Route::get('/data/pemeliharaan/tesJson', [PemeliharaanController::class, 'tesJson']);
+Route::get('/data/pemeliharaan/{id}/filter', [PemeliharaanController::class, 'filterPemeliharaan']);
+Route::get('/data/pemeliharaan/{id}/show', [PemeliharaanController::class, 'show']);
+Route::post('/data/pemeliharaan/store', [PemeliharaanController::class, 'store']);
+Route::post('/data/pemeliharaan/{id}/update', [PemeliharaanController::class, 'update']);
+Route::delete('/data/pemeliharaan/{id}/destroy', [PemeliharaanController::class, 'destroy']);
+// Route::get('/data/pemeliharaan/tesJson', [PemeliharaanController::class, 'tesJson']);
 
 Route::get('/data/user', function () {
     return view('user.index');

@@ -37,3 +37,54 @@
 
 
 </section>
+
+<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="penyedia-form">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="nama-penyedia" class="col-sm-4 col-form-label">NAMA BADAN USAHA</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="nama-penyedia" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nama-direktur" class="col-sm-4 col-form-label">NAMA DIREKTUR</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="nama-direktur" value="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="alamat" class="col-sm-4 col-form-label">ALAMAT</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="alamat">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nib" class="col-sm-4 col-form-label">NIB</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="nib">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="npwp" class="col-sm-4 col-form-label">NPWP</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="npwp">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="simpan-penyedia">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
