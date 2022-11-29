@@ -24,7 +24,8 @@ class CreateRuasJalanTable extends Migration
             $table->string('kecamatan_id');
             $table->float('panjang');
             $table->float('lebar');
-            $table->string('bahu_jalan')->nullable();
+            $table->string('bahu_kanan')->nullable();
+            $table->string('bahu_kiri')->nullable();
             $table->string('perkerasan_id');
             $table->string('kondisi_id');
             $table->string('utilitas')->nullable();

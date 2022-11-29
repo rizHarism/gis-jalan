@@ -1,51 +1,62 @@
 <section class="content">
     <div class="card">
-        <div class="card-header">{{ isset($edit) ? 'Edit Data Ruas Jalan' : 'Tambah Data Ruas Jalan' }}</div>
+        {{-- <div class="card-header">{{ isset($edit) ? 'Edit Data Ruas Jalan' : 'Tambah Data Ruas Jalan' }}</div> --}}
         <div class="card-body">
-            <hr>
-            <div class="containr">
+            <div class="container-fluid mt-0 pt-0">
                 <div class="row">
-                    <div class="col-6 border map">
+                    <div class="col-6 border rounded map p-3">
+                        <p class="h5 font-italic font-weight-bold">
+                            {{ isset($edit) ? 'Edit Data Ruas Jalan' : 'Tambah Data Ruas Jalan' }}</p>
+                        <hr>
                         <div id="map">
                         </div>
-                        <div>
-
-                        </div>
                     </div>
-                    <div class="col-6 border">
-                        <form class="">
+                    <div class="col-6 border rounded p-3">
+                        <p class="h5 font-italic font-weight-bold">Informasi Ruas</p>
+                        <hr>
+                        <form id="ruas-form" method="{{ isset($edit) ? 'PUT' : 'POST' }}"
+                            action="{{ isset($edit) ? '/ruas/kelurahan/' . $edit['id'] . '/update' : '/ruas/kelurahan/store' }}"
+                            class="">
+                            @method('PUT')
+                            {{ csrf_field() }}
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
+                                        <label class="font-italic font-weight-normal" for="namaRuas">Nomor Ruas
+                                            :</label>
+                                        <input type="text" class="form-control form-control-sm" id="namaRuas"
+                                            value="{{ $edit['nomor_ruas'] ?? $last_ruas }}" placeholder="Nama Ruas"
+                                            required>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="namaRuas">Nama Ruas :</label>
                                         <input type="text" class="form-control form-control-sm" id="namaRuas"
-                                            value="{{ $edit['nama_ruas'] ?? '' }}">
+                                            value="{{ $edit['nama_ruas'] ?? '' }}" placeholder="Nama Ruas" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="pangkalRuas">Pangkal Ruas
                                             :</label>
                                         <input type="text" class="form-control form-control-sm" id="pangkalRuas"
-                                            value="{{ $edit['pangkal_ruas'] ?? '' }}">
+                                            value="{{ $edit['pangkal_ruas'] ?? '' }}" placeholder="Pangkal Ruas"
+                                            required>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="ujungRuas">Ujung Ruas
                                             :</label>
                                         <input type="text" class="form-control form-control-sm" id="ujungRuas"
-                                            value="{{ $edit['ujung_ruas'] ?? '' }}">
+                                            value="{{ $edit['ujung_ruas'] ?? '' }}" placeholder="Ujung Ruas" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="lingkungan">Lingkungan
                                             :</label>
                                         <input type="text" class="form-control form-control-sm" id="lingkungan"
-                                            value="{{ $edit['lingkungan'] ?? '' }}">
+                                            value="{{ $edit['lingkungan'] ?? '' }}" placeholder="Lingkungan" required>
                                     </div>
                                     <div class="form-group">
-                                        {{-- <div class="row">
-                                            <div class="col-6"> --}}
                                         <label class="font-italic font-weight-normal" for="kecamatan">Kecamatan
                                             :</label>
                                         <select class="form-control form-control-sm" name="kecamatan"
-                                            id="list-kecamatan">
+                                            id="list-kecamatan" required>
                                             <option value="">-- Pilih Kecamatan --</option>
                                             @foreach ($kecamatan as $_kecamatan)
                                                 <option value="{{ $_kecamatan['id'] }}"
@@ -58,7 +69,7 @@
                                         <label class="font-italic font-weight-normal" for="kelurahan">Kelurahan
                                             :</label>
                                         <select class="form-control form-control-sm" name="kelurahan"
-                                            id="list-kelurahan" {{ isset($edit) ? 'enabled' : 'disabled' }}>
+                                            id="list-kelurahan" {{ isset($edit) ? 'enabled' : 'disabled' }} required>
                                             <option value="">-- Pilih Kelurahan --</option>
                                             @foreach ($kelurahan as $_kelurahan)
                                                 <option value="{{ $_kelurahan['id'] }}"
@@ -66,30 +77,40 @@
                                                     {{ $_kelurahan['nama'] }}</option>
                                             @endforeach
                                         </select>
-                                        {{-- </div>
-                                        </div> --}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="font-italic font-weight-normal" for="panjang">Panjang
+                                            <sup>(m)</sup> : </label>
+                                        <input type="number" class="form-control form-control-sm" id="panjang"
+                                            value="{{ $edit['panjang'] ?? '' }}" placeholder="Panjang Ruas" required>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label class="font-italic font-weight-normal" for="panjang">Panjang :</label>
-                                        <input type="number" class="form-control form-control-sm" id="panjang"
-                                            value="{{ $edit['panjang'] ?? '' }}">
-                                    </div>
-                                    <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="lebar">Lebar :</label>
                                         <input type="number" class="form-control form-control-sm" id="lebar"
-                                            value="{{ $edit['lebar'] ?? '' }}">
+                                            value="{{ $edit['lebar'] ?? '' }}" placeholder="Panjang Ruas" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="bahuJalan">Bahu Jalan
                                             :</label>
-                                        <input type="text" class="form-control form-control-sm" id="bahuJalan"
-                                            value="{{ $edit['bahu_jalan'] ?? '' }}">
+                                        <div class="row" id="bahuJalan">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control form-control-sm"
+                                                    id="bahuKanan" value="{{ $edit['bahu_kanan'] ?? '' }}"
+                                                    placeholder="Kanan" required>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control form-control-sm"
+                                                    id="bahuKiri" value="{{ $edit['bahu_kiri'] ?? '' }}"
+                                                    placeholder="Kiri" required>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="kondisi">Kondisi :</label>
-                                        <select class="form-control form-control-sm" name="kondisi" id="kondisi">
+                                        <select class="form-control form-control-sm" name="kondisi" id="kondisi"
+                                            required>
                                             <option value="">-- Pilih Kondisi Jalan --</option>
                                             @foreach ($kondisi as $_kondisi)
                                                 <option value="{{ $_kondisi['id'] }}"
@@ -102,7 +123,8 @@
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="perkerasan">Perkerasan
                                             :</label>
-                                        <select class="form-control form-control-sm" name="perkerasan" id="perkerasan">
+                                        <select class="form-control form-control-sm" name="perkerasan"
+                                            id="perkerasan" required>
                                             <option value="">-- Pilih perkerasan Jalan --</option>
                                             @foreach ($perkerasan as $_perkerasan)
                                                 <option value="{{ $_perkerasan['id'] }}"
@@ -112,16 +134,14 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="font-italic font-weight-normal" for="utilitas">Utilitas :</label>
+                                        <label class="font-italic font-weight-normal" for="utilitas">Utilitas
+                                            :</label>
                                         <input type="text" class="form-control form-control-sm" id="utilitas"
-                                            value="{{ $edit['utilitas'] ?? '' }}">
+                                            value="{{ $edit['utilitas'] ?? '' }}" placeholder="Utilitas Jalan">
                                     </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="ml-3 mt-2">
+                                    <div class="form-group">
+                                        <label class="font-italic font-weight-normal">Foto Ruas :
+                                        </label>
                                         <label for="image-input">
                                             <a title="Foto Ruas">
                                                 <img id="foto-ruas"
@@ -135,38 +155,38 @@
                                             accept="image/png, image/jpg, image/jpeg" />
                                     </div>
                                 </div>
-                                <div class="col-6 mt-5 pt-3">
-                                    <button type="submit"
-                                        class="btn btn-primary float-right  mr-2 custom">Simpan</button>
-                                    <button type="button"
-                                        class="btn btn-secondary float-right mr-4 custom">Batal</button>
-                                </div>
                             </div>
-                    </div>
-                    <div class="form-group">
-                        {{-- <label class="font-italic font-weight-normal" for="geometry">geometry :</label> --}}
-                        <textarea class="form-control" id="geometry" rows="3" hidden>{{ $edit['geometry'] ?? '' }}</textarea>
-                        {{-- <label class="font-italic font-weight-normal" for="startx">startx :</label> --}}
-                        <input type="hidden" class="form-control form-control-sm" id="startx"
-                            value="{{ $edit['start_x'] ?? '' }}">
-                        {{-- <label class="font-italic font-weight-normal" for="starty">starty :</label> --}}
-                        <input type="hidden" class="form-control form-control-sm" id="starty"
-                            value="{{ $edit['start_y'] ?? '' }}">
-                        {{-- <label class="font-italic font-weight-normal" for="startx">midx :</label> --}}
-                        <input type="hidden" class="form-control form-control-sm" id="midx"
-                            value="{{ $edit['middle_x'] ?? '' }}">
-                        {{-- <label class="font-italic font-weight-normal" for="starty">midy :</label> --}}
-                        <input type="hidden" class="form-control form-control-sm" id="midy"
-                            value="{{ $edit['middle_y'] ?? '' }}">
-                        {{-- <label class="font-italic font-weight-normal" for="startx">endx :</label> --}}
-                        <input type="hidden" class="form-control form-control-sm" id="endx"
-                            value="{{ $edit['end_x'] ?? '' }}">
-                        {{-- <label class="font-italic font-weight-normal" for="starty">endy :</label> --}}
-                        <input type="hidden" class="form-control form-control-sm" id="endy"
-                            value="{{ $edit['end_y'] ?? '' }}">
+
+                            <button type="submit" class="btn btn-primary float-right ml-2 custom"
+                                id="simpan-ruas">Simpan</button>
+                            <button type="button" class="btn btn-secondary float-right custom">Batal</button>
+                            {{-- </div> --}}
+                            {{-- </div> --}}
+                            <div class="form-group">
+                                {{-- <label class="font-italic font-weight-normal" for="geometry">geometry :</label> --}}
+                                <textarea class="form-control" id="geometry" rows="3" hidden>{{ $edit['geometry'] ?? '' }}</textarea>
+                                {{-- <label class="font-italic font-weight-normal" for="startx">startx :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="startx"
+                                    value="{{ $edit['start_x'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="starty">starty :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="starty"
+                                    value="{{ $edit['start_y'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="startx">midx :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="midx"
+                                    value="{{ $edit['middle_x'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="starty">midy :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="midy"
+                                    value="{{ $edit['middle_y'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="startx">endx :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="endx"
+                                    value="{{ $edit['end_x'] ?? '' }}">
+                                {{-- <label class="font-italic font-weight-normal" for="starty">endy :</label> --}}
+                                <input type="hidden" class="form-control form-control-sm" id="endy"
+                                    value="{{ $edit['end_y'] ?? '' }}">
+                            </div>
+                        </form>
                     </div>
 
-                    </form>
                 </div>
             </div>
         </div>

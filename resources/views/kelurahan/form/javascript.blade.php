@@ -68,7 +68,6 @@
     }
 
     var g = $('#geometry').val();
-    console.log(g.length)
     if (g) {
         g = JSON.parse($('#geometry').val());
         var geom = new L.geoJson(g).addTo(map);
@@ -92,14 +91,7 @@
         function explodeGeo(e) {
             let layer = e.layer;
             let len = layer._latlngs.length - 1
-            console.log(layer._latlngs[0].lat)
-            console.log(layer.getCenter().lat)
-            console.log(layer._latlngs[len].lat)
-            // let startX = e.layer._latlngs[0].lng
-            // let startY = e.layer._latlngs[0].lat
-            // let endX = e.layer._latlngs[len].lng
-            // let endY = e.layer._latlngs[len].lat
-
+            $('#geometry').val(JSON.stringify(layer.toGeoJSON().geometry))
             $('#startx').val(layer._latlngs[0].lng)
             $('#starty').val(layer._latlngs[0].lat)
             $('#midx').val(layer.getCenter().lng)
@@ -160,33 +152,124 @@
             })
             $("#image-input").val("")
         } else {
-            changeAvatar(this);
+            changeImage(this);
         }
     });
 
-    function changeAvatar(input) {
+    function changeImage(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function(e) {
                 $('#foto-ruas').attr('src', e.target.result);
-                // $('#avatar-image2').attr('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);
         }
     }
 </script>
+{{-- post data --}}
 <script>
-    var url = window.location;
+    $("#ruas-form").on("submit", function(e) {
+        e.preventDefault();
+        let urlSave = ($("#ruas-form").attr('action'))
+        let method = ($("#ruas-form").attr('method'))
+
+        var formData = new FormData;
+        var putMethod = '{{ isset($edit) }}'
+
+        formData.append('nomor', '5');
+        formData.append('nama', $("#namaRuas").val());
+        formData.append('pangkal', $("#pangkalRuas").val());
+        formData.append('ujung', $("#ujungRuas").val());
+        formData.append('lingkungan', $("#lingkungan").val());
+        formData.append('kecamatan', $("#list-kecamatan").find(":selected").val());
+        formData.append('kelurahan', $("#list-kelurahan").find(":selected").val());
+        formData.append('panjang', $("#panjang").val());
+        formData.append('lebar', $("#lebar").val());
+        formData.append('bahuKanan', $("#bahuKanan").val());
+        formData.append('bahuKiri', $("#bahuKiri").val());
+        formData.append('kondisi', $("#kondisi").find(":selected").val());
+        formData.append('perkerasan', $("#perkerasan").find(":selected").val());
+        formData.append('utilitas', $("#utilitas").val());
+        formData.append('geometry', $("#geometry").val());
+        formData.append('startx', $("#startx").val());
+        formData.append('starty', $("#starty").val());
+        formData.append('midx', $("#midx").val());
+        formData.append('midy', $("#midy").val());
+        formData.append('endx', $("#endx").val());
+        formData.append('endy', $("#endy").val());
+        formData.append('image', $('input[type=file]')[0].files[0]);
+
+        if (putMethod) {
+            formData.append('_method', 'PUT')
+        }
+
+        console.log(formData);
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                // 'Content-Type': 'application/json',
+            },
+            type: "POST",
+            url: urlSave,
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+                console.log(data);
+                swal.fire({
+                    title: 'Berhasil',
+                    text: data,
+                    icon: 'success',
+                }).then(function() {
+                    window.location = document.referrer;
+                });
+            },
+            error: (xhr, ajaxOptions, thrownError) => {
+                if (xhr.responseJSON.hasOwnProperty('errors')) {
+                    var html =
+                        "<ul style='justify-content: space-between;'>";
+                    for (item in xhr.responseJSON.errors) {
+                        if (xhr.responseJSON.errors[item].length) {
+                            for (var i = 0; i < xhr.responseJSON.errors[item]
+                                .length; i++) {
+                                html += "<li class='dropdown-item'>" +
+                                    "<i class='fas fa-times' style='color: red;'></i> &nbsp&nbsp&nbsp&nbsp" +
+                                    xhr
+                                    .responseJSON
+                                    .errors[item][i] +
+                                    "</li>"
+                            }
+                        }
+                    }
+                    html += '</ul>';
+                    swal.fire({
+                        title: 'Error',
+                        html: html,
+                        icon: 'warning',
+                    });
+                }
+            }
+        });
+        return false;
+    })
+</script>
+<script>
+    var urlw = window.location.protocol + '//' + window.location.host + '/ruas/kelurahan';
 
     // for sidebar menu entirely but not cover treeview
     $('ul.nav-sidebar a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).addClass('active');
 
     // for treeview
     $('ul.nav-treeview a').filter(function() {
-        return this.href == url;
+        return this.href == urlw;
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 </script>

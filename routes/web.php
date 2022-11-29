@@ -63,7 +63,10 @@ Route::get('/ruas/kelurahan/datatables', [RuasJalanController::class, 'datatable
 Route::get('/ruas/{kec}/{kel}/{kon}/{ker}/filter', [RuasJalanController::class, 'filterRuas']);
 Route::get('/ruas/kelurahan/{id}/show', [RuasJalanController::class, 'show']);
 Route::get('/ruas/kelurahan/create', [RuasJalanController::class, 'create'])->name('ruas.kelurahan.create');
+Route::post('/ruas/kelurahan/store', [RuasJalanController::class, 'store'])->name('ruas.kelurahan.store');
 Route::get('/ruas/kelurahan/{id}/edit', [RuasJalanController::class, 'edit'])->name('ruas.kelurahan.edit');
+Route::put('/ruas/kelurahan/{id}/update', [RuasJalanController::class, 'update'])->name('ruas.kelurahan.update');
+Route::put('/ruas/kelurahan/destroy', [RuasJalanController::class, 'destroy'])->name('ruas.kelurahan.destroy');
 
 Route::get('/data/desa', function () {
     return view('desa.index');
