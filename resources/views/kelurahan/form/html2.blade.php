@@ -24,9 +24,9 @@
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="namaRuas">Nomor Ruas
                                             :</label>
-                                        <input type="text" class="form-control form-control-sm" id="namaRuas"
-                                            value="{{ $edit['nomor_ruas'] ?? $last_ruas }}" placeholder="Nama Ruas"
-                                            required>
+                                        <input type="text" class="form-control form-control-sm" id="nomorRuas"
+                                            value="{{ $edit['nomor_ruas'] ?? $last_ruas }}" placeholder="Nomor Ruas"
+                                            required disabled>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="namaRuas">Nama Ruas :</label>
@@ -78,22 +78,32 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="font-italic font-weight-normal" for="panjang">Panjang
-                                            <sup>(m)</sup> : </label>
-                                        <input type="number" class="form-control form-control-sm" id="panjang"
-                                            value="{{ $edit['panjang'] ?? '' }}" placeholder="Panjang Ruas" required>
-                                    </div>
+
                                 </div>
                                 <div class="col-6">
-                                    <div class="form-group">
-                                        <label class="font-italic font-weight-normal" for="lebar">Lebar :</label>
-                                        <input type="number" class="form-control form-control-sm" id="lebar"
-                                            value="{{ $edit['lebar'] ?? '' }}" placeholder="Panjang Ruas" required>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="font-italic font-weight-normal" for="panjang">Panjang
+                                                    <sup>(m)</sup> : </label>
+                                                <input type="number" class="form-control form-control-sm"
+                                                    id="panjang" value="{{ $edit['panjang'] ?? '' }}"
+                                                    placeholder="Panjang Ruas" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label class="font-italic font-weight-normal" for="lebar">Lebar
+                                                    <sup>(m)</sup> :</label>
+                                                <input type="number" class="form-control form-control-sm"
+                                                    id="lebar" value="{{ $edit['lebar'] ?? '' }}"
+                                                    placeholder="Lebar Ruas" required>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="bahuJalan">Bahu Jalan
-                                            :</label>
+                                            <sup>(m)</sup>:</label>
                                         <div class="row" id="bahuJalan">
                                             <div class="col-6">
                                                 <input type="text" class="form-control form-control-sm"
@@ -142,17 +152,20 @@
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal">Foto Ruas :
                                         </label>
-                                        <label for="image-input">
-                                            <a title="Foto Ruas">
-                                                <img id="foto-ruas"
-                                                    src="{{ asset('assets/image/jalan/default.jpg') }}"
-                                                    alt="Ruas" class="rounded img-fluid" style="cursor:pointer">
-                                            </a>
-                                        </label>
-                                        <p class="" style="font-style: italic; font-size: 12px">
-                                            *klik untuk merubah foto</p>
-                                        <input id="image-input" type="file" style="display: none;"
-                                            accept="image/png, image/jpg, image/jpeg" />
+                                        <div class="p-2">
+                                            <label for="image-input">
+                                                <a title="Foto Ruas">
+                                                    <img id="foto-ruas"
+                                                        src="{{ asset('assets/image/jalan/default.jpg') }}"
+                                                        alt="Ruas" class="rounded img-fluid"
+                                                        style="cursor:pointer">
+                                                </a>
+                                            </label>
+                                            <p class="" style="font-style: italic; font-size: 12px">
+                                                *klik untuk merubah foto</p>
+                                            <input id="image-input" type="file" style="display: none;"
+                                                accept="image/png, image/jpg, image/jpeg" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

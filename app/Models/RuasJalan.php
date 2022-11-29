@@ -9,7 +9,7 @@ class RuasJalan extends Model
 {
     use HasFactory;
     protected $table = 'ruas_jalan';
-    protected $fillable = ['nomor_ruas', 'nama_ruas', 'pangkal_ruas', 'ujung_ruas', 'lingkungan', 'kelurahan_id', 'kecamatan_id', 'panjang', 'lebar', 'bahu_jalan', 'perkerasan', 'kondisi', 'utilitas', 'start_x', 'start_y', 'middle_x', 'middle_y', 'end_x', 'end_y', 'geometry', 'image'];
+    protected $fillable = ['nomor_ruas', 'nama_ruas', 'pangkal_ruas', 'ujung_ruas', 'lingkungan', 'kelurahan_id', 'kecamatan_id', 'panjang', 'lebar', 'bahu_kanan', 'bahu_kiri', 'perkerasan_id', 'kondisi_id', 'utilitas', 'start_x', 'start_y', 'middle_x', 'middle_y', 'end_x', 'end_y', 'geometry', 'image'];
 
     public function kecamatan()
     {

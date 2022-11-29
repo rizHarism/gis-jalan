@@ -10,6 +10,7 @@ use App\Models\RuasJalan;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class RuasJalanController extends Controller
 {
@@ -93,7 +94,7 @@ class RuasJalanController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $this->validate($request, [
             'nomor' => 'required|unique:ruas_jalan,nomor_ruas',
             'nama' => 'required',
@@ -112,6 +113,12 @@ class RuasJalanController extends Controller
             'geometry' => 'required',
         ]);
 
+        if ($request->hasfile('image')) {
+            $image = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('assets/galery'), $image);
+        } else {
+            $image = 'default.jpg';
+        }
         try {
             DB::beginTransaction();
             $ruas_jalan = RuasJalan::create([
@@ -131,42 +138,14 @@ class RuasJalanController extends Controller
                 'utilitas' => $request->utilitas,
                 'start_x' => $request->startx,
                 'start_y' => $request->starty,
-                'mid_x' => $request->midx,
-                'mid_y' => $request->midy,
+                'middle_x' => $request->midx,
+                'middle_y' => $request->midy,
                 'end_x' => $request->endx,
                 'end_y' => $request->endy,
                 'geometry' => $request->geometry,
+                'image' => $image,
             ]);
 
-            // if (!empty($request->polygon)) {
-
-            //     $geometry = Geometry::create([
-            //         'inventaris_id' => $inventaris->id,
-            //         'polygon' => $request->polygon,
-            //         'lat' => $request->lat,
-            //         'lng' => $request->lng,
-            //     ]);
-            // }
-
-            // if ($request->hasfile('image')) {
-            //     $name = $request->file('image')->getClientOriginalName();
-            //     $galery = Galery::create([
-            //         'inventaris_id' => $inventaris->id,
-            //         'image_path' => $name
-            //     ]);
-            //     $request->file('image')->move(public_path('assets/galery'), $name);
-            // }
-
-            // if ($request->hasfile('document')) {
-            //     $name = $request->file('document')->getClientOriginalName();
-            //     $document = Document::create([
-            //         'inventaris_id' => $inventaris->id,
-            //         'doc_path' => $name
-            //     ]);
-            //     $request->file('document')->move(public_path('assets/document'), $name);
-            // }
-
-            // dd($inventaris, $geometry, $galery, $document);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -194,7 +173,96 @@ class RuasJalanController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all(), $id);
+        // dd($request->all(), $id);
+        $ruas = RuasJalan::findOrFail($id);
+        $validations = [];
+
+        if ($ruas->nomor_ruas != $request->nomor) {
+            $validations['nomor'] = 'required';
+        }
+        if ($ruas->nama_ruas != $request->nama) {
+            $validations['nama'] = 'required';
+        }
+        if ($ruas->pangkal_ruas != $request->pangkal) {
+            $validations['pangkal'] = 'required';
+        }
+        if ($ruas->ujung_ruas != $request->ujung) {
+            $validations['ujung'] = 'required';
+        }
+        if ($ruas->lingkungan != $request->lingkungan) {
+            $validations['lingkungan'] = 'required';
+        }
+        if ($ruas->kelurahan_id != $request->kelurahan) {
+            $validations['kelurahan'] = 'required';
+        }
+        if ($ruas->kecamatan_id != $request->kecamatan) {
+            $validations['kecamatan'] = 'required';
+        }
+        if ($ruas->panjang != $request->panjang) {
+            $validations['panjang'] = 'required';
+        }
+        if ($ruas->lebar != $request->lebar) {
+            $validations['lebar'] = 'required';
+        }
+        if ($ruas->bahu_kanan != $request->bahuKanan) {
+            $validations['bahuKanan'] = 'required';
+        }
+        if ($ruas->bahu_kiri != $request->bahuKiri) {
+            $validations['bahuKiri'] = 'required';
+        }
+        if ($ruas->perkerasan_id != $request->perkerasan) {
+            $validations['perkerasan'] = 'required';
+        }
+        if ($ruas->kondisi_id != $request->kondisi) {
+            $validations['kondisi'] = 'required';
+        }
+        if ($ruas->geometry != $request->geometry) {
+            $validations['geometry'] = 'required';
+        }
+
+        if ($request->hasfile('image')) {
+            $image = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('assets/galery'), $image);
+        } else {
+            $image = 'default.jpg';
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $ruas->nomor_ruas = $request->nomor;
+            $ruas->nama_ruas = $request->nama;
+            $ruas->pangkal_ruas = $request->pangkal;
+            $ruas->ujung_ruas = $request->ujung;
+            $ruas->lingkungan = $request->lingkungan;
+            $ruas->kelurahan_id = $request->kelurahan;
+            $ruas->kecamatan_id = $request->kecamatan;
+            $ruas->panjang = $request->panjang;
+            $ruas->lebar = $request->lebar;
+            $ruas->bahu_kanan = $request->bahuKanan;
+            $ruas->bahu_kiri = $request->bahuKiri;
+            $ruas->perkerasan_id = $request->perkerasan;
+            $ruas->kondisi_id = $request->kondisi;
+            $ruas->utilitas = $request->utilitas;
+            $ruas->start_x = $request->startx;
+            $ruas->start_y = $request->starty;
+            $ruas->middle_x = $request->midx;
+            $ruas->middle_y = $request->midy;
+            $ruas->end_x = $request->endx;
+            $ruas->end_y = $request->endy;
+            $ruas->geometry = $request->geometry;
+            $ruas->image = $image;
+
+
+            $ruas->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response($e->getMessage(), 500);
+        }
+
+
         return response("Data Ruas berhasil dirubah");
     }
 }

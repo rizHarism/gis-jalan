@@ -178,7 +178,7 @@
         var formData = new FormData;
         var putMethod = '{{ isset($edit) }}'
 
-        formData.append('nomor', '5');
+        formData.append('nomor', $("#nomorRuas").val());
         formData.append('nama', $("#namaRuas").val());
         formData.append('pangkal', $("#pangkalRuas").val());
         formData.append('ujung', $("#ujungRuas").val());
