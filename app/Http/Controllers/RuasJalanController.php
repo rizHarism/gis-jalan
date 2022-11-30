@@ -115,7 +115,7 @@ class RuasJalanController extends Controller
 
         if ($request->hasfile('image')) {
             $image = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('assets/galery'), $image);
+            $request->file('image')->move(public_path('assets/image/ruas-jalan'), $image);
         } else {
             $image = 'default.jpg';
         }
@@ -222,7 +222,7 @@ class RuasJalanController extends Controller
 
         if ($request->hasfile('image')) {
             $image = $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('assets/galery'), $image);
+            $request->file('image')->move(public_path('assets/image/ruas-jalan'), $image);
         } else {
             $image = 'default.jpg';
         }

@@ -156,7 +156,7 @@
                                             <label for="image-input">
                                                 <a title="Foto Ruas">
                                                     <img id="foto-ruas"
-                                                        src="{{ asset('assets/image/jalan/default.jpg') }}"
+                                                        src="{{ isset($edit) ? asset('assets/image/ruas-jalan/' . $edit['image']) : asset('assets/image/ruas-jalan/default.jpg') }}"
                                                         alt="Ruas" class="rounded img-fluid"
                                                         style="cursor:pointer">
                                                 </a>

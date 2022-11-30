@@ -140,7 +140,7 @@
                                 </label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="4" id="tanah"
+                                <input class="form-check-input" type="checkbox" value="5" id="tanah"
                                     checked>
                                 <label class="form-check-label" for="tanah">
                                     Tanah

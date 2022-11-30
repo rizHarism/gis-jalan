@@ -180,7 +180,7 @@
         var data = `
                     <p class="text-center fw-bold mb-0"> ` + property.nama_ruas + `</p>
                     <hr class="mb-1 mt-1">
-                    <img src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
+                    <img src="{{ asset('assets/image/ruas-jalan/`+ property.image + `') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
                     <table class="table table-striped table-sm mt-2">
                         <tr>
                             <th scope="row">No. Ruas</th>
