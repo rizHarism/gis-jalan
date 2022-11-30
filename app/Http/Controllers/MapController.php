@@ -80,14 +80,14 @@ class MapController extends Controller
                 ->whereIn('perkerasan_id', $_perkerasan)
                 ->get();
         } else if ($kecamatan !== 0 && $kelurahan == 0) {
-            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_x', 'geometry', 'image')
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_y', 'geometry', 'image')
                 ->with('kelurahan', 'kondisi', 'perkerasan')
                 ->where('kecamatan_id', $kecamatan)
                 ->whereIn('kondisi_id', $_kondisi)
                 ->whereIn('perkerasan_id', $_perkerasan)
                 ->get();
         } else {
-            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_x', 'geometry', 'image')
+            $ruasjalan = RuasJalan::select('id', 'nomor_ruas', 'nama_ruas', 'kelurahan_id', 'panjang', 'perkerasan_id', 'kondisi_id', 'middle_x', 'middle_y', 'geometry', 'image')
                 ->with('kelurahan', 'kondisi', 'perkerasan')
                 ->where('kecamatan_id', $kecamatan)
                 ->where('kelurahan_id', $kelurahan)

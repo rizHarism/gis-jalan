@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 // route for map page
 Route::get('/', [MapController::class, 'index']);
 Route::get('/get/polygon', [MapController::class, 'getPolygon']);
-Route::get('/get/ruas/select', [MapController::class, 'getRuasId']);
+// Route::get('/get/ruas/select', [MapController::class, 'getRuasId']);
 Route::get('/get/{id}/polygon', [MapController::class, 'show']);
 Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}/{perkerasan}', [MapController::class, 'filterPolygon']);
 Route::get('/get/{id}/ruas', [MapController::class, 'filterRuasId']);
@@ -37,8 +37,8 @@ Route::get('/get/kelurahan/{id}', [KelurahanController::class, 'getKelurahan']);
 
 // route for dashboard page
 Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/get/ruas/dashboard', [DashboardController::class, 'getChart']);
-Route::get('/get/ruas/{kec}/{kel}/dashboard', [DashboardController::class, 'getFilterChart']);
+Route::get('/chart/ruas/dashboard', [DashboardController::class, 'getChart']);
+Route::get('/chart/ruas/{kec}/{kel}/dashboard', [DashboardController::class, 'getFilterChart']);
 
 // route for master / data kecamatan
 Route::get('/data/kecamatan', [KecamatanController::class, 'index']);

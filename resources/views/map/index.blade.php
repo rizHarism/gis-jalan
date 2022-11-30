@@ -177,6 +177,7 @@
 
     // popup ruan jalan on click
     var popupContent = function(property, coordinate) {
+        console.log(coordinate)
         var data = `
                     <p class="text-center fw-bold mb-0"> ` + property.nama_ruas + `</p>
                     <hr class="mb-1 mt-1">
