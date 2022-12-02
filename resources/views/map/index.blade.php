@@ -33,10 +33,13 @@
     <script src="{{ asset('assets/leaflet/js/leaflet-geoman.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/leaflet/css/leaflet-geoman.css') }}" />
 
-
     {{-- fontawesome css --}}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e4d20a5f83.js" crossorigin="anonymous"></script>
+
+    {{-- zoomhome alt --}}
+    <link rel="stylesheet" href="{{ asset('assets/leaflet/css/leaflet.zoomhome.css') }}" />
+    <script src="{{ asset('assets/leaflet/js/leaflet.zoomhome.js') }}"></script>
 
     {{-- shp to geojson --}}
     <script src="{{ asset('assets/shp/leaflet.shpfile.js') }}"></script>
@@ -72,8 +75,6 @@
         }
 
         #map {
-            /* position: absolute; */
-            /* width: 100%; */
             display: block;
             position: absolute;
             height: auto;
@@ -81,7 +82,6 @@
             top: 0;
             left: 0;
             right: 0;
-            /* margin-top: 55px; */
             margin-bottom: 0;
         }
 
@@ -97,6 +97,17 @@
 
         .modal-backdrop {
             background-color: rgba(0, 0, 0, .0001) !important;
+        }
+
+        .card {
+            border-radius: 2em 0 2em;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        }
+
+        .img-logo {
+            height: 6vh;
+            width: 6vw;
+            margin: 5px 0 5px 0;
         }
     </style>
 </head>
@@ -119,7 +130,9 @@
 </body>
 
 <script>
-    var map = L.map('map');
+    var map = L.map('map', {
+        zoomControl: false
+    });
 
     map.setView([-8.109172135165561, 112.19175263717452], 12);
     var osm = L.tileLayer(
@@ -174,6 +187,26 @@
 
     $('#mini-basemap').append(htmlBasemap);
 
+    // Logo Depan
+    L.Control.Logo = L.Control.extend({
+        onAdd: function(map) {
+            this._div = L.DomUtil.get('card-overlay')
+            return this._div
+        },
+    });
+
+    L.control.logo = function(opts) {
+        return new L.Control.Logo(opts);
+    }
+
+    L.control.logo({
+        position: 'topleft'
+    }).addTo(map);
+
+    // replace zoom control default
+    L.Control.zoomHome({
+        zoomHomeIcon: 'dot-circle',
+    }).addTo(map)
 
     // popup ruan jalan on click
     var popupContent = function(property, coordinate) {
