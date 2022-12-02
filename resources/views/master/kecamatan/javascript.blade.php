@@ -36,7 +36,7 @@
                     render: function(data) {
                         var id = data;
                         var editButton =
-                            "<i class='fas fa-edit edit-data' data-id=" + id + " ></i>";
+                            "<i class='fa fa-pencil edit-data' data-id=" + id + " ></i>";
                         var button = editButton;
 
                         return button;

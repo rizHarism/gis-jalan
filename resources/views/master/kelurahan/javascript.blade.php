@@ -51,7 +51,7 @@
                         render: function(data) {
                             var id = data;
                             var editButton =
-                                "<i class='fas fa-edit open-modal' data-id=" + id + " ></i>";
+                                "<i class='fa fa-pencil open-modal' data-id=" + id + " ></i>";
                             var button = editButton;
 
                             return button;
@@ -90,7 +90,6 @@
                 async: false,
                 success: function(result) {
                     $('#nama-kecamatan').html('');
-                    // console.log(result.data);
                     $.each(result.data, (i, data) => {
                         $('#nama-kecamatan').append(
                             $('<option>', {
@@ -241,7 +240,6 @@
                             html: html,
                             icon: 'warning',
                         });
-                        console.log(html)
                     }
                 }
             });

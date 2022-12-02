@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 // route for map page
 Route::get('/', [MapController::class, 'index']);
 Route::get('/get/polygon', [MapController::class, 'getPolygon']);
-// Route::get('/get/ruas/select', [MapController::class, 'getRuasId']);
+Route::get('/get/ruas/select', [MapController::class, 'getRuasId']);
 Route::get('/get/{id}/polygon', [MapController::class, 'show']);
 Route::get('/get/{kecamatan}/{kelurahan}/{kondisi}/{perkerasan}', [MapController::class, 'filterPolygon']);
 Route::get('/get/{id}/ruas', [MapController::class, 'filterRuasId']);
@@ -58,15 +58,15 @@ Route::put('/data/kelurahan/{id}/update', [KelurahanController::class, 'update']
 Route::delete('/data/kelurahan/{id}/destroy', [KelurahanController::class, 'destroy'])->name('kelurahan.destroy');
 
 // route for data ruas jalan kelurahan
-Route::get('/ruas/kelurahan', [RuasJalanController::class, 'index']);
-Route::get('/ruas/kelurahan/datatables', [RuasJalanController::class, 'datatables']);
-Route::get('/ruas/{kec}/{kel}/{kon}/{ker}/filter', [RuasJalanController::class, 'filterRuas']);
-Route::get('/ruas/kelurahan/{id}/show', [RuasJalanController::class, 'show']);
+Route::get('/ruas/kelurahan', [RuasJalanController::class, 'index'])->name('ruas.kelurahan.index');
+Route::get('/ruas/kelurahan/datatables', [RuasJalanController::class, 'datatables'])->name('ruas.kelurahan.datatables');
+Route::get('/ruas/{kec}/{kel}/{kon}/{ker}/filter', [RuasJalanController::class, 'filterRuas'])->name('ruas.kelurahan.filterRuas');
+Route::get('/ruas/kelurahan/{id}/show', [RuasJalanController::class, 'show'])->name('ruas.kelurahan.show');
 Route::get('/ruas/kelurahan/create', [RuasJalanController::class, 'create'])->name('ruas.kelurahan.create');
 Route::post('/ruas/kelurahan/store', [RuasJalanController::class, 'store'])->name('ruas.kelurahan.store');
 Route::get('/ruas/kelurahan/{id}/edit', [RuasJalanController::class, 'edit'])->name('ruas.kelurahan.edit');
 Route::put('/ruas/kelurahan/{id}/update', [RuasJalanController::class, 'update'])->name('ruas.kelurahan.update');
-Route::put('/ruas/kelurahan/destroy', [RuasJalanController::class, 'destroy'])->name('ruas.kelurahan.destroy');
+Route::delete('/ruas/kelurahan/{id}/destroy', [RuasJalanController::class, 'destroy'])->name('ruas.kelurahan.destroy');
 
 Route::get('/data/desa', function () {
     return view('desa.index');

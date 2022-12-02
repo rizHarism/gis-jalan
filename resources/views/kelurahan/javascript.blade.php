@@ -78,20 +78,6 @@
                     {
                         data: 'kondisi.kondisi'
                     },
-                    // {
-                    //     data: 'id',
-                    //     width: '10px',
-                    //     orderable: false,
-                    //     render: function(data) {
-                    //         var id = data;
-                    //         var editButton =
-                    //             "<i class='fas fa-eye open-detail' data-id=" + id +
-                    //             "></i>";
-                    //         var button = editButton;
-
-                    //         return button;
-                    //     }
-                    // },
                     {
                         data: 'id',
                         width: '10px',
@@ -99,7 +85,7 @@
                         render: function(data) {
                             var id = data;
                             var editButton =
-                                "<i class='fas fa-edit edit-data' data-id=" + id +
+                                "<i class='fa fa-pencil edit-data' data-id=" + id +
                                 "></i>";
                             var button = editButton;
 
@@ -107,14 +93,14 @@
                         }
                     },
                     {
-                        data: 'id',
+                        data: null,
                         width: '10px',
                         orderable: false,
                         render: function(data) {
-                            var id = data;
                             var deleteButton =
-                                "<i class='fas fa-trash-alt delete-data' data-id=" + id +
-                                "></i>";
+                                "<i class='fas fa-trash-alt delete-data' data-nama='" +
+                                data.nama_ruas + "' data-id='" + data.id +
+                                "''></i>";
                             var button = deleteButton;
 
                             return button;
@@ -237,10 +223,98 @@
                 '/ruas/kelurahan/datatables':
                 url = '/ruas/' + kecamatan + '/' +
                 kelurahan + '/' + kondisi + '/' + perkerasan + '/filter';
-            console.log(url)
             table.destroy();
             loadTable(url)
         })
+
+        // delete data
+        $(document).on("click", ".delete-data", function() {
+            var id = $(this).data('id');
+            var nama = $(this).data('nama');
+            Swal.fire({
+                title: 'HAPUS RUAS JALAN ' +
+                    nama,
+                text: ' Apakah Anda yakin ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let urlDelete = "/ruas/kelurahan/" + id + "/destroy";
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        type: "DELETE",
+                        url: urlDelete,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: (data) => {
+                            if (data.value == 0) {
+                                Swal.fire(
+                                    'Error',
+                                    data
+                                    .message,
+                                    'warning',
+                                )
+                            } else if (data.value ==
+                                1) {
+                                Swal.fire(
+                                    'Berhasil',
+                                    data
+                                    .message,
+                                    'success',
+                                )
+                            }
+                            table.ajax.reload();
+                        },
+                        error: (xhr, ajaxOptions,
+                            thrownError) => {
+                            alert(xhr.responseJSON
+                                .message);
+                            if (xhr.responseJSON
+                                .hasOwnProperty(
+                                    'errors')) {
+                                for (item in xhr
+                                    .responseJSON
+                                    .errors) {
+                                    if (xhr
+                                        .responseJSON
+                                        .errors[
+                                            item]
+                                        .length) {
+                                        for (var i =
+                                                0; i <
+                                            xhr
+                                            .responseJSON
+                                            .errors[
+                                                item
+                                            ]
+                                            .length; i++
+                                        ) {
+                                            alert(xhr
+                                                .responseJSON
+                                                .errors[
+                                                    item
+                                                ]
+                                                [
+                                                    i
+                                                ]
+                                            );
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            })
+        })
+
     });
 </script>
 

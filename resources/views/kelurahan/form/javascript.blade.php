@@ -205,58 +205,58 @@
             formData.append('_method', 'PUT')
         }
 
-        console.log(formData);
+        // console.log(formData);
         for (var pair of formData.entries()) {
             console.log(pair[0] + ': ' + pair[1]);
         }
 
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                // 'Content-Type': 'application/json',
-            },
-            type: "POST",
-            url: urlSave,
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: (data) => {
-                console.log(data);
-                swal.fire({
-                    title: 'Berhasil',
-                    text: data,
-                    icon: 'success',
-                }).then(function() {
-                    window.location = document.referrer;
-                });
-            },
-            error: (xhr, ajaxOptions, thrownError) => {
-                if (xhr.responseJSON.hasOwnProperty('errors')) {
-                    var html =
-                        "<ul style='justify-content: space-between;'>";
-                    for (item in xhr.responseJSON.errors) {
-                        if (xhr.responseJSON.errors[item].length) {
-                            for (var i = 0; i < xhr.responseJSON.errors[item]
-                                .length; i++) {
-                                html += "<li class='dropdown-item'>" +
-                                    "<i class='fas fa-times' style='color: red;'></i> &nbsp&nbsp&nbsp&nbsp" +
-                                    xhr
-                                    .responseJSON
-                                    .errors[item][i] +
-                                    "</li>"
-                            }
-                        }
-                    }
-                    html += '</ul>';
-                    swal.fire({
-                        title: 'Error',
-                        html: html,
-                        icon: 'warning',
-                    });
-                }
-            }
-        });
+        // $.ajax({
+        //     headers: {
+        //         'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        //         // 'Content-Type': 'application/json',
+        //     },
+        //     type: "POST",
+        //     url: urlSave,
+        //     data: formData,
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     success: (data) => {
+        //         console.log(data);
+        //         swal.fire({
+        //             title: 'Berhasil',
+        //             text: data,
+        //             icon: 'success',
+        //         }).then(function() {
+        //             window.location = document.referrer;
+        //         });
+        //     },
+        //     error: (xhr, ajaxOptions, thrownError) => {
+        //         if (xhr.responseJSON.hasOwnProperty('errors')) {
+        //             var html =
+        //                 "<ul style='justify-content: space-between;'>";
+        //             for (item in xhr.responseJSON.errors) {
+        //                 if (xhr.responseJSON.errors[item].length) {
+        //                     for (var i = 0; i < xhr.responseJSON.errors[item]
+        //                         .length; i++) {
+        //                         html += "<li class='dropdown-item'>" +
+        //                             "<i class='fas fa-times' style='color: red;'></i> &nbsp&nbsp&nbsp&nbsp" +
+        //                             xhr
+        //                             .responseJSON
+        //                             .errors[item][i] +
+        //                             "</li>"
+        //                     }
+        //                 }
+        //             }
+        //             html += '</ul>';
+        //             swal.fire({
+        //                 title: 'Error',
+        //                 html: html,
+        //                 icon: 'warning',
+        //             });
+        //         }
+        //     }
+        // });
         return false;
     })
 </script>

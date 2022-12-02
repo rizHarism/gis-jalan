@@ -31,7 +31,8 @@
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="namaRuas">Nama Ruas :</label>
                                         <input type="text" class="form-control form-control-sm" id="namaRuas"
-                                            value="{{ $edit['nama_ruas'] ?? '' }}" placeholder="Nama Ruas" required>
+                                            value="{{ $edit['nama_ruas'] ?? '' }}" placeholder="Nama Ruas"
+                                            style="text-transform: uppercase" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="font-italic font-weight-normal" for="pangkalRuas">Pangkal Ruas

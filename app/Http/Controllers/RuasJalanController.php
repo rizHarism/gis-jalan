@@ -261,8 +261,19 @@ class RuasJalanController extends Controller
             DB::rollBack();
             return response($e->getMessage(), 500);
         }
-
-
         return response("Data Ruas berhasil dirubah");
+    }
+    public function destroy($id)
+    {
+        $ruas = RuasJalan::findOrFail($id);
+
+        if ($ruas->delete()) {
+            return response([
+                'value' => 1,
+                'message' => "Data Ruas Jalan berhasil dihapus"
+            ]);
+        } else {
+            return response("Data Ruas Jalan gagal dihapus", Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
