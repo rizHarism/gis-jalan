@@ -49,7 +49,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Data Master
+                            Data Wilayah
                             <i class="fas fa-angle-left right"></i>
                             {{-- <span class="badge badge-info right">6</span> --}}
                         </p>
@@ -73,7 +73,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Data Jalan
+                            Ruas Jalan
                             <i class="fas fa-angle-left right"></i>
                             {{-- <span class="badge badge-info right">6</span> --}}
                         </p>
@@ -103,16 +103,16 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ms-5">
-                        <li class="nav-item ">
-                            <a href="/data/pemeliharaan" class="nav-link">
-                                <i class="far fa-file nav-icon ml-3"></i>
-                                <p>Pemeliharaan</p>
-                            </a>
-                        </li>
                         <li class="nav-item">
                             <a href="/data/penyediajasa" class="nav-link">
                                 <i class="far fa-file nav-icon ml-3"></i>
                                 <p>Penyedia Jasa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/data/pemeliharaan" class="nav-link">
+                                <i class="far fa-file nav-icon ml-3"></i>
+                                <p>Riwayat Pemeliharaan</p>
                             </a>
                         </li>
                     </ul>
@@ -129,13 +129,19 @@
                     </a>
                     <ul class="nav nav-treeview ms-5">
                         <li class="nav-item ">
-                            <a href="/data/user" class="nav-link">
-                                <i class="far fa-user nav-icon ml-3"></i>
+                            <a href="/admin/role" class="nav-link">
+                                <i class="fas fa-user-tag nav-icon ml-3"></i>
+                                <p>Role Setting</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/admin/user" class="nav-link">
+                                <i class="fas fa-users nav-icon ml-3"></i>
                                 <p>User List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="admin/setting" class="nav-link">
                                 <i class="fas fa-cog nav-icon ml-3"></i>
                                 <p>Setting</p>
                             </a>
