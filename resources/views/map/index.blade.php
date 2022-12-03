@@ -33,10 +33,13 @@
     <script src="{{ asset('assets/leaflet/js/leaflet-geoman.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/leaflet/css/leaflet-geoman.css') }}" />
 
-
     {{-- fontawesome css --}}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e4d20a5f83.js" crossorigin="anonymous"></script>
+
+    {{-- zoomhome alt --}}
+    <link rel="stylesheet" href="{{ asset('assets/leaflet/css/leaflet.zoomhome.css') }}" />
+    <script src="{{ asset('assets/leaflet/js/leaflet.zoomhome.js') }}"></script>
 
     {{-- shp to geojson --}}
     <script src="{{ asset('assets/shp/leaflet.shpfile.js') }}"></script>
@@ -72,8 +75,6 @@
         }
 
         #map {
-            /* position: absolute; */
-            /* width: 100%; */
             display: block;
             position: absolute;
             height: auto;
@@ -81,7 +82,6 @@
             top: 0;
             left: 0;
             right: 0;
-            /* margin-top: 55px; */
             margin-bottom: 0;
         }
 
@@ -93,6 +93,21 @@
 
         .custom {
             width: 78px
+        }
+
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, .0001) !important;
+        }
+
+        .card {
+            border-radius: 2em 0 2em;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        }
+
+        .img-logo {
+            height: 6vh;
+            width: 6vw;
+            margin: 5px 0 5px 0;
         }
     </style>
 </head>
@@ -115,8 +130,11 @@
 </body>
 
 <script>
-    var map = L.map('map').setView([-8.130866, 112.220006], 12);
+    var map = L.map('map', {
+        zoomControl: false
+    });
 
+    map.setView([-8.109172135165561, 112.19175263717452], 12);
     var osm = L.tileLayer(
         'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -169,13 +187,33 @@
 
     $('#mini-basemap').append(htmlBasemap);
 
+    // Logo Depan
+    L.Control.Logo = L.Control.extend({
+        onAdd: function(map) {
+            this._div = L.DomUtil.get('card-overlay')
+            return this._div
+        },
+    });
+
+    L.control.logo = function(opts) {
+        return new L.Control.Logo(opts);
+    }
+
+    L.control.logo({
+        position: 'topleft'
+    }).addTo(map);
+
+    // replace zoom control default
+    L.Control.zoomHome({
+        zoomHomeIcon: 'dot-circle',
+    }).addTo(map)
 
     // popup ruan jalan on click
     var popupContent = function(property, coordinate) {
         var data = `
                     <p class="text-center fw-bold mb-0"> ` + property.nama_ruas + `</p>
                     <hr class="mb-1 mt-1">
-                    <img src="{{ asset('assets/image/jalan/preview-jalan.jpg') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
+                    <img src="{{ asset('assets/image/ruas-jalan/`+ property.image + `') }}" class="mb-1 rounded" style="height: 180px; width: 250px"></img>
                     <table class="table table-striped table-sm mt-2">
                         <tr>
                             <th scope="row">No. Ruas</th>
@@ -434,8 +472,11 @@
         var kondisi = $("#kondisi-cek input:checkbox:checked").map(function() {
             return $(this).val();
         }).get();
+        var perkerasan = $("#perkerasan-cek input:checkbox:checked").map(function() {
+            return $(this).val();
+        }).get();
         clearLayer();
-        url = '/get/' + kecamatan + '/' + kelurahan + '/' + kondisi
+        url = '/get/' + kecamatan + '/' + kelurahan + '/' + kondisi + '/' + perkerasan
         getPolygon(url)
     })
 </script>
@@ -539,7 +580,6 @@
             }
 
             if (shape === 'Circle') {
-                console.log(layer._mRadius)
                 if (layer._mRadius < 1000) {
                     layer.bindPopup("Radius " + nf.format(layer._mRadius.toFixed(2)) + " Meter");
                 } else {
@@ -553,6 +593,17 @@
             ukur(e);
         })
     })
+</script>
+{{-- call flyer --}}
+<script>
+    $(document).ready(function() {
+        var yetVisited = sessionStorage['visited'];
+        if (!yetVisited) {
+            $("#modal-flyer").modal("show")
+            // open popup
+            sessionStorage['visited'] = true;
+        }
+    });
 </script>
 
 </html>

@@ -2,6 +2,30 @@
     <div class="card">
         <div class="card-header">Data Master Kelurahan</div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-8">
+                    <button class="btn btn-primary btn-sm tambah-data"><i class="fa fa-plus"></i> Data Kelurahan</button>
+                </div>
+                <div class="col-4">
+                    <form method="" class="" action="" id="filter-datatables">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-1">
+                                <i class="fas fa-search "></i>
+                            </div>
+                            <div class="col-9">
+                                <select class="select-kecamatan " name="kecamatan" id="list-kecamatan">
+                                    <option value="0"> SEMUA KECAMATAN </option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-primary btn-sm ml-3">Cari</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
             <table id="kelurahan" class="display stripped" style="width:100%">
                 <thead>
                     <tr>
@@ -34,10 +58,10 @@
 
 {{-- edit modal --}}
 
-<div class="modal fade" id="modal-edit" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
+<div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="edit-form">
+            <form id="kelurahan-form">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal-title">Modal title</h5>

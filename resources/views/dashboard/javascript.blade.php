@@ -32,7 +32,7 @@
 
 {{-- chart js --}}
 <script>
-    var url = '/get/ruas/dashboard'
+    var url = '/chart/ruas/dashboard'
     const canvas = document.getElementById('jalan-chart');
     var myChart = myChart = new Chart(canvas, {});
     var nama_kec = $('#list-kecamatan').find("option:selected").text();
@@ -149,7 +149,7 @@
         e.preventDefault();
         var kecamatan = $('#list-kecamatan').val();
         var kelurahan = $('#list-kelurahan').val();
-        (kecamatan == 0) ? url = '/get/ruas/dashboard': url = '/get/ruas/' + kecamatan + '/' + kelurahan +
+        (kecamatan == 0) ? url = '/chart/ruas/dashboard': url = '/chart/ruas/' + kecamatan + '/' + kelurahan +
             '/dashboard';
 
         getDataChart(url)

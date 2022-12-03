@@ -103,6 +103,52 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-2">
+                    <label for="kecamatan-select">
+                        Kondisi Jalan
+                    </label>
+                    <div class="row mt-2" id="perkerasan-cek">
+                        <div class="col-md-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="1" id="hotmix"
+                                    checked>
+                                <label class="form-check-label" for="hotmix">
+                                    Hotmix
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="2" id="aspal"
+                                    checked>
+                                <label class="form-check-label" for="aspal">
+                                    Aspal
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="3" id="beton"
+                                    checked>
+                                <label class="form-check-label" for="beton">
+                                    Beton
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 justify-content-center">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="4" id="paving"
+                                    checked>
+                                <label class="form-check-label" for="paving">
+                                    Paving
+                                </label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="5" id="tanah"
+                                    checked>
+                                <label class="form-check-label" for="tanah">
+                                    Tanah
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="mt-3">
                     <button class="btn btn-primary btn-sm custom">Cari</button>
                 </div>
@@ -139,4 +185,20 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="card" id="card-overlay">
+    {{-- <div class="card-body m-1 p-2"> --}}
+    <div class="row ms-1">
+        <div class="col-2" style="">
+            <img src="{{ asset('assets/logo/logo-kab.svg') }}" class="img-fluid img-logo" alt="">
+        </div>
+        <div class="col-10 d-flex align-items-center">
+            <div class="title-dinas">
+                <p class="h6 fw-bolder fst-italic mb-0 ms-0"><ins>DINAS PERUMAHAN DAN PERMUKIMAN</ins></p>
+                <p class="h7 mb-0 fw-bolder fst-italic ms-0 mt-0">KABUPATEN BLITAR</p>
+            </div>
+        </div>
+    </div>
+    {{-- </div> --}}
 </div>

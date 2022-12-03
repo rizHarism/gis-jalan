@@ -25,7 +25,7 @@ class KelurahanSeeder extends Seeder
                 Kelurahan::create([
                     "nama" => $data["1"],
                     "kecamatan_id" => $data["2"],
-                    "kode_kecamatan" => $data["3"],
+                    // "kode_kecamatan" => $data["3"],
                     "kode_kelurahan" => $data["4"],
                 ]);
             }

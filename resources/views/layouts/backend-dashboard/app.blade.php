@@ -10,7 +10,7 @@
     @include('layouts.backend-dashboard.stylesheet')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed text-sm">
     <div class="wrapper">
 
         <!-- Preloader -->

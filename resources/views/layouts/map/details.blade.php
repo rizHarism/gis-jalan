@@ -118,3 +118,17 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-flyer" tabindex="-1" aria-labelledby="modal-flyer" aria-hidden="true" style="">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Worldmap-blank.svg" class="img-fluid"
+                    alt="world-map">
+                <h3 class="d-flex justify-content-center">JALIN GETAR</h3>
+                <h6 class="d-flex justify-content-center fst-italic">Jalan Lingkungan Geosptatial Kabupaten Blitar</h6>
+            </div>
+        </div>
+    </div>
+</div>
