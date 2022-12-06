@@ -73,13 +73,13 @@
                     <div class="form-group row">
                         <label for="nama-kelurahan" class="col-sm-4 col-form-label">NAMA KELURAHAN</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nama-kelurahan" value="">
+                            <input type="text" class="form-control" id="nama-kelurahan" value="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="nama-kecamatan" class="col-sm-4 col-form-label">NAMA KECAMATAN</label>
                         <div class="col-sm-8">
-                            <select class="custom-select" id="nama-kecamatan">
+                            <select class="custom-select" id="nama-kecamatan" required>
 
                             </select>
                         </div>
@@ -87,12 +87,12 @@
                     <div class="form-group row">
                         <label for="kode-kelurahan" class="col-sm-4 col-form-label">KODE KELURAHAN</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="kode-kelurahan">
+                            <input type="text" class="form-control" id="kode-kelurahan" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="simpan-kelurahan">Simpan</button>
+                    <button type="submit" class="btn btn-secondary" id="simpan-kelurahan">Simpan</button>
                 </div>
             </form>
         </div>

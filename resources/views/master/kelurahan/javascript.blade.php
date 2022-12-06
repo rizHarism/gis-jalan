@@ -185,7 +185,8 @@
         });
 
         // modal form on sumbit
-        $("#simpan-kelurahan").on("click", function() {
+        $("#kelurahan-form").on("submit", function(e) {
+            e.preventDefault();
             let urlSave = ($("#kelurahan-form").attr('action'))
             let method = ($("#kelurahan-form").attr('method'))
 

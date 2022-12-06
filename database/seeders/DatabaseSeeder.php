@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             KecamatanSeeder::class,
             KelurahanSeeder::class,
             KondisiJalanSeeder::class,
-            PerkerasanSeeder::class
+            PerkerasanSeeder::class,
+            PermissionSeeder::class
         ]);
     }
 }

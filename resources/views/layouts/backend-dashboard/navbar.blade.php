@@ -17,7 +17,7 @@
 
             {{-- User menu toggler --}}
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="{{ asset('assets/logo/kdr-logo.png') }}"
+                <img src="{{ asset('assets/image/logo/kdr-logo.png') }}"
                     class="user-image img-circle img-thumbnail elevation-2" alt="ADMIN">
                 <span class="d-none d-md-inline">
                     ADMIN
@@ -30,8 +30,8 @@
                 {{-- User menu header --}}
 
                 <li class="user-header h-auto">
-                    <img src="{{ asset('assets/logo/kdr-logo.png') }}" class="img-circle img-thumbnail elevation-2"
-                        alt="ADMIN">
+                    <img src="{{ asset('assets/image/logo/kdr-logo.png') }}"
+                        class="img-circle img-thumbnail elevation-2" alt="ADMIN">
 
                     <p class=" mt-0"> ADMIN <small>Administrator KDR</small>
                     </p>
@@ -56,7 +56,7 @@
                         <i class="fa fa-fw fa-power-off text-red"></i>
                         Keluar
                     </a>
-                    <form id="logout-form" action="#" method="POST" style="display: none;">
+                    <form id="logout-form" action="/logout" method="POST" style="display: none;">
                         {{-- @if (config('adminlte.logout_method'))
                             {{ method_field(config('adminlte.logout_method')) }}
                         @endif --}}

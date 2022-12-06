@@ -230,7 +230,8 @@
             });
         });
 
-        $("#simpan-pemeliharaan").on("click", function() {
+        $("#pemeliharaan-form").on("submit", function(e) {
+            e.preventDefault()
             let urlSave = ($("#pemeliharaan-form").attr('action'))
             let method = ($("#pemeliharaan-form").attr('method'))
 

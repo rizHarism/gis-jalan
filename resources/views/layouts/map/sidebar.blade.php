@@ -191,7 +191,7 @@
     {{-- <div class="card-body m-1 p-2"> --}}
     <div class="row ms-1">
         <div class="col-2" style="">
-            <img src="{{ asset('assets/logo/logo-kab.svg') }}" class="img-fluid img-logo" alt="">
+            <img src="{{ asset('assets/image/logo/logo-kab.svg') }}" class="img-fluid img-logo" alt="">
         </div>
         <div class="col-10 d-flex align-items-center">
             <div class="title-dinas">

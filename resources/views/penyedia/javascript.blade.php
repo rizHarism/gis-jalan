@@ -136,7 +136,8 @@
         });
 
         // modal form on sumbit
-        $("#simpan-penyedia").on("click", function() {
+        $("#penyedia-form").on("submit", function(e) {
+            e.preventDefault();
             let urlSave = ($("#penyedia-form").attr('action'))
             let method = ($("#penyedia-form").attr('method'))
             var nama = $("#nama-penyedia").val();

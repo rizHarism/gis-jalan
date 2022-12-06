@@ -24,50 +24,60 @@ class PermissionSeeder extends Seeder
         // create permissions
         // user
 
-        Permission::firstOrCreate(['name' => 'home.peta sebaran']);
-        Permission::firstOrCreate(['name' => 'dashboard.index']);
-        Permission::firstOrCreate(['name' => 'data dasar.index']);
-        Permission::firstOrCreate(['name' => 'data dasar.bmd']);
-        Permission::firstOrCreate(['name' => 'data dasar.opd']);
-        Permission::firstOrCreate(['name' => 'data aset.index']);
-        Permission::firstOrCreate(['name' => 'data aset.aset tanah']);
-        Permission::firstOrCreate(['name' => 'data aset.aset gedung']);
-        Permission::firstOrCreate(['name' => 'data aset.aset jaringan']);
-        Permission::firstOrCreate(['name' => 'administrator.index']);
-        Permission::firstOrCreate(['name' => 'administrator.pengaturan role']);
-        Permission::firstOrCreate(['name' => 'administrator.manajemen user']);
+        // Permission::firstOrCreate(['name' => 'Dashboard.Index']);
+        // Permission::firstOrCreate(['name' => 'Data Wilayah.Kecamatan']);
+        // Permission::firstOrCreate(['name' => 'Data Wilayah.Kelurahan']);
+        // Permission::firstOrCreate(['name' => 'Ruas Jalan.Kelurahan']);
+        // Permission::firstOrCreate(['name' => 'Data Pemeliharaan.Penyedia Jasa']);
+        // Permission::firstOrCreate(['name' => 'Data Pemeliharaan.Riwayat Pemeliharaan']);
+        // Permission::firstOrCreate(['name' => 'Administrator.Data User']);
+        // Permission::firstOrCreate(['name' => 'Administrator.Data Role']);
+        // Permission::firstOrCreate(['name' => 'Administrator.Setting']);
 
+        Permission::firstOrCreate(['name' => 'Dashboard.Index']);
+        Permission::firstOrCreate(['name' => 'Data Wilayah.Index']);
+        Permission::firstOrCreate(['name' => 'Data Wilayah.Kecamatan']);
+        Permission::firstOrCreate(['name' => 'Data Wilayah.Kelurahan']);
+        Permission::firstOrCreate(['name' => 'Ruas Jalan.Index']);
+        Permission::firstOrCreate(['name' => 'Ruas Jalan.Kelurahan']);
+        Permission::firstOrCreate(['name' => 'Data Pemeliharaan.Index']);
+        Permission::firstOrCreate(['name' => 'Data Pemeliharaan.Penyedia Jasa']);
+        Permission::firstOrCreate(['name' => 'Data Pemeliharaan.Riwayat Pemeliharaan']);
+        Permission::firstOrCreate(['name' => 'Administrator.Index']);
+        Permission::firstOrCreate(['name' => 'Administrator.Hak Akses']);
+        Permission::firstOrCreate(['name' => 'Administrator.Data User']);
+        Permission::firstOrCreate(['name' => 'Administrator.Setting']);
 
         // Assigning super admin
         User::truncate();
         $superAdminRole = Role::firstOrCreate(['name' => 'Super-Admin']);
         $superAdminPermissions = [
-            'home.peta sebaran',
-            'dashboard.index',
-            'data dasar.index',
-            'data dasar.bmd',
-            'data dasar.opd',
-            'data aset.index',
-            'data aset.aset tanah',
-            'data aset.aset gedung',
-            'data aset.aset jaringan',
-            'administrator.index',
-            'administrator.pengaturan role',
-            'administrator.manajemen user',
+            'Dashboard.Index',
+            'Data Wilayah.Index',
+            'Data Wilayah.Kecamatan',
+            'Data Wilayah.Kelurahan',
+            'Ruas Jalan.Index',
+            'Ruas Jalan.Kelurahan',
+            'Data Pemeliharaan.Index',
+            'Data Pemeliharaan.Penyedia Jasa',
+            'Data Pemeliharaan.Riwayat Pemeliharaan',
+            'Administrator.Index',
+            'Administrator.Hak Akses',
+            'Administrator.Data User',
+            'Administrator.Setting',
         ];
         $superAdminRole->syncPermissions($superAdminPermissions);
 
         $user = \App\Models\User::where('username', 'Admin')->first();
         if (!$user) {
             $user = \App\Models\User::firstOrCreate([
+                'name' => 'Administrator',
                 'username' => 'Admin',
-                // 'email' => 'admin@test',
-                'password' => bcrypt('1234567809'),
-                'skpd_id' => '848',
-                'avatar' => 'default-avatar.png',
+                'password' => bcrypt('perkim2022'),
+                'avatar' => 'avatar-default.png',
             ]);
             echo "username: Admin\n";
-            echo "password: 1234567809\n";
+            echo "password: perkim2022\n";
         }
 
 
@@ -76,7 +86,7 @@ class PermissionSeeder extends Seeder
         // default role
         $generalRole = Role::firstOrCreate(['name' => 'General']);
         $generalPermissions = [
-            'home.peta sebaran',
+            'Dashboard.Index',
         ];
         $generalRole->syncPermissions($generalPermissions);
     }
