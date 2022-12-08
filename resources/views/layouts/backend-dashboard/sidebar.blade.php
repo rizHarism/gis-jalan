@@ -11,11 +11,13 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('assets/admin-page/admin-lte/dist/img/user2-160x160.jpg') }}"
-                    class="img-circle elevation-2" alt="User Image">
+                @php
+                    $avatar = Auth::user()->avatar;
+                @endphp
+                <img src="{{ asset("assets/image/avatar/$avatar") }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">ADMINISTRATOR</a>
+                <a href="#" class="d-block h5 fst-italic">{{ Auth::user()->name }}</a>
             </div>
         </div>
 
@@ -44,104 +46,138 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-header">Data Tables</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Data Master
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ms-5">
-                        <li class="nav-item ">
-                            <a href="/data/kecamatan" class="nav-link">
-                                <i class="far fa-file nav-icon ml-3"></i>
-                                <p>Kecamatan</p>
+                @canany(['Data Wilayah.Index', 'Ruas Jalan.Index', 'Data Pemeliharaan.Index'])
+                    <li class="nav-header">Data Tables</li>
+                    <li class="nav-item">
+                        @can('Data Wilayah.Index')
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Data Wilayah
+                                    <i class="fas fa-angle-left right"></i>
+                                    {{-- <span class="badge badge-info right">6</span> --}}
+                                </p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/data/kelurahan" class="nav-link">
-                                <i class="far fa-file nav-icon ml-3"></i>
-                                <p>Kelurahan</p>
+                        @endcan
+                        <ul class="nav nav-treeview ms-5">
+                            @can('Data Wilayah.Kecamatan')
+                                <li class="nav-item ">
+                                    <a href="/data/kecamatan" class="nav-link">
+                                        <i class="far fa-file nav-icon ml-3"></i>
+                                        <p>Kecamatan</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('Data Wilayah.Kelurahan')
+                                <li class="nav-item">
+                                    <a href="/data/kelurahan" class="nav-link">
+                                        <i class="far fa-file nav-icon ml-3"></i>
+                                        <p>Kelurahan</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        @can('Ruas Jalan.Index')
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Ruas Jalan
+                                    <i class="fas fa-angle-left right"></i>
+                                    {{-- <span class="badge badge-info right">6</span> --}}
+                                </p>
                             </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Data Jalan
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ms-5">
-                        <li class="nav-item ">
-                            <a href="/ruas/kelurahan" class="nav-link">
-                                <i class="far fa-file nav-icon ml-3"></i>
-                                <p>Kelurahan</p>
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item">
+                        @endcan
+                        <ul class="nav nav-treeview ms-5">
+                            @can('Ruas Jalan.Kelurahan')
+                                <li class="nav-item ">
+                                    <a href="/ruas/kelurahan" class="nav-link">
+                                        <i class="far fa-file nav-icon ml-3"></i>
+                                        <p>Kelurahan</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            {{-- <li class="nav-item">
                             <a href="/ruas/desa" class="nav-link">
                                 <i class="far fa-file nav-icon ml-3"></i>
                                 <p>Desa</p>
                             </a>
                         </li> --}}
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Data Pemeliharaan
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ms-5">
-                        <li class="nav-item ">
-                            <a href="/data/pemeliharaan" class="nav-link">
-                                <i class="far fa-file nav-icon ml-3"></i>
-                                <p>Pemeliharaan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/data/penyediajasa" class="nav-link">
-                                <i class="far fa-file nav-icon ml-3"></i>
-                                <p>Penyedia Jasa</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-header">Administrator</li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-users-cog nav-icon "></i>
-                        <p>
-                            Administrator
-                            <i class="fas fa-angle-left right"></i>
-                            {{-- <span class="badge badge-info right">6</span> --}}
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ms-5">
-                        <li class="nav-item ">
-                            <a href="/data/user" class="nav-link">
-                                <i class="far fa-user nav-icon ml-3"></i>
-                                <p>User List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        @can('Data Pemeliharaan.Index')
                             <a href="#" class="nav-link">
-                                <i class="fas fa-cog nav-icon ml-3"></i>
-                                <p>Setting</p>
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Data Pemeliharaan
+                                    <i class="fas fa-angle-left right"></i>
+                                    {{-- <span class="badge badge-info right">6</span> --}}
+                                </p>
                             </a>
-                        </li>
-                    </ul>
-                </li>
+                        @endcan
+                        <ul class="nav nav-treeview ms-5">
+                            @can('Data Pemeliharaan.Penyedia Jasa')
+                                <li class="nav-item">
+                                    <a href="/data/penyediajasa" class="nav-link">
+                                        <i class="far fa-file nav-icon ml-3"></i>
+                                        <p>Penyedia Jasa</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('Data Pemeliharaan.Riwayat Pemeliharaan')
+                                <li class="nav-item ">
+                                    <a href="/data/pemeliharaan" class="nav-link">
+                                        <i class="far fa-file nav-icon ml-3"></i>
+                                        <p>Riwayat Pemeliharaan</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+                @canany(['Administrator.Index'])
+                    <li class="nav-header">Administrator</li>
+                    <li class="nav-item">
+                        @can('Administrator.Index')
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users-cog nav-icon "></i>
+                                <p>
+                                    Administrator
+                                    <i class="fas fa-angle-left right"></i>
+                                    {{-- <span class="badge badge-info right">6</span> --}}
+                                </p>
+                            </a>
+                        @endcan
+                        <ul class="nav nav-treeview ms-5">
+                            @can('Administrator.Hak Akses')
+                                <li class="nav-item ">
+                                    <a href="/admin/role" class="nav-link">
+                                        <i class="fas fa-user-tag nav-icon ml-3"></i>
+                                        <p>Hak Akses</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('Administrator.Data User')
+                                <li class="nav-item ">
+                                    <a href="/admin/user" class="nav-link">
+                                        <i class="fas fa-users nav-icon ml-3"></i>
+                                        <p>Data User</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('Administrator.Setting')
+                                <li class="nav-item">
+                                    <a href="admin/setting" class="nav-link">
+                                        <i class="fas fa-cog nav-icon ml-3"></i>
+                                        <p>Setting</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
                 <li class="nav-header">KDR With Love</li>
             </ul>
         </nav>

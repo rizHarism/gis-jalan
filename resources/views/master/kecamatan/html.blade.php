@@ -48,19 +48,19 @@
                         <label for="nama-kecamatan" class="col-sm-4 col-form-label">NAMA KECAMATAN</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="nama-kecamatan" id="nama-kecamatan"
-                                value="">
+                                value="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="kode-kecamatan" class="col-sm-4 col-form-label">KODE KECAMATAN</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="kode-kecamatan" id="kode-kecamatan"
-                                value="">
+                                value="" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="simpan-kecamatan">Simpan</button>
+                    <button type="submit" class="btn btn-secondary" id="simpan-kecamatan">Simpan</button>
                 </div>
             </form>
         </div>

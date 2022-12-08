@@ -72,13 +72,13 @@
                     <div class="form-group row">
                         <label for="pelaksanaan" class="col-sm-4 col-form-label">TGL. PELAKSANAAN</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="pelaksanaan" value="">
+                            <input type="text" class="form-control" id="pelaksanaan" value="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="penyedia" class="col-sm-4 col-form-label">PENYEDIA JASA</label>
                         <div class="col-sm-8">
-                            <select class="custom-select" id="penyedia">
+                            <select class="custom-select" id="penyedia" required>
 
                             </select>
                         </div>
@@ -86,13 +86,13 @@
                     <div class="form-group row">
                         <label for="anggaran" class="col-sm-4 col-form-label">ANGGARAN</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="anggaran">
+                            <input type="text" class="form-control" id="anggaran" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="no-ruas" class="col-sm-4 col-form-label multiple">RUAS</label>
                         <div class="col-sm-8">
-                            <select class="select-no-ruas" multiple="multiple" id="no-ruas">
+                            <select class="select-no-ruas" multiple="multiple" id="no-ruas" required>
 
                             </select>
                         </div>
@@ -100,12 +100,12 @@
                     <div class="form-group row">
                         <label for="keterangan" class="col-sm-4 col-form-label">KETERANGAN</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
+                            <textarea class="form-control" id="keterangan" rows="3" required></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="simpan-pemeliharaan">Simpan</button>
+                    <button type="submit" class="btn btn-secondary" id="simpan-pemeliharaan">Simpan</button>
                 </div>
             </form>
         </div>

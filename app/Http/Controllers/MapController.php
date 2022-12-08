@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MapController extends Controller
 {
+
     // function index
     public function index()
     {

@@ -104,7 +104,8 @@
         });
 
         // edit form on sumbit
-        $("#simpan-kecamatan").on('click', function() {
+        $("#kecamatan-form").on("submit", function(e) {
+            e.preventDefault()
             let urlSave = ($("#kecamatan-form").attr('action'))
             let method = ($("#kecamatan-form").attr('method'))
 

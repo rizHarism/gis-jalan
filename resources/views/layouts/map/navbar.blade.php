@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <img src="{{ asset('assets/logo/logo-kab.svg') }}" alt="" width="35" height="30"
+        <img src="{{ asset('assets/image/logo/logo-kab.svg') }}" alt="" width="35" height="30"
             class="d-inline-block align-text-top me-2 mt-0">
         <a class="navbar-brand fst-italic" href="#" style="font-size: 16px;">PEMERINTAH
             KABUPATEN BLITAR</a>

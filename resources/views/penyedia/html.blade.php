@@ -53,36 +53,36 @@
                     <div class="form-group row">
                         <label for="nama-penyedia" class="col-sm-4 col-form-label">NAMA BADAN USAHA</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nama-penyedia" value="">
+                            <input type="text" class="form-control" id="nama-penyedia" value="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="nama-direktur" class="col-sm-4 col-form-label">NAMA DIREKTUR</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nama-direktur" value="">
+                            <input type="text" class="form-control" id="nama-direktur" value="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="alamat" class="col-sm-4 col-form-label">ALAMAT</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="alamat">
+                            <input type="text" class="form-control" id="alamat" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="nib" class="col-sm-4 col-form-label">NIB</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nib">
+                            <input type="text" class="form-control" id="nib" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="npwp" class="col-sm-4 col-form-label">NPWP</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="npwp">
+                            <input type="text" class="form-control" id="npwp" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="simpan-penyedia">Simpan</button>
+                    <button type="submit" class="btn btn-secondary" id="simpan-penyedia">Simpan</button>
                 </div>
             </form>
         </div>
