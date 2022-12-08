@@ -8,7 +8,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Role</th>
+                        <th>Hak Akses</th>
                         <th>Aksi</th>
                         <th></th>
                     </tr>
@@ -29,25 +29,29 @@
 </section>
 
 <div class="modal fade" id="modal-form" tabindex="-1" aria-labelledby="modal-edit" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <form id="role-form" method="POST" class="form-horizontal" action="">
-                {{-- @method('PUT') --}}
                 {{ csrf_field() }}
-                {{-- <h5 class="card-header">{{ $editable ? 'Edit Role' : 'Tambah Role' }}</h5> --}}
-                {{-- <div class="card-body"> --}}
-                <div class="form-group row">
-                    <label for="role-name" class="col-sm-2 col-form-label">Hak Akses</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="role-name" class="form-control" id="role-name"
-                            placeholder="role-name" value="">
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group row">
-                    <label for="permissions" class="col-sm-2 col-form-label">Permissions</label>
-                    <div class="col-sm-10">
-                        <div class="row">
-                            @foreach ($permissionsFormatted as $key => $permissionNames)
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="role-name" class="col-sm-2 col-form-label">Hak Akses</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="role-name" class="form-control" id="role-name"
+                                placeholder="Nama Hak Akses" value="" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="permissions" class="col-sm-2 col-form-label">Permissions</label>
+                        <div class="col-sm-10">
+                            <div class="row" id="row-role">
+                                {{-- @foreach ($permissionsFormatted as $key => $permissionNames)
                                 <div class="col-sm-4" style="margin-bottom: 20px;">
                                     <span>{{ strtoupper($key) }}</span><br />
                                     @foreach ($permissionNames as $i => $permission)
@@ -61,16 +65,16 @@
                                         </div>
                                     @endforeach
                                 </div>
-                            @endforeach
+                            @endforeach --}}
+                            </div>
                         </div>
                     </div>
                 </div>
                 {{-- </div> --}}
                 <!-- /.card-body -->
-                <div class="card-footer">
-                    <button type="submit"
-                        class="btn btn-info float-right">{{ $editable ? 'Simpan' : 'Simpan' }}</button>
-                    <a href="{{ route('roles.index') }}" class="btn btn-default float-right">Batal</a>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary float-right" id="role-simpan">Simpan</button>
+                    {{-- <a href="{{ route('roles.index') }}" class="btn btn-default float-right">Batal</a> --}}
                 </div>
                 <!-- /.card-footer -->
             </form>

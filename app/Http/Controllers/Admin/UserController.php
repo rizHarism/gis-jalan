@@ -61,7 +61,7 @@ class UserController extends Controller
             $image = $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('assets/image/avatar'), $image);
         } else {
-            $image = 'avatar-default.jpg';
+            $image = 'avatar-default.png';
         }
         // dd($image);
         try {
@@ -104,7 +104,7 @@ class UserController extends Controller
             $image = $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('assets/image/avatar'), $image);
         } else {
-            $image = 'avatar-default.jpg';
+            $image = 'avatar-default.png';
         }
         // dd($image);
         try {
@@ -129,5 +129,17 @@ class UserController extends Controller
         }
 
         return response("Update User Berhasil");
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        try {
+            $user->delete();
+        } catch (\Exception $e) {
+            return response($e->getMessage(), 500);
+        }
+
+        return response("User Berhasil Dihapus");
     }
 }

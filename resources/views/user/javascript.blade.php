@@ -58,7 +58,7 @@
                     orderable: false,
                     render: function(data) {
                         var deleteButton =
-                            "<i class='fas fa-trash-alt delete-data' data-nama='" + data.nama +
+                            "<i class='fas fa-trash-alt delete-data' data-nama='" + data.name +
                             "' data-id='" + data.id + "'></i>";
                         var button = deleteButton;
 
@@ -218,7 +218,7 @@
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                    $('#modal-form').modal('show');
+                    $('#modal-form').modal('hide');
                     swal.fire({
                         title: 'Berhasil',
                         text: data,
@@ -257,6 +257,85 @@
             return false;
         })
 
+
+        // delete user
+        $(document).on("click", ".delete-data", function() {
+            var id = $(this).data('id');
+            var nama = $(this).data('nama');
+            Swal.fire({
+                title: 'HAPUS USER ' +
+                    nama,
+                text: ' Apakah Anda yakin ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let urlDelete = "/admin/user/" + id +
+                        "/delete";
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        type: "DELETE",
+                        url: urlDelete,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: (data) => {
+                            Swal.fire(
+                                'Berhasil',
+                                data
+                                .message,
+                                'success',
+                            );
+                            table.ajax.reload();
+                        },
+                        error: (xhr, ajaxOptions,
+                            thrownError) => {
+                            alert(xhr.responseJSON
+                                .message);
+                            if (xhr.responseJSON
+                                .hasOwnProperty(
+                                    'errors')) {
+                                for (item in xhr
+                                    .responseJSON
+                                    .errors) {
+                                    if (xhr
+                                        .responseJSON
+                                        .errors[
+                                            item]
+                                        .length) {
+                                        for (var i =
+                                                0; i <
+                                            xhr
+                                            .responseJSON
+                                            .errors[
+                                                item
+                                            ]
+                                            .length; i++
+                                        ) {
+                                            alert(xhr
+                                                .responseJSON
+                                                .errors[
+                                                    item
+                                                ]
+                                                [
+                                                    i
+                                                ]
+                                            );
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            })
+        })
         //end of document ready
     });
 </script>

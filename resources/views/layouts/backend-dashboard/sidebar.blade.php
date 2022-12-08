@@ -11,11 +11,13 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('assets/admin-page/admin-lte/dist/img/user2-160x160.jpg') }}"
-                    class="img-circle elevation-2" alt="User Image">
+                @php
+                    $avatar = Auth::user()->avatar;
+                @endphp
+                <img src="{{ asset("assets/image/avatar/$avatar") }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">ADMINISTRATOR</a>
+                <a href="#" class="d-block h5 fst-italic">{{ Auth::user()->name }}</a>
             </div>
         </div>
 

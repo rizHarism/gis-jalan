@@ -157,32 +157,51 @@
         </div>
 
         <div class="leaflet-sidebar-pane" id="profile">
+            @php
+                if (Auth::check()) {
+                    $avatar = Auth::user()->avatar;
+                    $username = Auth::user()->username;
+                    $name = Auth::user()->name;
+                } else {
+                    $avatar = 'avatar-default.png';
+                    $username = 'Guest';
+                    $name = '';
+                }
+            @endphp
             <h1 class="leaflet-sidebar-header">Profile Pengguna<span class="leaflet-sidebar-close"><i
                         class="fa fa-caret-left"></i></span></h1>
             <div class="mt-3" id="username">
-                <h5 class="text-center">Hallo Guest</h5>
+                <h5 class="text-center">Hallo {{ $username }}</h5>
             </div>
             <div class="mt-3">
-                <img src="https://xsgames.co/randomusers/avatar.php?g=male" class="mx-auto d-block" alt="..."
+                <img src="{{ asset("assets/image/avatar/$avatar") }}" class="mx-auto d-block" alt="..."
                     id="user-image">
             </div>
             <div class="mt-3">
-                <h5 class="text-center">Guest</h5>
+                <h5 class="text-center">{{ $username }}</h5>
+                <h6 class="text-center">{{ $name }}</h6>
             </div>
-            <div class="mt-3">
-                <button class="btn btn-primary btn-sm mx-auto d-block" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">Login</button>
-            </div>
-            <div class="mt-3">
+            @if (Auth::check() == false)
+                <div class="mt-3">
+                    <button class="btn btn-primary btn-sm mx-auto d-block" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">Login</button>
+                </div>
+            @else
+                <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                    <button class="btn btn-danger mx-auto d-block custom btn-sm"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</button>
+                </form>
+            @endif
+            {{-- <div class="mt-3">
                 <div class="row">
                     <div class="col-md-6">
                         <button class="btn btn-success mx-auto d-block custom btn-sm">Edit</button>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-danger mx-auto d-block custom btn-sm">Logout</button>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

@@ -109,16 +109,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/get/role', [UserController::class, 'getRole'])->name('administrator.get.role')->can('Administrator.Data User');
     Route::post('/admin/user/store', [UserController::class, 'store'])->name('administrator.user.store')->can('Administrator.Data User');
     Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('administrator.user.update')->can('Administrator.Data User');
-    Route::delete('/admin/user/{id}/delete', [UserController::class, 'delete'])->name('administrator.user.delete')->can('Administrator.Data User');
+    Route::delete('/admin/user/{id}/delete', [UserController::class, 'destroy'])->name('administrator.user.delete')->can('Administrator.Data User');
 
     // route role user
     Route::get('/admin/role', [RoleController::class, 'index'])->name('administrator.role.index')->can('Administrator.Hak Akses');
     Route::get('/admin/role/datatables', [RoleController::class, 'datatables'])->name('administrator.role.datatables')->can('Administrator.Hak Akses');
     Route::get('/admin/role/create', [RoleController::class, 'create'])->name('administrator.role.create')->can('Administrator.Hak Akses');
-    // Route::get('/admin/role/{id}/show', [RoleController::class, 'show'])->name('administrator.role.show')->can('Administrator.Hak Akses');
-    // Route::post('/data/role/store', [RoleController::class, 'store'])->name('administrator.role.store')->can('Administrator.Hak Akses');
-    // Route::put('/data/role/{id}/update', [RoleController::class, 'update'])->name('administrator.role.update')->can('Administrator.Hak Akses');
-    // Route::delete('/data/role/{id}/delete', [RoleController::class, 'delete'])->name('administrator.role.delete')->can('Administrator.Hak Akses');
+    Route::get('/admin/role/{id}/edit', [RoleController::class, 'edit'])->name('administrator.role.show')->can('Administrator.Hak Akses');
+    Route::post('/admin/role/store', [RoleController::class, 'store'])->name('administrator.role.store')->can('Administrator.Hak Akses');
+    Route::put('/admin/role/{id}/update', [RoleController::class, 'update'])->name('administrator.role.update')->can('Administrator.Hak Akses');
+    Route::delete('/admin/role/{id}/delete', [RoleController::class, 'destroy'])->name('administrator.role.delete')->can('Administrator.Hak Akses');
 
     // route role user
     // Route::get('/setting', [SettingController::class, 'index'])->name('administrator.setting.index')->can('Administrator.Setting');
