@@ -186,12 +186,13 @@
                     <button class="btn btn-primary btn-sm mx-auto d-block" data-bs-toggle="modal"
                         data-bs-target="#loginModal">Login</button>
                 </div>
-            @else
+            @endif
+            @if (Auth::check() == true)
                 <form id="logout-form" action="/logout" method="POST" style="display: none;">
                     {{ csrf_field() }}
-                    <button class="btn btn-danger mx-auto d-block custom btn-sm"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</button>
                 </form>
+                <button class="btn btn-danger mx-auto d-block custom btn-sm"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</button>
             @endif
             {{-- <div class="mt-3">
                 <div class="row">
