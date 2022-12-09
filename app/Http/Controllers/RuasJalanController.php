@@ -81,8 +81,7 @@ class RuasJalanController extends Controller
         $kelurahan = Kelurahan::orderBy('nama', 'asc')->get();
         $kondisi = KondisiJalan::orderBy('id', 'asc')->get();
         $perkerasan = Perkerasan::orderBy('id', 'asc')->get();
-        $last_ruas = RuasJalan::latest()->take(1)->value('nomor_ruas');
-        // dd($last_ruas);
+        $last_ruas = RuasJalan::orderBy('nomor_ruas', 'desc')->latest()->value('nomor_ruas');
         return view('kelurahan.form.index', [
             'kelurahan' => $kelurahan,
             'kecamatan' => $kecamatan,

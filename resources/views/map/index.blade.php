@@ -159,7 +159,6 @@
 
     var baseMaps = {
         " HYBRID ": imagery,
-        " SATELIT ": imagery,
         " OPEN STREET MAP ": osm,
         " THUNDERFOREST ": Thunderforest,
     }
