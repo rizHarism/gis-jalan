@@ -17,12 +17,8 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     {{-- leaflet css and js --}}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
-        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
-        crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
-        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-        crossorigin=""></script>
+    <link rel="stylesheet" href="{{ asset('assets/leaflet/css/leaflet.css') }}" />
+    <script src="{{ asset('assets/leaflet/js/leaflet.js') }}"></script>
     {{-- leaflet provider --}}
     <script src="{{ asset('assets/leaflet/js/leaflet-providers.js') }}"></script>
 
@@ -95,9 +91,9 @@
             width: 78px
         }
 
-        .modal-backdrop {
+        /* .modal-backdrop {
             background-color: rgba(0, 0, 0, .0001) !important;
-        }
+        } */
 
         .card {
             border-radius: 2em 0 2em;
@@ -121,10 +117,10 @@
 
     <div id="map"></div>
     {{-- @include('layouts.map.navbar') --}}
-    @include('layouts.map.login')
     @include('layouts.map.details')
-
+    @include('layouts.map.login')
     @include('layouts.map.sidebar')
+
 
 
 </body>
@@ -162,15 +158,15 @@
     }).addTo(map);
 
     var baseMaps = {
+        " HYBRID ": imagery,
         " SATELIT ": imagery,
         " OPEN STREET MAP ": osm,
-        " STADIA ": Stadia,
         " THUNDERFOREST ": Thunderforest,
     }
 
     map.on("baselayerchange",
         function(e) {
-            if (e.name == ' SATELIT ') {
+            if (e.name == ' HYBRID ') {
                 esri.addTo(map);
             } else {
                 map.removeLayer(esri);
@@ -248,7 +244,6 @@
         return data;
     }
 
-    $("#clear").on('click', function(e) {})
 
     $(document).on('click', "#detailOpen", function() {
         let id = $(this).data('id');
@@ -260,10 +255,10 @@
                 $.each(get.data, (i, data) => {
                     const coordinate = "'" + data.middle_y + ',' + data
                         .middle_x + "'"
-                    $('#nama, #nomor, #lingkungan, #kelKec, #panjang, #lebar,  #perkerasan, #utilitas, #koordinat, #kondisi')
+                    $('#nama_ruas, #nomor_ruas, #lingkungan, #kelKec, #panjang, #lebar,  #perkerasan, #utilitas, #koordinat, #kondisi')
                         .html('')
-                    $('#nama').append(data.nama_ruas)
-                    $('#nomor').append(data.nomor_ruas)
+                    $('#nama_ruas').append(data.nama_ruas)
+                    $('#nomor_ruas').append(data.nomor_ruas)
                     $('#lingkungan').append(data.lingkungan)
                     $('#kelKec').append(data.kelurahan.nama + '/' + data.kecamatan.nama)
                     $('#panjang').append(data.panjang + ' Meter')
@@ -271,8 +266,9 @@
                     $('#perkerasan').append(data.perkerasan.perkerasan)
                     $('#utilitas').append(data.utilitas)
                     $('#koordinat').append('<a href="#" onclick="gMaps(' + coordinate +
-                        ')" style="text-decoration: none">' + data.middle_x + ',' + data
-                        .middle_y + '</a>')
+                        ')" style="text-decoration: none">' + data.middle_y + ' , ' +
+                        data
+                        .middle_x + '</a>')
                     $('#kondisi').append(data.kondisi.kondisi)
                 })
 
@@ -502,15 +498,6 @@
     });
 
     var userid = 0
-
-    function addUser() {
-        sidebar.addPanel({
-            id: 'user' + userid++,
-            tab: '<i class="fa fa-user"></i>',
-            title: 'User Profile ' + userid,
-            pane: '<p>user ipsum dolor sit amet</p>',
-        });
-    }
 </script>
 
 <script>
@@ -593,13 +580,35 @@
             ukur(e);
         })
     })
+
+    // pencarian coordinat
+    var cariLat = null;
+    var cariLong = null;
+    var cariMarker = null;
+
+    $('#find-coordinate').on('submit', (e) => {
+        e.preventDefault();
+        if (cariMarker) {
+            cariMarker.remove()
+        }
+        cariLat = $('#latitude').val()
+        cariLong = $('#longitude').val()
+        cariMarker = L.marker([cariLat, cariLong]);
+
+        cariMarker.addTo(map);
+        // var bound = L.bounds(cariMarker, cariMarker);
+        var latLngs = [cariMarker.getLatLng()];
+        var markerBounds = L.latLngBounds(latLngs);
+        map.fitBounds(markerBounds);
+    })
 </script>
+
 {{-- call flyer --}}
 <script>
     $(document).ready(function() {
         var yetVisited = sessionStorage['visited'];
         if (!yetVisited) {
-            $("#modal-flyer").modal("show")
+            $("#flyer-modal").modal("show")
             // open popup
             sessionStorage['visited'] = true;
         }

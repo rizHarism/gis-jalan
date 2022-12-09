@@ -54,19 +54,22 @@
             <form method="" class="border border-2 rounded p-2" id="filter-ruas">
                 {{ csrf_field() }}
                 <h6> Pencarian Berdasarkan Kecamatan / Kelurahan</h6>
-                <label for="kecamatan-select">
-                    Pilih Kecamatan
-                </label>
-                <select name="kecamatan-select" class="kecamatan" id="kecamatan">
-                    <option value="0">--- Pilih Kecamatan ---</option>
-                </select>
-
-                <label for="kecamatan-select">
-                    Pilih Kelurahan
-                </label>
-                <select name="kelurahan-select" class="kelurahan mt-5" id="kelurahan" disabled>
-                    <option value="0">--- Pilih Kelurahan ---</option>
-                </select>
+                <div class="">
+                    <label for="kecamatan-select">
+                        Pilih Kecamatan
+                    </label>
+                    <select name="kecamatan-select" class="kecamatan" id="kecamatan">
+                        <option value="0">--- Pilih Kecamatan ---</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <label for="kecamatan-select">
+                        Pilih Kelurahan
+                    </label>
+                    <select name="kelurahan-select" class="kelurahan" id="kelurahan" disabled>
+                        <option value="0">--- Pilih Kelurahan ---</option>
+                    </select>
+                </div>
                 <div class="mt-4">
                     <label for="kecamatan-select">
                         Kondisi Jalan
@@ -105,7 +108,7 @@
                 </div>
                 <div class="mt-2">
                     <label for="kecamatan-select">
-                        Kondisi Jalan
+                        Tipe Perkerasan
                     </label>
                     <div class="row mt-2" id="perkerasan-cek">
                         <div class="col-md-6">
@@ -151,6 +154,34 @@
                 </div>
                 <div class="mt-3">
                     <button class="btn btn-primary btn-sm custom">Cari</button>
+                </div>
+            </form>
+            <hr>
+            <form id="find-coordinate" method="" class="border border-2 rounded p-2 mt-2">
+                <div id="search-ruas" class="">
+                    <label for="pencarianRuas">
+                        <h6>Pencarian Koordinat</h6>
+                    </label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="">
+                                <label for="latitude" class="form-label">Latitude :</label>
+                                <input type="text" class="form-control form-control-sm" id="latitude"
+                                    placeholder="-8.7654321" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="">
+                                <label for="longitude" class="form-label">Longitude :</label>
+                                <input type="text" class="form-control form-control-sm" id="longitude"
+                                    placeholder="12.9876543" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-primary btn-sm custom"
+                            id="cari-koordinat">Cari</button>
+                    </div>
                 </div>
             </form>
 

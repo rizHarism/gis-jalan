@@ -16,6 +16,19 @@
 </script>
 
 {{-- leaflet --}}
+
+<script src="{{ asset('assets/shp/leaflet.shpfile.js') }}"></script>
+<script src="{{ asset('assets/shp/shp.js') }}"></script>
+<!-- Load Esri Leaflet from CDN -->
+<script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
+    integrity="sha512-E0DKVahIg0p1UHR2Kf9NX7x7TUewJb30mxkxEm2qOYTVJObgsAGpEol9F6iK6oefCbkJiA4/i6fnTHzM6H1kEA=="
+    crossorigin=""></script>
+
+<!-- Load Esri Leaflet Vector from CDN -->
+<script src="https://unpkg.com/esri-leaflet-vector@4.0.0/dist/esri-leaflet-vector.js"
+    integrity="sha512-EMt/tpooNkBOxxQy2SOE1HgzWbg9u1gI6mT23Wl0eBWTwN9nuaPtLAaX9irNocMrHf0XhRzT8B0vXQ/bzD0I0w=="
+    crossorigin=""></script>
+
 <script>
     var map = L.map('map').setView([-8.130866, 112.220006], 12);
     $("#map").height($(".map").height());
@@ -31,6 +44,71 @@
             maxZoom: 18,
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
+
+    var esri = L.esri.Vector.vectorBasemapLayer('ArcGIS:Imagery:Labels', {
+        apikey: 'AAPKb10821df102a46a4b930958d7a6a06593sdla7i0cMWoosp7XXlYflDTAxsZMUq-oKvVOaom9B8CokPvJFd-sE88vOQ2B_rC'
+    }).addTo(map);
+
+
+    // shp batas wilayah kabupaten
+    var shpBatas = new L.Shapefile("{{ asset('assets/shp/SHP-BATAS-KAB-LN.zip') }}")
+
+    shpBatas.addTo(map);
+    shpBatas.options.pmIgnore = true;
+
+    // control layer
+    var baseMaps = {
+        "Satelite": imagery,
+        "Open Street Map": osm,
+    };
+
+    L.control.layers(baseMaps, null).addTo(map);
+
+    map.on("baselayerchange",
+        function(e) {
+            if (e.name == 'Satelite') {
+                esri.addTo(map);
+            } else {
+                map.removeLayer(esri);
+            }
+        });
+
+    // Find Coordinate
+    L.Control.Find = L.Control.extend({
+        onAdd: function(map) {
+            this._div = L.DomUtil.get('find-coordinate')
+            return this._div
+        },
+    });
+
+    L.control.find = function(opts) {
+        return new L.Control.Find(opts);
+    }
+
+    L.control.find({
+        position: 'bottomright'
+    }).addTo(map);
+
+
+    // Find Coordinate on submit
+
+    var cariLat = null;
+    var cariLong = null;
+    var cariMarker = null;
+    $('#find-coordinate').on('submit', (e) => {
+        e.preventDefault();
+        if (cariMarker) {
+            cariMarker.remove()
+        }
+        cariLat = $('#latitude').val()
+        cariLong = $('#longitude').val()
+
+        cariMarker = L.marker([cariLat, cariLong]);
+        cariMarker.addTo(map);
+        var latLngs = [cariMarker.getLatLng()];
+        var markerBounds = L.latLngBounds(latLngs);
+        map.fitBounds(markerBounds);
+    })
 
     // call tool geoman
     function create() {

@@ -209,3 +209,30 @@
 
 
 </section>
+
+<form id="find-coordinate" method="" class="p-2 mt-2">
+    <div id="search-ruas" class="">
+        {{-- <label for="pencarianRuas">
+            <h6>Pencarian Koordinat</h6>
+        </label> --}}
+        <div class="row ">
+            <div class="col-sm-5 ml-auto">
+                <div class="">
+                    {{-- <label for="latitude" class="form-label">Latitude :</label> --}}
+                    <input type="text" class="form-control form-control-sm float-right" id="latitude"
+                        placeholder="-8.7654321" required>
+                </div>
+            </div>
+            <div class="col-sm-5 ml-auto">
+                <div class="">
+                    {{-- <label for="longitude" class="form-label">Longitude :</label> --}}
+                    <input type="text" class="form-control form-control-sm float-right" id="longitude"
+                        placeholder="12.9876543" required>
+                </div>
+            </div>
+            <div class="col-sm-2 ml-auto">
+                <button type="submit" class="btn btn-primary btn-sm custom " id="cari-koordinat">Cari</button>
+            </div>
+        </div>
+    </div>
+</form>

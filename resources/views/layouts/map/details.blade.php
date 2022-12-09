@@ -25,11 +25,11 @@
                                 <table class="table table-sm table-striped">
                                     <tr>
                                         <th>Nama Ruas </th>
-                                        <td id="nama">Jalan Cimandiri</td>
+                                        <td id="nama_ruas">Jalan Cimandiri</td>
                                     </tr>
                                     <tr>
                                         <th>No Ruas </th>
-                                        <td id="nomor">170</td>
+                                        <td id="nomor_ruas">170</td>
                                     </tr>
                                     <tr>
                                         <th>Lingkungan </th>
@@ -57,7 +57,7 @@
                                     </tr>
                                     <tr>
                                         <th>Koordinat Center </th>
-                                        <td id="koordinat">112.233218589 , -8.06578902654</td>
+                                        <td id="koordinat">-8.06578902654 , 112.233218589</td>
                                     </tr>
                                     <tr>
                                         <th>Kondisi Jalan </th>
@@ -119,10 +119,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-flyer" tabindex="-1" aria-labelledby="modal-flyer" aria-hidden="true" style="">
+<div class="modal fade" id="flyer-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-
+            {{-- <div class="modal-header"> --}}
+            {{-- <h5 class="modal-title" id="titleModal">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+            {{-- </div> --}}
             <div class="modal-body">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Worldmap-blank.svg" class="img-fluid"
                     alt="world-map">
