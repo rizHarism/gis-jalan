@@ -122,15 +122,8 @@
 <div class="modal fade" id="flyer-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            {{-- <div class="modal-header"> --}}
-            {{-- <h5 class="modal-title" id="titleModal">Login</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
-            {{-- </div> --}}
             <div class="modal-body">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Worldmap-blank.svg" class="img-fluid"
-                    alt="world-map">
-                <h3 class="d-flex justify-content-center">JALIN GETAR</h3>
-                <h6 class="d-flex justify-content-center fst-italic">Jalan Lingkungan Geosptatial Kabupaten Blitar</h6>
+                <img src="{{ asset('assets/image/logo/flyer.png') }}" class="img-fluid" alt="world-map">
             </div>
         </div>
     </div>
