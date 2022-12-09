@@ -89,14 +89,14 @@
                     <div class="form-group row">
                         <label for="password" class="col-sm-4 col-form-label" id="password">KATA SANDI</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="password" id="password-1" value=""
+                            <input type="password" class="form-control" name="password" id="password-1" value=""
                                 required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="password-2" class="col-sm-4 col-form-label">VERIFIKASI KATA SANDI</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="password2" id="password-2" value="">
+                            <input type="password" class="form-control" name="password2" id="password-2" value="">
                         </div>
                     </div>
                 </div>

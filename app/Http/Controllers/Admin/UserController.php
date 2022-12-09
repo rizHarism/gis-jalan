@@ -63,7 +63,6 @@ class UserController extends Controller
         } else {
             $image = 'avatar-default.png';
         }
-        // dd($image);
         try {
             DB::beginTransaction();
             $user = User::create([
@@ -74,7 +73,6 @@ class UserController extends Controller
             ]);
 
             $role = Role::findById($request->role);
-            // dd($role);
             $user->assignRole($role);
 
             DB::commit();

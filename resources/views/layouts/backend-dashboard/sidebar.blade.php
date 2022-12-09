@@ -1,38 +1,38 @@
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="{{ asset('assets/admin-page/admin-lte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Admin Page</span>
-    </a>
+    {{-- <a href="#" class="brand-link">
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="{{ asset('assets/image/logo/logo-kab.png') }}" alt="AdminLTE Logo"
+                    class="brand-image img-rounded " style="opacity: .8">
+            </div>
+            <div class="col-sm-4">
+                <p class="brand-text font-weight-light">Dinas Perumahan dan Kawasan Permukiman </p>
+            </div>
+        </div>
+    </a> --}}
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                @php
-                    $avatar = Auth::user()->avatar;
-                @endphp
-                <img src="{{ asset("assets/image/avatar/$avatar") }}" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block h5 fst-italic">{{ Auth::user()->name }}</a>
-            </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-        {{-- <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                    aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
+        <div class="user-panel mt-3 pb-3 mb-3 ">
+            @php
+                $avatar = Auth::user()->avatar;
+            @endphp
+            <div class="row">
+                <div class="col-2 ml-0">
+                    {{-- <div class="image"> --}}
+                    <img src="{{ asset('assets/image/logo/logo-kab.png') }}" class="img-rounded mt-1" alt="User Image">
+                    {{-- </div> --}}
+                </div>
+                <div class="col-10 ">
+                    <a class="d-block h7 font-italic mt-0">Dinas Perumahan Rakyat dan</a>
+                    <a class="d-block h7 font-italic mb-0">Kawasan Permukiman</a>
                 </div>
             </div>
-        </div> --}}
+            {{-- <div class="info">
+            </div> --}}
+        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">

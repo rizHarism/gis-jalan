@@ -116,8 +116,8 @@
             $('#password').html('KATA SANDI');
             $('#nama-asli').val('');
             $('#nama-user').val('');
-            $('#password').val('');
-            $('#password2').val('');
+            $('#password-1').val('');
+            $('#password-2').val('');
             getRole()
             $('#modal-form').modal('show');
 
@@ -135,9 +135,9 @@
                 async: false,
                 success: function(result) {
                     getRole()
+                    let roleid = result.data.roles[0].id;
                     $.each(result, (i, data) => {
                         let urlUpdate = '/admin/user/' + data.id + '/update';
-
                         $('#foto-user').attr('src',
                             "{{ asset('assets/image/avatar') }}" + '/' + data
                             .avatar);
@@ -145,12 +145,13 @@
                         $('#user-form').attr('method', 'PUT');
                         $('#modal-title').html('');
                         $('#modal-title').append('EDIT DATA PENGGUNA ');
+                        $('#password-1').val('');
+                        $('#password-2').val('');
                         $('#password').html('');
                         $('#password').html('KATA SANDI BARU');
                         $('#nama-asli').val(data.name);
                         $('#nama-user').val(data.username);
-                        var idUser = data.id
-                        $('option[value=' + idUser + ']').attr(
+                        $('option[value=' + roleid + ']').attr(
                             'selected', 'selected')
                     })
                     // Display Modal

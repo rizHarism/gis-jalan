@@ -4,15 +4,20 @@
     <div class="leaflet-sidebar-tabs">
         <!-- top aligned tabs -->
         <ul role="tablist">
-            <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
-            <li><a href="#search" role="tab"><i class="fa fa-search"></i></a></li>
-            <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
-            <li><a href="/dashboard" role="tab"><i class="fas fa-desktop"></i></a></li>
+            <li><a href="#home" role="tab" title="Peta Dasar"><i class="fa fa-bars active"></i></a></li>
+            <li><a href="#search" role="tab" title="Pencarian"><i class="fa fa-search"></i></a></li>
+            <li><a href="#profile" role="tab" title="Profil"><i class="fa fa-user"></i></a></li>
+            @if (Auth::check())
+                <li><a href="/dashboard" role="tab" title="Dashboard"><i class="fas fa-desktop"></i></a></li>
+            @else
+                <li><a href="" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa fa-sign-in"
+                            title="Login"></i></a></li>
+            @endif
         </ul>
 
         <!-- bottom aligned tabs -->
         <ul role="tablist">
-            <li><a href="#"><i class="fa fa-info"></i></a></li>
+            <li><a href=""><i class="fa fa-info"></i></a></li>
         </ul>
     </div>
 
@@ -98,7 +103,8 @@
                                 </label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" value="4" id="rusak-berat" checked>
+                                <input class="form-check-input" type="checkbox" value="4" id="rusak-berat"
+                                    checked>
                                 <label class="form-check-label" for="rusak-berat">
                                     Rusak Berat
                                 </label>
@@ -246,7 +252,8 @@
         </div>
         <div class="col-10 d-flex align-items-center">
             <div class="title-dinas">
-                <p class="h6 fw-bolder fst-italic mb-0 ms-0"><ins>DINAS PERUMAHAN DAN PERMUKIMAN</ins></p>
+                <p class="h6 fw-bolder fst-italic mb-0 ms-0"><ins>DINAS PERUMAHAN RAKYAT DAN KAWASAN PERMUKIMAN</ins>
+                </p>
                 <p class="h7 mb-0 fw-bolder fst-italic ms-0 mt-0">KABUPATEN BLITAR</p>
             </div>
         </div>
