@@ -9,7 +9,6 @@ use App\Http\Controllers\PemeliharaanController;
 use App\Http\Controllers\PenyediaController;
 use App\Http\Controllers\RuasJalanController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -95,7 +95,7 @@
             background-color: rgba(0, 0, 0, .0001) !important;
         } */
 
-        .card {
+        #card-overlay {
             border-radius: 2em 0 2em;
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
         }

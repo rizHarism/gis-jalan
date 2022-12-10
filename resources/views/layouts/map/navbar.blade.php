@@ -10,7 +10,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
@@ -32,14 +32,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li> --}}
+                </li>
             </ul>
             <form class="d-flex">
                 {{-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Login</button> --}}
                 {{-- <a href="/dashboard" class="btn btn-outline-primary">Login</a> --}}
-                <a href="#" class="btn btn-outline-primary" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">Login</a>
+                {{-- <a href="#" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#loginModal">Login</a> --}}
             </form>
         </div>
     </div>
