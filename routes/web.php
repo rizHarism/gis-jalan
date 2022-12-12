@@ -54,10 +54,10 @@ Route::middleware(['auth'])->group(function () {
     // route for master / data kecamatan
     Route::get('/data/kecamatan', [KecamatanController::class, 'index'])->can('Data Wilayah.Kecamatan');
     Route::get('/data/kecamatan/datatables', [KecamatanController::class, 'datatables'])->can('Data Wilayah.Kecamatan');
-    Route::get('/data/kecamatan/{id}/show', [KecamatanController::class, 'show'])->can('Data Wilayah.kecamatan');
-    Route::post('/data/kecamatan/store', [KecamatanController::class, 'store'])->name('kecamatan.store')->can('Data Wilayah.kecamatan');
-    Route::put('/data/kecamatan/{id}/update', [KecamatanController::class, 'update'])->name('kecamatan.update')->can('Data Wilayah.kecamatan');
-    Route::delete('/data/kecamatan/{id}/destroy', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy')->can('Data Wilayah.kecamatan');
+    Route::get('/data/kecamatan/{id}/show', [KecamatanController::class, 'show'])->can('Data Wilayah.Kecamatan');
+    Route::post('/data/kecamatan/store', [KecamatanController::class, 'store'])->name('kecamatan.store')->can('Data Wilayah.Kecamatan');
+    Route::put('/data/kecamatan/{id}/update', [KecamatanController::class, 'update'])->name('kecamatan.update')->can('Data Wilayah.Kecamatan');
+    Route::delete('/data/kecamatan/{id}/destroy', [KecamatanController::class, 'destroy'])->name('kecamatan.destroy')->can('Data Wilayah.Kecamatan');
 
     // route for master kelurahan
     Route::get('/data/kelurahan', [KelurahanController::class, 'index'])->can('Data Wilayah.Kelurahan');
