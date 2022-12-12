@@ -67,7 +67,7 @@
     <style>
         html,
         body #map-container {
-            height: 50%;
+            height: 100%;
         }
 
         #map {
@@ -91,10 +91,6 @@
             width: 78px
         }
 
-        /* .modal-backdrop {
-            background-color: rgba(0, 0, 0, .0001) !important;
-        } */
-
         #card-overlay {
             border-radius: 2em 0 2em;
             box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
@@ -104,6 +100,41 @@
             height: 6vh;
             width: 6vw;
             margin: 5px 0 5px 0;
+        }
+
+        .overlayLoader {
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            /* background: rgba(61, 37, 37, 0.8) url("https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif") center no-repeat; */
+            /* background: rgba(90, 94, 91, 0.35) url("assets/logo/kdr-logo.png") center no-repeat; */
+            /* background: rgba(255, 255, 255, 0.8) url("{{ asset('assets/logo-image/loader.gif') }}") center no-repeat; */
+        }
+
+        body.loading .overlayLoader {
+            display: block;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: rgba(90, 94, 91, 0.809);
+        }
+
+        .preloader .loading {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font: 14px arial;
         }
     </style>
 </head>
@@ -115,17 +146,35 @@
             width="124">
     </div> --}}
 
+    <div class="overlayLoader" width="50"></div>
+    <div class="preloader">
+        <div class="loading">
+            {{-- <img src={{ asset('assets/image/logo/kdr-logo.png') }}> --}}
+        </div>
+    </div>
     <div id="map"></div>
-    {{-- @include('layouts.map.navbar') --}}
     @include('layouts.map.details')
     @include('layouts.map.login')
     @include('layouts.map.sidebar')
-
-
+    {{-- @include('layouts.map.navbar') --}}
 
 </body>
 
 <script>
+    // ajax loader
+
+    $(document).on({
+        ajaxStart: function() {
+            $("body").addClass("loading");
+        },
+        ajaxStop: function() {
+            $("body").removeClass("loading");
+            $(".overlayLoader").hide();
+        }
+    });
+
+    // $(document)
+
     var map = L.map('map', {
         zoomControl: false
     });
