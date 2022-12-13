@@ -110,6 +110,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/get/role', [UserController::class, 'getRole'])->name('administrator.get.role')->can('Administrator.Data User');
     Route::post('/admin/user/store', [UserController::class, 'store'])->name('administrator.user.store')->can('Administrator.Data User');
     Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('administrator.user.update')->can('Administrator.Data User');
+    Route::put('/admin/user/{id}/selfupdate', [UserController::class, 'selfUpdate'])->name('administrator.self.update');
     Route::delete('/admin/user/{id}/delete', [UserController::class, 'destroy'])->name('administrator.user.delete')->can('Administrator.Data User');
 
     // route role user

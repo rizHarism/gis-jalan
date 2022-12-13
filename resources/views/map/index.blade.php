@@ -28,9 +28,9 @@
     {{-- leaflet geoman --}}
     <script src="{{ asset('assets/leaflet/js/leaflet-geoman.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/leaflet/css/leaflet-geoman.css') }}" />
-
     {{-- fontawesome css --}}
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    {{-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e4d20a5f83.js" crossorigin="anonymous"></script>
 
     {{-- zoomhome alt --}}
@@ -49,9 +49,8 @@
     {{-- select2 --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    {{-- admin lte theme --}}
-    {{-- <link rel="stylesheet" href="{{ asset('assets/admin-page/admin-lte/dist/css/adminlte.css') }}">
-    <script src="{{ asset('assets/admin-page/admin-lte/dist/js/adminlte.js') }}"></script> --}}
+    {{-- sweet alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js"
@@ -102,20 +101,8 @@
             margin: 5px 0 5px 0;
         }
 
-        .overlayLoader {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            /* background: rgba(61, 37, 37, 0.8) url("https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif") center no-repeat; */
-            /* background: rgba(90, 94, 91, 0.35) url("assets/logo/kdr-logo.png") center no-repeat; */
-            /* background: rgba(255, 255, 255, 0.8) url("{{ asset('assets/logo-image/loader.gif') }}") center no-repeat; */
-        }
-
-        body.loading .overlayLoader {
+        /* Make spinner image visible  */
+        .preloader .loading {
             display: block;
         }
 
@@ -126,37 +113,68 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background-color: rgba(90, 94, 91, 0.809);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .preloader .loading {
+        .loading {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
             font: 14px arial;
         }
+
+        .legend {
+            padding: 6px 8px;
+            font: 14px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            width: 150px;
+            /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
+            /*border-radius: 5px;*/
+            line-height: 24px;
+            color: #555;
+        }
+
+        .legend h4 {
+            text-align: center;
+            font-size: 14px;
+            margin: 2px 12px 8px;
+            /* color: #777; */
+        }
+
+        .legend span {
+            position: relative;
+            bottom: 3px;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin: 0 8px 0 0;
+            opacity: 0.7;
+        }
+
+        .legend i.icon {
+            background-size: 18px;
+            background-color: rgba(255, 255, 255, 1);
+        }
     </style>
 </head>
 
 <body>
 
-    {{-- <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{ asset('assets/logo/kdr-logo.png') }}" alt="AdminLTELogo" height="175"
-            width="124">
-    </div> --}}
-
-    <div class="overlayLoader" width="50"></div>
     <div class="preloader">
         <div class="loading">
-            {{-- <img src={{ asset('assets/image/logo/kdr-logo.png') }}> --}}
+            <img src="{{ asset('assets/image/logo/preloader.gif') }}">
         </div>
     </div>
+
     <div id="map"></div>
     @include('layouts.map.details')
     @include('layouts.map.login')
     @include('layouts.map.sidebar')
-    {{-- @include('layouts.map.navbar') --}}
 
 </body>
 
@@ -165,38 +183,36 @@
 
     $(document).on({
         ajaxStart: function() {
-            $("body").addClass("loading");
+            $(".preloader").show();
         },
         ajaxStop: function() {
-            $("body").removeClass("loading");
-            $(".overlayLoader").hide();
+            $(".preloader").hide();
         }
     });
-
-    // $(document)
 
     var map = L.map('map', {
         zoomControl: false
     });
 
+    // hide leaflet prefix
+
+    // $('.leaflet-control-attribution').hide()
+
     map.setView([-8.109172135165561, 112.19175263717452], 12);
     var osm = L.tileLayer(
         'https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
 
     var imagery = L.tileLayer(
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             maxZoom: 18,
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         }).addTo(map);
 
     // var stamen = L.tileLayer.provider('Stamen.Watercolor');
     var Stadia = L.tileLayer.provider('Stadia.Outdoors');
     var Thunderforest = L.tileLayer(
         'https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png?apikey={apikey}', {
-            attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             apikey: '7c352c8ff1244dd8b732e349e0b0fe8d',
             maxZoom: 22
         });
@@ -249,7 +265,7 @@
 
     // replace zoom control default
     L.Control.zoomHome({
-        zoomHomeIcon: 'dot-circle',
+        zoomHomeIcon: 'fas fa-compress',
     }).addTo(map)
 
     // popup ruan jalan on click
@@ -397,34 +413,44 @@
             url: url,
             dataType: "json",
             success: function(get) {
-                var data = get.data;
-                $.each(data, (i, property) => {
-                    var geometry = JSON.parse(property.geometry.replace(/&quot;/g, '"'))
-                    var buffered = turf.buffer(geometry, 5, {
-                        units: 'meters'
-                    });
-                    var layer = L.geoJSON(buffered, {
-                        style: function(f) {
-                            return style(property.kondisi_id)
-                        },
-                        pmIgnore: true,
-                        onEachFeature: function(f, l) {
-                            var out = [];
-                            var coordinate = "'" + property.middle_y + ',' + property
-                                .middle_x + "'";
-                            if (property) {
-                                l.bindPopup(popupContent(property,
-                                    coordinate), {
-                                    maxWidth: "250",
-                                    maxHeigth: "auto"
-                                });
+                if (get.jumlah > 0) {
+                    $('#jumlah-ruas').html('Jumlah Ruas : ' + get.jumlah)
+                    var data = get.data;
+                    $.each(data, (i, property) => {
+                        var geometry = JSON.parse(property.geometry.replace(/&quot;/g, '"'))
+                        var buffered = turf.buffer(geometry, 5, {
+                            units: 'meters'
+                        });
+                        var layer = L.geoJSON(buffered, {
+                            style: function(f) {
+                                return style(property.kondisi_id)
+                            },
+                            pmIgnore: true,
+                            onEachFeature: function(f, l) {
+                                var out = [];
+                                var coordinate = "'" + property.middle_y + ',' +
+                                    property
+                                    .middle_x + "'";
+                                if (property) {
+                                    l.bindPopup(popupContent(property,
+                                        coordinate), {
+                                        maxWidth: "250",
+                                        maxHeigth: "auto"
+                                    });
+                                }
                             }
-                        }
-                    });
-                    layer.addTo(allRuas);
-                })
-                allRuas.addTo(map);
-                map.fitBounds(allRuas.getBounds());
+                        });
+                        layer.addTo(allRuas);
+                    })
+                    allRuas.addTo(map);
+                    map.fitBounds(allRuas.getBounds());
+                } else {
+                    Swal.fire(
+                        'Data tidak ditemukan',
+                        'Data yang anda cari tidak valid',
+                        'error'
+                    )
+                }
             }
         });
     };
@@ -500,7 +526,7 @@
     });
 
     // pencarian filter-ruas by no ruas
-    $("#ruas-satuan").on('click', function(e) {
+    $("#cari-satuan").on('submit', function(e) {
         e.preventDefault();
         var ruas = $('.no-ruas').val();
         clearLayer();
@@ -520,6 +546,8 @@
             return $(this).val();
         }).get();
         clearLayer();
+        (kondisi == '') ? kondisi = 0: kondisi;
+        (perkerasan == '') ? perkerasan = 0: perkerasan;
         url = '/get/' + kecamatan + '/' + kelurahan + '/' + kondisi + '/' + perkerasan
         getPolygon(url)
     })
@@ -649,6 +677,28 @@
         var markerBounds = L.latLngBounds(latLngs);
         map.fitBounds(markerBounds);
     })
+
+    // leaflet legend
+
+    var legend = L.control({
+        position: "bottomleft"
+    });
+
+    legend.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "legend rounded rounded-3 mb-3 shadow-lg");
+        div.innerHTML += `
+        <div class="ms-2 fst-italic fw-bold" style="font-size: 12px">
+        <h4 class="mb-3 fw-bold">Kondisi Jalan</h4>
+        <i style="background: white"></i><span> Baik</span><br>
+        <i style="background: yellow"></i><span> Sedang</span><br>
+        <i style="background: orange"></i><span> Rusak Ringan</span><br>
+        <i style="background: red"></i><span> Rusak Berat</span><br>
+        </div>
+        `;
+        return div;
+    };
+
+    legend.addTo(map);
 </script>
 
 {{-- call flyer --}}

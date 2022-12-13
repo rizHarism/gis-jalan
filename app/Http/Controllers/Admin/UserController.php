@@ -102,7 +102,7 @@ class UserController extends Controller
             $image = $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('assets/image/avatar'), $image);
         } else {
-            $image = 'avatar-default.png';
+            $image = $user->avatar;
         }
         // dd($image);
         try {
@@ -127,6 +127,44 @@ class UserController extends Controller
         }
 
         return response("Update User Berhasil");
+    }
+
+    public function selfUpdate(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $validations = [];
+        if ($user->name != $request->nama_lengkap) {
+            $validations['nama_lengkap'] = 'required';
+        }
+        if ($user->username != $request->username) {
+            $validations['username'] = 'required|unique:users,username';
+        }
+        $this->validate($request, $validations);
+
+        if ($request->hasfile('image')) {
+            $image = $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('assets/image/avatar'), $image);
+        } else {
+            $image = $user->avatar;
+        }
+        try {
+            DB::beginTransaction();
+
+            $user->name = $request->nama_lengkap;
+            $user->username = $request->username;
+            $user->avatar = $image;
+            if (!empty($request->password)) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response($e->getMessage(), 500);
+        }
+
+        return response("Update Berhasil");
     }
 
     public function destroy($id)
