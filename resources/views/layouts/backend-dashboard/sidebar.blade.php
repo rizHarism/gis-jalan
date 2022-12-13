@@ -167,14 +167,14 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('Administrator.Setting')
+                            {{-- @can('Administrator.Setting')
                                 <li class="nav-item">
                                     <a href="admin/setting" class="nav-link">
                                         <i class="fas fa-cog nav-icon ml-3"></i>
                                         <p>Setting</p>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcan --}}
                         </ul>
                     </li>
                 @endcanany

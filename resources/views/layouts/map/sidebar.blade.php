@@ -46,15 +46,16 @@
             </h1>
             <div class="card mt-2">
                 <div class="card-body">
-                    <form method="" class="mt-2">
+                    <form id="cari-satuan" method="" class="mt-2">
                         <div id="search-ruas" class="">
                             <label for="pencarianRuas">
                                 <h6>Pencarian Berdasar Nomor atau Nama Ruas</h6>
                             </label>
-                            <select name="pencarianRuas" class="no-ruas" multiple="multiple" id="no-ruas">
+                            <select name="pencarianRuas" class="no-ruas" multiple="multiple" id="no-ruas" required>
                             </select>
                             <div class="mt-3">
-                                <button class="btn btn-primary btn-sm custom" id="ruas-satuan">Cari</button>
+                                <button type="submit" class="btn btn-primary btn-sm custom"
+                                    id="ruas-satuan">Cari</button>
                             </div>
                         </div>
                     </form>
@@ -104,8 +105,8 @@
                                 </div>
                                 <div class="col-md-6 justify-content-center">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" value="3" id="rusak-ringan"
-                                            checked>
+                                        <input class="form-check-input" type="checkbox" value="3"
+                                            id="rusak-ringan" checked>
                                         <label class="form-check-label" for="rusak-ringan">
                                             Rusak Ringan
                                         </label>
@@ -167,7 +168,15 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button class="btn btn-primary btn-sm custom">Cari</button>
+                            <div class="row">
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary btn-sm custom">Cari</button>
+                                </div>
+                                <div
+                                    class="col-7 border rounded rounded-2 d-flex align-items-center justify-content-center bg-light">
+                                    <div id="jumlah-ruas" class="h7 fst-italic">Jumlah Ruas : 1507</div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -51,6 +51,7 @@ class MapController extends Controller
             ->whereIn('id', $_id)
             ->get();
         $response = [
+            'jumlah' => count($ruasjalan),
             'data' => $ruasjalan
         ];
 
@@ -64,6 +65,7 @@ class MapController extends Controller
             ->whereIn('kondisi_id', [1, 2, 3, 4])
             ->get();
         $response = [
+            'jumlah' => count($ruasjalan),
             'data' => $ruasjalan
         ];
 
@@ -98,6 +100,7 @@ class MapController extends Controller
         }
 
         $response = [
+            'jumlah' => count($ruasjalan),
             'data' => $ruasjalan
         ];
         // return $ruasjalan;

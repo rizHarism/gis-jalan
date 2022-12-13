@@ -42,3 +42,106 @@
 <script src="{{ asset('assets/leaflet/js/leaflet.js') }}"></script>
 <script src="{{ asset('assets/leaflet/js/leaflet-geoman.min.js') }}"></script>
 <script src="{{ asset('assets/dt-picker/jquery.datetimepicker.full.js') }}"></script>
+
+{{-- script for edit profile in navbar --}}
+
+<script>
+    // $('#self-edit').on('submit', (e) => {
+    //     e.preventDefault()
+    //     console.log('self - edit')
+    // })
+    // ubah tampilan foto
+    $("#self-image").change(function() {
+        var ext = $('#self-image').val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['png', 'jpg', 'jpeg']) == -1) {
+            swal.fire({
+                title: 'Error',
+                html: 'Foto profil pengguna harus file Gambar',
+                icon: 'warning',
+            })
+            $("#self-image").val("")
+        } else {
+            changeImage(this);
+        }
+    });
+
+    function changeImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('#self-foto').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#self-edit").on("submit", function(e) {
+        e.preventDefault();
+        id = $("#id-user").val();
+        let urlSave = '/admin/user/' + id + '/selfupdate';
+        let method = 'PUT';
+
+        var formData = new FormData;
+
+        formData.append('nama_lengkap', $("#self-name").val());
+        formData.append('username', $("#self-username").val());
+        formData.append('password', $("#self-password-1").val());
+        formData.append('password2', $("#self-password-2").val());
+        formData.append('image', $('input[type=file]')[0].files[0]);
+
+        if (method == 'PUT') {
+            formData.append('_method', 'PUT')
+        }
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                // 'Content-Type': 'application/json',
+            },
+            type: "POST",
+            url: urlSave,
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+                $('#modal-form').modal('hide');
+                swal.fire({
+                    title: 'Berhasil',
+                    text: data,
+                    icon: 'success',
+                }).then(function() {
+                    window.location.reload();
+                });
+            },
+            error: (xhr, ajaxOptions, thrownError) => {
+                if (xhr.responseJSON.hasOwnProperty('errors')) {
+                    var html =
+                        "<ul style='justify-content: space-between;'>";
+                    for (item in xhr.responseJSON.errors) {
+                        if (xhr.responseJSON.errors[item].length) {
+                            for (var i = 0; i < xhr.responseJSON.errors[item]
+                                .length; i++) {
+                                html += "<li class='dropdown-item'>" +
+                                    "<i class='fas fa-times' style='color: red;'></i> &nbsp&nbsp&nbsp&nbsp" +
+                                    xhr
+                                    .responseJSON
+                                    .errors[item][i] +
+                                    "</li>"
+                            }
+                        }
+                    }
+                    html += '</ul>';
+                    swal.fire({
+                        title: 'Error',
+                        html: html,
+                        icon: 'warning',
+                    });
+                }
+            }
+        });
+        return false;
+    })
+</script>
