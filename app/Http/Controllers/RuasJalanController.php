@@ -223,7 +223,7 @@ class RuasJalanController extends Controller
             $image = $request->file('image')->getClientOriginalName();
             $request->file('image')->move(public_path('assets/image/ruas-jalan'), $image);
         } else {
-            $image = 'default.jpg';
+            $image = $ruas->image;
         }
 
         try {
