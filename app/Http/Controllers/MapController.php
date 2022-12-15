@@ -7,6 +7,7 @@ use App\Models\Perkerasan;
 use App\Models\RuasJalan;
 use App\Models\Pemeliharaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -109,13 +110,17 @@ class MapController extends Controller
 
     public function pemeliharaan($id)
     {
-        $pemeliharaan = Pemeliharaan::whereJsonContains('ruas_id', $id)
+        $pemeliharaan = Pemeliharaan::where('ruas_id', 'like', '%"' . $id . '"%')
             ->with('penyedia:id,nama')
             ->orderBy('pelaksanaan', 'desc')
             ->get();
+
+        // dd($pemeliharaan);
+
         $response = [
             'data' => $pemeliharaan
         ];
+
         return response()->json($response, Response::HTTP_OK);
     }
 }
